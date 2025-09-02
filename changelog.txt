@@ -1,5 +1,13 @@
+V2.6.7
+Addition 0151: Added support for commands using the 'params' keyword
+Addition 0152: Added word deletion hotkey - credit to Nikolai Merritt (nikolaimerritt)
+Addition 0153: Added preprocessors QC_HIDE_BUILTIN_ALL and QC_HIDE_BUILTIN_EXTRA
+Change 0075: Disk size reductions for all included textures
+Bug Fix 0086: Fixed deprecated API usage on Unity 6.1
+Bug Fix 0087: Improved resilience against DLLs with corrupt reflection data
+
 V2.6.6
-Addition 0148: Added an option to configure if the console should auto focus when activated
+Addition 0150: Added an option to configure if the console should auto focus when activated
 Bug Fix 0084: Fixed the WaitWhile and WaitUntil actions being inverted
 Bug Fix 0085: [ScaneName] now correctly suggests unloaded scenes outside of the editor
 
@@ -33,7 +41,7 @@ Bug Fix 0070: Fixed a native crash that would occur under the editor with Facepu
 
 V2.6.1
 Addition 0137: Commands can now be generated and added at runtime using lambda commands
-Change 0070: The BasicCachedQcSuggestor type was moved to the Hikaria.QC namespace
+Change 0070: The BasicCachedQcSuggestor type was moved to the QFSW.QC namespace
 
 V2.6.0
 Addition 0124: New user extendable contextual autocomplete system
@@ -91,7 +99,7 @@ Addition 0117: New extra command: http.delete
 Change 0058: Non static invocation will now throw an exception if no targets could be found
 Change 0059: Non static non MonoBehaviour commands not using MonoTargetType.Registry are now explicitly rejected
 Change 0060: call-instance now unwraps the inner exception
-Change 0061: manual now uses pretty printing for declaring type names
+Change 0061: man now uses pretty printing for declaring type names
 Bug Fix 0059: Fixed a bug where JSON strings would be parsed as expression bodies
 Bug Fix 0060: Fixed nested type names not being serialized correctly
 
@@ -221,7 +229,7 @@ Change 0034: Parsing and serialization is now significantly faster
 Change 0035: Improved console text regeneration so that it happens at most once per frame
 Change 0036: Internal naming conventions and APIs have been overhauled
 Change 0037: Custom inspectors now work properly on 2019.3+
-Change 0038: manual command now displays the declaring type(s)
+Change 0038: man command now displays the declaring type(s)
 Change 0039: get-object-info command now displays direct children
 Change 0040: Key configuration has been moved to QuantumKeyConfiguration
 Change 0041: Increased the scroll sensitivity
