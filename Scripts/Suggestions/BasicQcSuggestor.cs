@@ -2,8 +2,6 @@
 {
     public abstract class BasicQcSuggestor<TItem> : IQcSuggestor
     {
-        private readonly Dictionary<TItem, IQcSuggestion> _suggestionCache = new Dictionary<TItem, IQcSuggestion>();
-
         protected abstract bool CanProvideSuggestions(SuggestionContext context, SuggestorOptions options);
 
         protected abstract IQcSuggestion ItemToSuggestion(TItem item);
