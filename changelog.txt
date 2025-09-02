@@ -1,4 +1,4 @@
-V2.6.7
+﻿V2.6.7
 Addition 0151: Added support for commands using the 'params' keyword
 Addition 0152: Added word deletion hotkey - credit to Nikolai Merritt (nikolaimerritt)
 Addition 0153: Added preprocessors QC_HIDE_BUILTIN_ALL and QC_HIDE_BUILTIN_EXTRA
@@ -41,7 +41,7 @@ Bug Fix 0070: Fixed a native crash that would occur under the editor with Facepu
 
 V2.6.1
 Addition 0137: Commands can now be generated and added at runtime using lambda commands
-Change 0070: The BasicCachedQcSuggestor type was moved to the QFSW.QC namespace
+Change 0070: The BasicCachedQcSuggestor type was moved to the Hikaria.QC namespace
 
 V2.6.0
 Addition 0124: New user extendable contextual autocomplete system

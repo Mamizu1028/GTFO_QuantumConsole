@@ -1,0 +1,27 @@
+﻿using UnityEngine;
+using UnityEngine.Serialization;
+
+namespace Hikaria.QC
+{
+    public class QuantumKeyConfig : ScriptableObject
+    {
+        public KeyCode SubmitCommandKey = KeyCode.Return;
+        public ModifierKeyCombo ShowConsoleKey = KeyCode.None;
+        public ModifierKeyCombo HideConsoleKey = KeyCode.None;
+        public ModifierKeyCombo ToggleConsoleVisibilityKey = KeyCode.Escape;
+
+        public ModifierKeyCombo ZoomInKey = new ModifierKeyCombo { Key = KeyCode.Equals, Ctrl = true };
+        public ModifierKeyCombo ZoomOutKey = new ModifierKeyCombo { Key = KeyCode.Minus, Ctrl = true };
+        public ModifierKeyCombo DragConsoleKey = new ModifierKeyCombo { Key = KeyCode.Mouse0, Shift = true };
+
+        public ModifierKeyCombo SelectNextSuggestionKey = KeyCode.Tab;
+        public ModifierKeyCombo SelectPreviousSuggestionKey = new ModifierKeyCombo { Key = KeyCode.Tab, Shift = true };
+
+        public KeyCode NextCommandKey = KeyCode.UpArrow;
+        public KeyCode PreviousCommandKey = KeyCode.DownArrow;
+
+        public ModifierKeyCombo CancelActionsKey = new ModifierKeyCombo { Key = KeyCode.C, Ctrl = true };
+
+        public ModifierKeyCombo DeleteWordBeforeCursorKey = new ModifierKeyCombo { Key = KeyCode.Backspace, Ctrl = true };
+    }
+}
