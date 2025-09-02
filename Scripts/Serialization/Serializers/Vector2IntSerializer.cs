@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class Vector2IntSerializer : BasicQcSerializer<Vector2Int>
     {

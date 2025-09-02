@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
-using Hikaria.QC.Utilities;
+using QFSW.QC.Utilities;
 
-namespace Hikaria.QC.ScanRules
+namespace QFSW.QC.ScanRules
 {
     public class QcIgnoreScanRule : IQcScanRule
     {

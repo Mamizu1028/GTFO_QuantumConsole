@@ -1,6 +1,6 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Common utilities used by the suggestion system.

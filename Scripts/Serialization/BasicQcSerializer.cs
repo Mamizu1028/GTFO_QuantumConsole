@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Serializer for a single type.

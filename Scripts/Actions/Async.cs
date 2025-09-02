@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC.Actions
+﻿using System;
+using System.Threading.Tasks;
+
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Converts an async Task into an action.

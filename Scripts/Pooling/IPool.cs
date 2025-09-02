@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Pooling
+﻿namespace QFSW.QC.Pooling
 {
     public interface IPool<T> where T : class, new()
     {

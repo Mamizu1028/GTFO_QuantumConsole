@@ -1,8 +1,11 @@
-﻿using Hikaria.QC.Pooling;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Pooling;
+using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Managed stack of suggestion sets updated from a user prompt.

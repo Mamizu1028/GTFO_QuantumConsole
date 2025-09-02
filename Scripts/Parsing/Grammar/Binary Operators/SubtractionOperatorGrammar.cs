@@ -1,6 +1,7 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 
-namespace Hikaria.QC.Grammar
+namespace QFSW.QC.Grammar
 {
     public class SubtractionOperatorGrammar : BinaryAndUnaryOperatorGrammar
     {

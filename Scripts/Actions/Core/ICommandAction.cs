@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// Creates an action that can be yielded in commands.

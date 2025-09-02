@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// Options used by the suggestor when producing suggestions.

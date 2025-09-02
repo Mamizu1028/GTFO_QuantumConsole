@@ -1,10 +1,13 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Handles parsing values to use as console inputs.
@@ -61,8 +64,8 @@ namespace Hikaria.QC
                     }
                     catch (Exception e)
                     {
-                        Logs.LogError(QuantumConsoleBootstrap.Localization.Format(93, $"{parser.GetType().GetDisplayName()}.CanParse"));
-                        Logs.LogException(e);
+                        Debug.LogError($"{parser.GetType().GetDisplayName()}.CanParse is malformed and throws");
+                        Debug.LogException(e);
                     }
                 }
 
@@ -90,8 +93,8 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    Logs.LogError(QuantumConsoleBootstrap.Localization.Format(93, $"{grammar.GetType().GetDisplayName()}.Match"));
-                    Logs.LogException(e);
+                    Debug.LogError($"{grammar.GetType().GetDisplayName()}.Match is malformed and throws");
+                    Debug.LogException(e);
                 }
             }
 
@@ -134,14 +137,14 @@ namespace Hikaria.QC
                 catch (ParserException) { throw; }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumConsoleBootstrap.Localization.Format(94, type.GetDisplayName(), grammar, e.Message), e);
+                    throw new Exception($"Parsing of {type.GetDisplayName()} via {grammar} failed:\n{e.Message}", e);
                 }
             }
 
             IQcParser parser = GetParser(type);
             if (parser == null)
             {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(95, type.GetDisplayName()));
+                throw new ArgumentException($"Cannot parse object of type '{type.GetDisplayName()}'");
             }
 
             try
@@ -151,7 +154,7 @@ namespace Hikaria.QC
             catch (ParserException) { throw; }
             catch (Exception e)
             {
-                throw new Exception(QuantumConsoleBootstrap.Localization.Format(94, type.GetDisplayName(), parser, e.Message), e);
+                throw new Exception($"Parsing of {type.GetDisplayName()} via {parser} failed:\n{e.Message}", e);
             }
         }
 
@@ -168,7 +171,7 @@ namespace Hikaria.QC
 
         private static readonly Dictionary<string, Type> _reverseTypeDisplayNames = _typeDisplayNames.Invert();
         private static readonly Assembly[] _loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-        private static readonly string[] _defaultNamespaces = new string[] { "System", "System.Collections", "System.Collections.Generic", "UnityEngine", "UnityEngine.UI", "Hikaria.QC" };
+        private static readonly string[] _defaultNamespaces = new string[] { "System", "System.Collections", "System.Collections.Generic", "UnityEngine", "UnityEngine.UI", "QFSW.QC" };
         private static readonly List<string> _namespaceTable = new List<string>(_defaultNamespaces);
 
         private static readonly Regex _arrayTypeRegex = new Regex(@"^.*\[,*\]$");
@@ -210,7 +213,7 @@ namespace Hikaria.QC
             }
             else
             {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(42, namespaceName));
+                throw new ArgumentException($"No namespace named {namespaceName} was present in the table");
             }
         }
 
@@ -218,7 +221,7 @@ namespace Hikaria.QC
         private static string ShowNamespaces()
         {
             _namespaceTable.Sort();
-            if (_namespaceTable.Count == 0) { return QuantumConsoleBootstrap.Localization.Get(43); }
+            if (_namespaceTable.Count == 0) { return "Namespace table is empty"; }
             else { return string.Join("\n", _namespaceTable); }
         }
 
@@ -369,7 +372,7 @@ namespace Hikaria.QC
 
             if (throwOnError)
             {
-                throw new TypeLoadException(QuantumConsoleBootstrap.Localization.Format(44, typeName));
+                throw new TypeLoadException($"No type of name '{typeName}' could be found in the specified assemblies and namespaces.");
             }
 
             return null;
@@ -385,7 +388,7 @@ namespace Hikaria.QC
 
             if (throwOnError)
             {
-                throw new TypeLoadException(QuantumConsoleBootstrap.Localization.Format(45, typeName));
+                throw new TypeLoadException($"No type of name '{typeName}' could be found in the specified assemblies.");
             }
 
             return null;

@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Utilities
+﻿using System;
+
+namespace QFSW.QC.Utilities
 {
     public static class StringExtensions
     {

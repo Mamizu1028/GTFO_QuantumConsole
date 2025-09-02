@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// An IQcSuggestor that caches the created IQcSuggestion objects

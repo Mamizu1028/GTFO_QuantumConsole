@@ -1,6 +1,8 @@
-﻿using Hikaria.QC.Utilities;
+﻿using System.Collections.Generic;
+using System.Linq;
+using QFSW.QC.Utilities;
 
-namespace Hikaria.QC.Suggestors
+namespace QFSW.QC.Suggestors
 {
     public struct CollapsedCommand
     {

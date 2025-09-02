@@ -1,7 +1,9 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Marks the associated method as a command, allowing it to be loaded by the QuantumConsoleProcessor. This means it will be usable as a command from a Quantum Console.
@@ -27,8 +29,8 @@ namespace Hikaria.QC
             {
                 if (Alias.Contains(_bannedAliasChars[i]))
                 {
-                    string errorMessage = QuantumConsoleBootstrap.Localization.Format(40, Alias, _bannedAliasChars[i]);
-                    Logs.LogError(errorMessage);
+                    string errorMessage = $"Development Processor Error: Command with alias '{Alias}' contains the char '{_bannedAliasChars[i]}' which is banned. Unexpected behaviour may occur.";
+                    Debug.LogError(errorMessage);
                     Valid = false;
                     throw new ArgumentException(errorMessage, nameof(aliasOverride));
                 }

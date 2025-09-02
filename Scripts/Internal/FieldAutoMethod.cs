@@ -1,6 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
-namespace Hikaria.QC.Internal
+namespace QFSW.QC.Internal
 {
     internal class FieldAutoMethod : FieldMethod
     {

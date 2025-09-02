@@ -1,7 +1,8 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     public static class ScreenCommands
     {
@@ -30,7 +31,11 @@ namespace Hikaria.QC.Extras
             {
                 width = Screen.width,
                 height = Screen.height,
+#if UNITY_2022_2_OR_NEWER
+                refreshRateRatio = Screen.currentResolution.refreshRateRatio
+#else
                 refreshRate = Screen.currentResolution.refreshRate
+#endif
             };
 
             return resolution;

@@ -1,4 +1,8 @@
-﻿namespace Hikaria.QC.Utilities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace QFSW.QC.Utilities
 {
     public static class CollectionExtensions
     {

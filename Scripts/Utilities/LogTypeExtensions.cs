@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     public static class LogTypeExtensions
     {
-        public static LogLevel ToLogLevel(this LogType logType)
+        public static LoggingThreshold ToLoggingThreshold(this LogType logType)
         {
-            LogLevel level = LogLevel.None;
+            LoggingThreshold severity = LoggingThreshold.Always;
             switch (logType)
             {
-                case LogType.Exception: level = LogLevel.Fatal; break;
-                case LogType.Error: level = LogLevel.Error; break;
-                case LogType.Assert: level = LogLevel.Error; break;
-                case LogType.Warning: level = LogLevel.Warning; break;
-                case LogType.Log: level = LogLevel.Debug; break;
+                case LogType.Exception: severity = LoggingThreshold.Exception; break;
+                case LogType.Error: severity = LoggingThreshold.Error; break;
+                case LogType.Assert: severity = LoggingThreshold.Error; break;
+                case LogType.Warning: severity = LoggingThreshold.Warning; break;
+                case LogType.Log: severity = LoggingThreshold.Always; break;
             }
 
-            return level;
+            return severity;
         }
     }
 }

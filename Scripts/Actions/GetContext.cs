@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Actions
+﻿using System;
+
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Gets the <c>ActionContext</c> that the command is currently being invoked on.

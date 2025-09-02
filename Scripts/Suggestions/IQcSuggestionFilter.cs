@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// A filter that can remove suggestions produced by the QuantumSuggestor

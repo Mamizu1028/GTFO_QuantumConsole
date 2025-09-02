@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-namespace Hikaria.QC.Suggestors
+namespace QFSW.QC.Suggestors
 {
     public class GameObjectSuggestor : BasicCachedQcSuggestor<string>
     {
@@ -16,7 +18,11 @@ namespace Hikaria.QC.Suggestors
 
         protected override IEnumerable<string> GetItems(SuggestionContext context, SuggestorOptions options)
         {
-            return UnityEngine.Object.FindObjectsOfType<GameObject>()
+#if UNITY_6000_0_OR_NEWER
+            return Object.FindObjectsByType<GameObject>(FindObjectsSortMode.None)
+#else
+            return Object.FindObjectsOfType<GameObject>()
+#endif
                 .Select(obj => obj.name);
         }
     }

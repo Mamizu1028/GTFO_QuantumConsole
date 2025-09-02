@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC.Parsers
+﻿using System;
+using System.Collections.Generic;
+
+namespace QFSW.QC.Parsers
 {
     public class EnumerableParser : MassGenericQcParser
     {

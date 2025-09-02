@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// Which states of the build will be supported.

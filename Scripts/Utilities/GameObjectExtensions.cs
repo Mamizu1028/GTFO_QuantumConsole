@@ -1,9 +1,9 @@
-﻿using Il2CppInterop.Runtime;
-using TheArchive.Utilities;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hikaria.QC.Utilities
+namespace QFSW.QC.Utilities
 {
     public static class GameObjectExtensions
     {
@@ -35,7 +35,7 @@ namespace Hikaria.QC.Utilities
                     if (scene.isLoaded)
                     {
                         RootGameObjectBuffer.Clear();
-                        scene.GetRootGameObjects(RootGameObjectBuffer.ToIL2CPPListIfNecessary());
+                        scene.GetRootGameObjects(RootGameObjectBuffer);
 
                         foreach (GameObject root in RootGameObjectBuffer)
                         {
@@ -48,8 +48,8 @@ namespace Hikaria.QC.Utilities
                     }
                 }
 
-                obj = (GameObject)Resources
-                    .FindObjectsOfTypeAll(Il2CppType.Of<GameObject>())
+                obj = Resources
+                    .FindObjectsOfTypeAll<GameObject>()
                     .Where(x => !x.hideFlags.HasFlag(HideFlags.HideInHierarchy))
                     .FirstOrDefault(x => x.name == name);
 

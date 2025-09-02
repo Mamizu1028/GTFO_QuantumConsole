@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Creates a Parser for a custom grammar construct that is loaded and used by the QuantumParser.

@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Suggestors
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC.Suggestors
 {
     /// <summary>
     /// Produces the available suggestions for the suggestion system.

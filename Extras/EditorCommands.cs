@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     internal static class EditorCommands
     {
@@ -37,7 +37,7 @@ namespace Hikaria.QC.Extras
             {
                 if (singleFound)
                 {
-                    Logs.LogWarning(warningMessage);
+                    Debug.LogWarning(warningMessage);
                     break;
                 }
 

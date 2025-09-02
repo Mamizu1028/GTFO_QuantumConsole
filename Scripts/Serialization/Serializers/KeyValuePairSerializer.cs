@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class KeyValuePairSerializer : GenericQcSerializer
     {

@@ -1,6 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class CollectionParser : MassGenericQcParser
     {

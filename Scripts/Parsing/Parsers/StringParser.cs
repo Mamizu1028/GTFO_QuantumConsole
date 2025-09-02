@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Parsers
+﻿namespace QFSW.QC.Parsers
 {
     public class StringParser : BasicCachedQcParser<string>
     {

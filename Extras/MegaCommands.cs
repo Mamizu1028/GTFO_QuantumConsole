@@ -1,8 +1,11 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-using Hikaria.QC.Utilities;
+using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     public static class MegaCommands
     {

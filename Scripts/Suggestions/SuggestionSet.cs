@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// A managed set of suggestions for a given context.

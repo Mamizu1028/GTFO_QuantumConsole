@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC.Grammar
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QFSW.QC.Grammar
 {
     public abstract class BinaryAndUnaryOperatorGrammar : BinaryOperatorGrammar
     {

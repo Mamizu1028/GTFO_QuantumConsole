@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class ArrayParser : IQcParser
     {

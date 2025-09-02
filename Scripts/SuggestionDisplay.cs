@@ -1,28 +1,13 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
-    public class SuggestionDisplay : MonoBehaviour
+    public class SuggestionDisplay : MonoBehaviour, IPointerClickHandler
     {
-        private QuantumConsole _quantumConsole = null;
-        private TextMeshProUGUI _textArea = null;
-
-        [HideFromIl2Cpp]
-        internal void Setup(QuantumConsole console, TextMeshProUGUI textArea)
-        {
-            _quantumConsole = console;
-            _textArea = textArea;
-
-            var eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-            var onPointerClickEntry = new EventTrigger.Entry();
-            onPointerClickEntry.eventID = EventTriggerType.PointerClick;
-            onPointerClickEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnPointerClick(data.Cast<PointerEventData>()); }));
-            eventTrigger.triggers.Add(onPointerClickEntry);
-        }
+        [SerializeField] private QuantumConsole _quantumConsole = null;
+        [SerializeField] private TextMeshProUGUI _textArea = null;
 
         public void OnPointerClick(PointerEventData eventData)
         {

@@ -1,9 +1,11 @@
-﻿using Hikaria.QC.Utilities;
-using Il2CppInterop.Runtime;
+using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Hikaria.QC.Suggestors
+namespace QFSW.QC.Suggestors
 {
     public class ComponentSuggestor : BasicCachedQcSuggestor<string>
     {
@@ -22,8 +24,12 @@ namespace Hikaria.QC.Suggestors
 
         protected override IEnumerable<string> GetItems(SuggestionContext context, SuggestorOptions options)
         {
-            return Object.FindObjectsOfType(Il2CppType.From(context.TargetType))
-                .Select(cmp => cmp.Cast<Component>())
+#if UNITY_6000_0_OR_NEWER
+            return Object.FindObjectsByType(context.TargetType, FindObjectsSortMode.None)
+#else
+            return Object.FindObjectsOfType(context.TargetType)
+#endif
+                .Select(cmp => (Component) cmp)
                 .Select(cmp => cmp.gameObject.name);
         }
     }

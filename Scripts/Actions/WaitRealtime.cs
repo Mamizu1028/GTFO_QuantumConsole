@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC.Actions
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Waits for the given amount of seconds using real time.

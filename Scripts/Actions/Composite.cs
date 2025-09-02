@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Actions
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Combines a sequence of actions into a single action.

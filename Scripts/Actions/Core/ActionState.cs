@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// The execution state of an action.

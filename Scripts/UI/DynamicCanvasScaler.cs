@@ -1,10 +1,9 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using RangeAttribute = System.ComponentModel.DataAnnotations.RangeAttribute;
 
-namespace Hikaria.QC.UI
+namespace QFSW.QC.UI
 {
+    [ExecuteInEditMode]
     public class DynamicCanvasScaler : MonoBehaviour
     {
         public float RectMagnification
@@ -18,9 +17,8 @@ namespace Hikaria.QC.UI
                 }
             }
         }
-
         [Range(0.5f, 2f)]
-        private float _rectMagnification = 1f;
+        [SerializeField] private float _rectMagnification = 1f;
 
         public float ZoomMagnification
         {
@@ -33,13 +31,12 @@ namespace Hikaria.QC.UI
                 }
             }
         }
-
         [Range(0.5f, 2f)]
-        private float _zoomMagnification = 1f;
+        [SerializeField] private float _zoomMagnification = 1f;
 
-        private CanvasScaler _scaler = null;
-        private RectTransform _uiRoot = null;
-        private Vector2 _referenceResolution = new(1920, 1080);
+        [SerializeField] private CanvasScaler _scaler = null;
+        [SerializeField] private RectTransform _uiRoot = null;
+        [SerializeField] private Vector2 _referenceResolution = new Vector2(1920, 1080);
 
         private float RootScaler => _rectMagnification / _zoomMagnification;
 
@@ -69,13 +66,6 @@ namespace Hikaria.QC.UI
 #endif
                 }
             }
-        }
-
-        [HideFromIl2Cpp]
-        internal void Setup(CanvasScaler canvasScaler, RectTransform containerRect)
-        {
-            _scaler = canvasScaler;
-            _uiRoot = containerRect;
         }
     }
 }

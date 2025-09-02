@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC.Suggestors
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QFSW.QC.Suggestors
 {
     public class MacroSuggestor : BasicCachedQcSuggestor<string>
     {

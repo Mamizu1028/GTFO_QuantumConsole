@@ -1,19 +1,13 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hikaria.QC.UI
+namespace QFSW.QC.UI
 {
+    [ExecuteInEditMode]
     public class BlurShaderController : MonoBehaviour
     {
-        private Material _blurMaterial = null;
-        private float _blurRadius = 1f;
-        private Vector2 _referenceResolution = new Vector2(1920, 1080);
-
-        [HideFromIl2Cpp]
-        internal void Setup(Material panelMaterial)
-        {
-            _blurMaterial = panelMaterial;
-        }
+        [SerializeField] private Material _blurMaterial = null;
+        [SerializeField] private float _blurRadius = 1f;
+        [SerializeField] private Vector2 _referenceResolution = new Vector2(1920, 1080);
 
         private void LateUpdate()
         {

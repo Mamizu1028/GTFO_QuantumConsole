@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Hikaria.QC.Pooling
+namespace QFSW.QC.Pooling
 {
     public class ConcurrentPool<T> : IPool<T> where T : class, new()
     {

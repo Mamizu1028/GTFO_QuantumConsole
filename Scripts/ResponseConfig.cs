@@ -1,6 +1,4 @@
-using Hikaria.QC.Bootstrap;
-
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Configuration for requesting a response in the console.
@@ -15,7 +13,7 @@ namespace Hikaria.QC
 
         public static readonly ResponseConfig Default = new ResponseConfig
         {
-            InputPrompt = QuantumConsoleBootstrap.Localization.Get(90),
+            InputPrompt = "Enter input...",
             LogInput = true
         };
     }

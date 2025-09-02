@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
-namespace Hikaria.QC.Containers
+namespace QFSW.QC.Containers
 {
     public struct StringContainer : IReadOnlyList<char>
     {

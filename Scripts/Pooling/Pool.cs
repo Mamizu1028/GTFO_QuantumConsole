@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Pooling
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC.Pooling
 {
     public class Pool<T> : IPool<T> where T : class, new()
     {

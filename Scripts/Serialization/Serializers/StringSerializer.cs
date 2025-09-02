@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Serializers
+﻿namespace QFSW.QC.Serializers
 {
     public class StringSerializer : BasicQcSerializer<string>
     {

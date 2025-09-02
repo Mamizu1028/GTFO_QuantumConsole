@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC
 {
     public interface ILogStorage
     {

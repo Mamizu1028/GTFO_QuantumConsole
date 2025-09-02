@@ -1,7 +1,8 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 using System.Text.RegularExpressions;
 
-namespace Hikaria.QC.Grammar
+namespace QFSW.QC.Grammar
 {
     public class ExpressionBodyGrammar : IQcGrammarConstruct
     {

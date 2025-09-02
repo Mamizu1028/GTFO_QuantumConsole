@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Serializer for all types inheriting from a single type.

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Hikaria.QC.ScanRules
+namespace QFSW.QC.ScanRules
 {
     public class AssemblyExclusionScanRule : IQcScanRule
     {
@@ -13,9 +13,9 @@ namespace Hikaria.QC.ScanRules
                     "System", "Unity", "Microsoft", "Mono.", "mscorlib", "NSubstitute", "JetBrains", "nunit.",
                     "GeNa."
 #if QC_DISABLE_BUILTIN_ALL
-                    , "Hikaria.QC."
+                    , "QFSW.QC"
 #elif QC_DISABLE_BUILTIN_EXTRA
-                    , "Hikaria.QC.Extra"
+                    , "QFSW.QC.Extra"
 #endif
                 };
 

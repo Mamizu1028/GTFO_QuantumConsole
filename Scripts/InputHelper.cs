@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Controls;
 
 using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     public static class InputHelper
     {

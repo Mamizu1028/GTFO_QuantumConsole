@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Actions
+﻿namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Serializes and logs a value to the console.
@@ -25,7 +25,7 @@
         {
             QuantumConsole console = context.Console;
             string serialized = _value as string ?? console.Serialize(_value);
-            console.LogToConsole(serialized, LogLevel.Message, false, _newline);
+            console.LogToConsole(serialized, _newline);
         }
     }
 }

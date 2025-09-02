@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Actions
+﻿using System;
+
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Waits while the given condition is met.

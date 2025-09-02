@@ -1,4 +1,6 @@
-namespace Hikaria.QC.Parsers
+using System;
+
+namespace QFSW.QC.Parsers
 {
     public class NullableParser : GenericQcParser
     {
@@ -6,7 +8,7 @@ namespace Hikaria.QC.Parsers
 
         public override object Parse(string value, Type type)
         {
-            if (value.Equals("null", StringComparison.OrdinalIgnoreCase))
+            if (value == "null")
             {
                 return null;
             }

@@ -1,6 +1,7 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
-namespace Hikaria.QC.Grammar
+namespace QFSW.QC.Grammar
 {
     internal class BinaryOperatorData : IBinaryOperator
     {

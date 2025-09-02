@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Suggestors.Tags
+﻿namespace QFSW.QC.Suggestors.Tags
 {
     public struct SceneNameTag : IQcSuggestorTag
     {

@@ -2,7 +2,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class ITupleSerializer : PolymorphicQcSerializer<ITuple>
     {

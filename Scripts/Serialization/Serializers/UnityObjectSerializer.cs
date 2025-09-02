@@ -1,8 +1,10 @@
-﻿namespace Hikaria.QC.Serializers
+﻿using UnityEngine;
+
+namespace QFSW.QC.Serializers
 {
-    public class UnityObjectSerializer : PolymorphicQcSerializer<UnityEngine.Object>
+    public class UnityObjectSerializer : PolymorphicQcSerializer<Object>
     {
-        public override string SerializeFormatted(UnityEngine.Object value, QuantumTheme theme)
+        public override string SerializeFormatted(Object value, QuantumTheme theme)
         {
             return value.name;
         }

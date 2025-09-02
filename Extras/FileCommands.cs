@@ -1,5 +1,8 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-namespace Hikaria.QC.Extras
+using System.IO;
+using System.Threading.Tasks;
+
+namespace QFSW.QC.Extras
 {
     public static class FileCommands
     {

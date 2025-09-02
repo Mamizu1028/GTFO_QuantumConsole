@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
-namespace Hikaria.QC.Actions
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Waits for any key to be pressed and returns the key via the given delegate.

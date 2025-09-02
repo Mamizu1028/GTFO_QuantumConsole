@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     public class LogQueue : ILogQueue
     {

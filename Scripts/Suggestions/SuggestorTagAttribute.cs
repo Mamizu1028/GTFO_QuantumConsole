@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Base attribute for all IQcSuggestorTag sources.

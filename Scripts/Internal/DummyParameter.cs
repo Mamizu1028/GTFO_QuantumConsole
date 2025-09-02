@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
-namespace Hikaria.QC.Internal
+namespace QFSW.QC.Internal
 {
     internal class DummyParameter : ParameterInfo
     {

@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Exception to be thrown by an IQcParser.

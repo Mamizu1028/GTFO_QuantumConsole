@@ -1,7 +1,7 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class EnumParser : PolymorphicCachedQcParser<Enum>
     {
@@ -13,7 +13,7 @@ namespace Hikaria.QC.Parsers
             }
             catch (Exception e)
             {
-                throw new ParserInputException(QuantumConsoleBootstrap.Localization.Format(54, value, type.GetDisplayName(), type), e);
+                throw new ParserInputException($"Cannot parse '{value}' to the type '{type.GetDisplayName()}'. To see the supported values, use the command `enum-info {type}`", e);
             }
         }
     }

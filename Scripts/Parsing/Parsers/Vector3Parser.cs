@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class Vector3Parser : BasicCachedQcParser<Vector3>
     {

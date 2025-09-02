@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class QuaternionParser : BasicCachedQcParser<Quaternion>
     {

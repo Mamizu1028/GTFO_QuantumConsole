@@ -1,6 +1,7 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class TypeSerialiazer : PolymorphicQcSerializer<Type>
     {

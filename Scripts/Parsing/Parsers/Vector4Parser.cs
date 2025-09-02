@@ -1,7 +1,6 @@
-﻿using Hikaria.QC.Bootstrap;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class Vector4Parser : BasicCachedQcParser<Vector4>
     {
@@ -12,7 +11,7 @@ namespace Hikaria.QC.Parsers
 
             if (vectorParts.Length < 2 || vectorParts.Length > 4)
             {
-                throw new ParserInputException(QuantumConsoleBootstrap.Localization.Format(60, value));
+                throw new ParserInputException($"Cannot parse '{value}' as a vector, the format must be either x,y x,y,z or x,y,z,w.");
             }
 
             for (int i = 0; i < vectorParts.Length; i++)

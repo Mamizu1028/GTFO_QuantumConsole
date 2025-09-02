@@ -1,6 +1,7 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// The context to provide suggestions for.
@@ -70,7 +71,7 @@ namespace Hikaria.QC
                 }
             }
 
-            throw new KeyNotFoundException(QuantumConsoleBootstrap.Localization.Format(65, typeof(T)));
+            throw new KeyNotFoundException($"No tags of type {typeof(T)} could be found.");
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Comparators
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC.Comparators
 {
     public class AlphanumComparator : IComparer<string>
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC.Actions
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Waits until the given key is pressed.

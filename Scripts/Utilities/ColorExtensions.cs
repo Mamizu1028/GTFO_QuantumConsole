@@ -1,9 +1,9 @@
-﻿using Hikaria.QC.Pooling;
+﻿using QFSW.QC.Pooling;
 using System.Collections.Concurrent;
 using System.Text;
 using UnityEngine;
 
-namespace Hikaria.QC.Utilities
+namespace QFSW.QC.Utilities
 {
     public static class ColorExtensions
     {
@@ -78,11 +78,5 @@ namespace Hikaria.QC.Utilities
             if (nibble < 10) { return (char)('0' + nibble); }
             else { return (char)('A' + nibble - 10); }
         }
-
-        public static Color DarkRed => new Color(0.545f, 0f, 0f);
-        public static Color DarkBlue => new Color(0f, 0f, 0.545f);
-        public static Color DarkGreen => new Color(0f, 0.392f, 0f);
-        public static Color DarkMagenta => new Color(0.545f, 0f, 0.545f);
-        public static Color DarkGray => new Color(0.663f, 0.663f, 0.663f);
     }
 }

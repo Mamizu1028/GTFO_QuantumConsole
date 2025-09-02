@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Hikaria.QC.Pooling
+namespace QFSW.QC.Pooling
 {
     public class ConcurrentStringBuilderPool : StringBuilderPool<ConcurrentPool<StringBuilder>>
     {

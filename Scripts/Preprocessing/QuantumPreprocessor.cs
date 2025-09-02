@@ -1,6 +1,8 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Handles preprocessing of console input.
@@ -42,7 +44,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumConsoleBootstrap.Localization.Format(63, preprocessor, e.Message), e);
+                    throw new Exception($"Preprocessor {preprocessor} failed:\n{e.Message}", e);
                 }
             }
 

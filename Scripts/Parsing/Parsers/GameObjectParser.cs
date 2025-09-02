@@ -1,8 +1,7 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
 using UnityEngine;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class GameObjectParser : BasicQcParser<GameObject>
     {
@@ -13,7 +12,7 @@ namespace Hikaria.QC.Parsers
 
             if (!obj)
             {
-                throw new ParserInputException(QuantumConsoleBootstrap.Localization.Format(55, value));
+                throw new ParserInputException($"Could not find GameObject of name {value}.");
             }
 
             return obj;

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Bitwise flag enum for the runtime platform. Setting a platform bit to 0 includes it as a supported platform.

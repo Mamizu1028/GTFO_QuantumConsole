@@ -1,8 +1,10 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Hikaria.QC.Utilities
+namespace QFSW.QC.Utilities
 {
     public static class ReflectionExtensions
     {
@@ -365,12 +367,12 @@ namespace Hikaria.QC.Utilities
 
             if (candidates.Length == 0)
             {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(66, method, newBase));
+                throw new ArgumentException($"Could not rebase method {method} onto type {newBase} as no matching candidates were found");
             }
 
             if (candidates.Length > 1)
             {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(67, method, newBase));
+                throw new ArgumentException($"Could not rebase method {method} onto type {newBase} as too many matching candidates were found");
             }
 
             return candidates[0];

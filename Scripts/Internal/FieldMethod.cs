@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Reflection;
 
-namespace Hikaria.QC.Internal
+namespace QFSW.QC.Internal
 {
     internal abstract class FieldMethod : MethodInfo
     {

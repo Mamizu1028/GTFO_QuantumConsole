@@ -2,14 +2,18 @@
 #define THREADS_SUPPORTED
 #endif
 
-using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Internal;
-using Hikaria.QC.Utilities;
+using QFSW.QC.Internal;
+using QFSW.QC.Utilities;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     public enum LoggingLevel
     {
@@ -28,6 +32,9 @@ namespace Hikaria.QC
         private static readonly QuantumParser _parser = new QuantumParser();
         private static readonly QuantumPreprocessor _preprocessor = new QuantumPreprocessor();
         private static readonly QuantumScanRuleset _scanRuleset = new QuantumScanRuleset();
+
+        // Mapping of all command keys cmdName(argCount) to the CommandData objects
+        // If the command has a dynamic number of parameters, such as by using the params keyword, then the key will be cmdName(#)
         private static readonly ConcurrentDictionary<string, CommandData> _commandTable = new ConcurrentDictionary<string, CommandData>();
         private static readonly List<CommandData> _commandCache = new List<CommandData>();
 
@@ -79,7 +86,7 @@ namespace Hikaria.QC
                     }
                     catch (Exception e)
                     {
-                        Logs.LogException(e);
+                        Debug.LogException(e);
                     }
                 });
 
@@ -159,7 +166,7 @@ namespace Hikaria.QC
                         }
                         else if (loggingLevel >= LoggingLevel.Warnings)
                         {
-                            Logs.LogWarning(QuantumConsoleBootstrap.Localization.Format(78, field.Name, field.DeclaringType));
+                            Debug.LogWarning($"Quantum Processor Warning: Could not add '{field.Name}' from {field.DeclaringType} to the table as it is an invalid delegate type.");
                         }
                     }
                     else
@@ -186,7 +193,7 @@ namespace Hikaria.QC
 
                 if (!_parser.CanParse(paramType) && !paramType.IsGenericParameter)
                 {
-                    unsupportedReason = QuantumConsoleBootstrap.Localization.Format(79, paramType);
+                    unsupportedReason = $"Parameter type {paramType} is not supported by the Quantum Parser.";
                     return false;
                 }
             }
@@ -195,7 +202,7 @@ namespace Hikaria.QC
                 && !command.MethodData.IsStatic
                 && !command.MethodData.DeclaringType.IsDerivedTypeOf(typeof(MonoBehaviour)))
             {
-                unsupportedReason = QuantumConsoleBootstrap.Localization.Format(80, command.MonoTarget);
+                unsupportedReason = $"Non static non MonoBehaviour commands are incompatible with MonoTargetType.{command.MonoTarget}.";
                 return false;
             }
 
@@ -209,46 +216,40 @@ namespace Hikaria.QC
             {
                 return;
             }
-            try
+
+            Type[] loadedTypes = assembly.GetTypes();
+            foreach (Type type in loadedTypes)
             {
-                Type[] loadedTypes = assembly.GetTypes();
-                foreach (Type type in loadedTypes)
+                try
                 {
-                    try
-                    {
-                        LoadCommandsFromType(type);
-                    }
-                    catch (TypeLoadException)
-                    {
-                        // Issue under investigation
-
-                        /*
-                        if (loggingLevel >= LoggingLevel.Warnings)
-                        {
-                            Logs.LogWarning($"Unable to extract command data from type {type} in assembly {assembly.GetName().Name} as it may be corrupted. The following exception was thrown: {e.Message}");
-                        }
-                        */
-                    }
-                    catch (BadImageFormatException)
-                    {
-                        // Confirmed to be an issue on Unity/Mono's side
-                        // Extremely unlikely that it will ever occur in user code, so for this reason it is ignored silently
-                        // QC Issue: https://bitbucket.org/Hikaria/quantum-console/issues/67/add-protection-against-corrupt-dlls
-                        // Unity Issue: https://issuetracker.unity3d.com/issues/badimageformatexception-is-thrown-when-calling-getcustomattributes-on-certain-memberinfo-instances
-                        // Mono Issue: https://github.com/mono/mono/issues/17278
-
-                        /*
-                        if (loggingLevel >= LoggingLevel.Warnings)
-                        {
-                            Logs.LogWarning($"Unable to extract command data from type {type} in assembly {assembly.GetName().Name} as it may be corrupted. The following exception was thrown: {e.Message}");
-                        }
-                        */
-                    }
-
+                    LoadCommandsFromType(type);
                 }
-            }
-            catch
-            {
+                catch (TypeLoadException)
+                {
+                    // Issue under investigation
+
+                    /*
+                    if (loggingLevel >= LoggingLevel.Warnings)
+                    {
+                        Debug.LogWarning($"Unable to extract command data from type {type} in assembly {assembly.GetName().Name} as it may be corrupted. The following exception was thrown: {e.Message}");
+                    }
+                    */
+                }
+                catch (BadImageFormatException)
+                {
+                    // Confirmed to be an issue on Unity/Mono's side
+                    // Extremely unlikely that it will ever occur in user code, so for this reason it is ignored silently
+                    // QC Issue: https://bitbucket.org/QFSW/quantum-console/issues/67/add-protection-against-corrupt-dlls
+                    // Unity Issue: https://issuetracker.unity3d.com/issues/badimageformatexception-is-thrown-when-calling-getcustomattributes-on-certain-memberinfo-instances
+                    // Mono Issue: https://github.com/mono/mono/issues/17278
+
+                    /*
+                    if (loggingLevel >= LoggingLevel.Warnings)
+                    {
+                        Debug.LogWarning($"Unable to extract command data from type {type} in assembly {assembly.GetName().Name} as it may be corrupted. The following exception was thrown: {e.Message}");
+                    }
+                    */
+                }
             }
         }
 
@@ -284,7 +285,7 @@ namespace Hikaria.QC
                 {
                     if (loggingLevel >= LoggingLevel.Warnings)
                     {
-                        Logs.LogWarning(QuantumConsoleBootstrap.Localization.Format(81, commandAttribute.Alias));
+                        Debug.LogWarning($"Quantum Processor Warning: Could not add '{commandAttribute.Alias}' to the table as it is invalid.");
                     }
                 }
                 else
@@ -315,7 +316,10 @@ namespace Hikaria.QC
 
         private static string GenerateCommandKey(CommandData command)
         {
-            return $"{command.CommandName}({command.ParamCount})";
+            string cmdName = command.CommandName;
+            return command.HasParamsArgument
+                ? $"{cmdName}(#)"
+                : $"{cmdName}({command.ParamCount})";
         }
 
         /// <summary>
@@ -329,7 +333,8 @@ namespace Hikaria.QC
             {
                 if (loggingLevel >= LoggingLevel.Warnings)
                 {
-                    Logs.LogWarning(QuantumConsoleBootstrap.Localization.Format(82, command.CommandSignature, command.MethodData.DeclaringType.GetDisplayName(), reason));
+                    Debug.LogWarning($"Quantum Processor Warning: Could not add '{command.CommandSignature}' from {command.MethodData.DeclaringType.GetDisplayName()} " +
+                        $"to the table as it is not supported. {reason}");
                 }
 
                 return false;
@@ -343,7 +348,7 @@ namespace Hikaria.QC
                 if (loggingLevel >= LoggingLevel.Warnings)
                 {
                     string fullMethodName = $"{command.MethodData.DeclaringType.FullName}.{command.MethodData.Name}";
-                    Logs.LogWarning(QuantumConsoleBootstrap.Localization.Format(83, fullMethodName, key));
+                    Debug.LogWarning($"Quantum Processor Warning: Could not add {fullMethodName} to the table as another method with the same alias and parameter count, {key}, already exists.");
                 }
 
                 return false;
@@ -384,7 +389,7 @@ namespace Hikaria.QC
             commandString = commandString.Trim();
             commandString = _preprocessor.Process(commandString);
 
-            if (string.IsNullOrWhiteSpace(commandString)) { throw new ArgumentException(QuantumConsoleBootstrap.Localization.Get(84)); }
+            if (string.IsNullOrWhiteSpace(commandString)) { throw new ArgumentException("Cannot parse an empty string."); }
             string[] commandParts = commandString.SplitScoped(' ');
             commandParts = commandParts.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
 
@@ -396,47 +401,94 @@ namespace Hikaria.QC
             string genericSignature = commandNameParts.Length > 1 ? $"<{commandNameParts[1]}" : "";
             commandName = commandNameParts[0];
 
-            string keyName = $"{commandName}({paramCount})";
-            if (!_commandTable.ContainsKey(keyName))
-            {
-                bool overloadExists = _commandTable.Keys.Any(key => key.Contains($"{commandName}(") && _commandTable[key].CommandName == commandName);
-                if (overloadExists) { throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(85, commandName, paramCount)); }
-                else { throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(86, commandName)); }
-            }
-            CommandData command = _commandTable[keyName];
+            CommandData command = FindCompatibleCommand(commandName, paramCount);
+            Type[] genericTypes = ParseGenericTypes(command, genericSignature);
 
-            Type[] genericTypes = Array.Empty<Type>();
-            if (command.IsGeneric)
+            // If we using a command with a dynamic parameter count, then reconstitute all the extra params
+            // back into one parameter for the parser
+            if (command.HasParamsArgument)
             {
-                int expectedArgCount = command.GenericParamTypes.Length;
-                string[] genericArgNames = genericSignature.ReduceScope('<', '>').SplitScoped(',');
-                if (genericArgNames.Length == expectedArgCount)
-                {
-                    genericTypes = new Type[genericArgNames.Length];
-                    for (int i = 0; i < genericTypes.Length; i++)
-                    {
-                        genericTypes[i] = QuantumParser.ParseType(genericArgNames[i]);
-                    }
-                }
-                else
-                {
-                    throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(87, commandName, expectedArgCount, expectedArgCount == 1 ? "" : "s", genericArgNames.Length));
-                }
-            }
-            else if (genericSignature != string.Empty)
-            {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(88, commandName));
+                int paramsIndex = command.ParamCount - 1;
+                IEnumerable<string> paramsParts = commandParams.Skip(paramsIndex);
+                string paramsMerged = string.Join(",", paramsParts);
+
+                string[] mergedCommandParams = new string[command.ParamCount];
+                Array.Copy(commandParams, mergedCommandParams, command.ParamCount - 1);
+                mergedCommandParams[paramsIndex] = paramsMerged;
+
+                commandParams = mergedCommandParams;
             }
 
 #if !UNITY_EDITOR && ENABLE_IL2CPP && !UNITY_2022_2_OR_NEWER
             if (genericTypes.Any((Type x) => x.IsValueType))
             {
-                throw new NotSupportedException(QuantumConsoleBootstrap.Localization.Get(89));
+                throw new NotSupportedException("Value types in generic commands are not supported in IL2CPP before Unity 2022.2");
             }
 #endif
 
             object[] parsedCommandParams = ParseParamData(command.MakeGenericArguments(genericTypes), commandParams);
             return command.Invoke(parsedCommandParams, genericTypes);
+        }
+
+        private static CommandData FindCompatibleCommand(string commandName, int paramCount)
+        {
+            CommandData commandCandidate;
+
+            // First try finding an exact match
+            string exactKey = $"{commandName}({paramCount})";
+            if (_commandTable.TryGetValue(exactKey, out commandCandidate))
+            {
+                return commandCandidate;
+            }
+
+            // If that fails, try checking commands with dynamic parameter counts
+            string dynamicKey = $"{commandName}(#)";
+            if (_commandTable.TryGetValue(dynamicKey, out commandCandidate))
+            {
+                // Verify they have compatible parameter counts
+                int commandRequiredParams = commandCandidate.ParamCount - 1;
+                if (paramCount >= commandRequiredParams)
+                {
+                    return commandCandidate;
+                }
+            }
+
+            // All failed, throw error
+            bool overloadExists = _commandCache.Any(command => command.CommandName == commandName);
+            throw overloadExists
+                ? new ArgumentException($"No overload of '{commandName}' with {paramCount} parameters could be found.")
+                : new ArgumentException($"Command '{commandName}' could not be found.");
+        }
+
+        private static Type[] ParseGenericTypes(CommandData command, string genericSignature)
+        {
+            // Handle non generic commands first
+            if (!command.IsGeneric)
+            {
+                if (genericSignature != string.Empty)
+                {
+                    throw new ArgumentException($"Command '{command.CommandName}' is not a generic command and cannot be invoked as such.");
+                }
+
+                return Array.Empty<Type>();
+            }
+
+            // Validate the correct number of generics
+            int expectedArgCount = command.GenericParamTypes.Length;
+            string[] genericArgNames = genericSignature.ReduceScope('<', '>').SplitScoped(',');
+            if (genericArgNames.Length != expectedArgCount)
+            {
+                throw new ArgumentException($"Generic command '{command.CommandName}' requires {expectedArgCount} generic parameter{(expectedArgCount == 1 ? "" : "s")} but was supplied with {genericArgNames.Length}.");
+            }
+
+            // Parse the actual types
+            Type[] genericTypes = new Type[genericArgNames.Length];
+            for (int i = 0; i < genericTypes.Length; i++)
+            {
+                genericTypes[i] = QuantumParser.ParseType(genericArgNames[i]);
+            }
+
+            return genericTypes;
         }
 
         private static object[] ParseParamData(Type[] paramTypes, string[] paramData)

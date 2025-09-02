@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC
+﻿using System.Collections.Generic;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// A suggestor that is loaded by the QuantumSuggestor to suggest IQcSuggestions

@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Actions
+﻿using System;
+
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Gets the next line of text entered into the console as a user 

@@ -1,8 +1,9 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
 using System.Globalization;
 
-namespace Hikaria.QC.Parsers
+namespace QFSW.QC.Parsers
 {
     public class PrimitiveParser : IQcParser
     {
@@ -38,7 +39,7 @@ namespace Hikaria.QC.Parsers
             }
             catch (FormatException e)
             {
-                throw new ParserInputException(QuantumConsoleBootstrap.Localization.Format(56, value, type.GetDisplayName()), e);
+                throw new ParserInputException($"Cannot parse '{value}' to the type '{type.GetDisplayName()}'.", e);
             }
         }
     }

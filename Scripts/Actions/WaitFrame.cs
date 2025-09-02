@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Actions
+﻿namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Waits until the next frame.

@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     public class LogStorage : ILogStorage
     {
@@ -31,7 +33,7 @@ namespace Hikaria.QC
                 while (_consoleLogs.Count > MaxStoredLogs)
                 {
                     int junkLength = _consoleLogs[0].Text.Length;
-                    if (_consoleLogs.Count > 1 && _consoleLogs[1].NewLine)
+                    if (_consoleLogs.Count > 1 &&_consoleLogs[1].NewLine)
                     {
                         junkLength += Environment.NewLine.Length;
                     }

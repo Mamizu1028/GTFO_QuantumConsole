@@ -1,22 +1,31 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using TheArchive.Loader;
+﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Hikaria.QC
+#region Preserve Fix
+#if UNITY_2018_4_OR_NEWER
+using UnityEngine.Scripting;
+#else
+/// <summary>
+///   <para>PreserveAttribute prevents byte code stripping from removing a class, method, field, or property.</para>
+/// </summary>
+[AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Event | AttributeTargets.Interface | AttributeTargets.Delegate, Inherited = false)]
+public sealed class PreserveAttribute : Attribute
 {
-    [Il2CppImplements(typeof(ISerializationCallbackReceiver))]
-    public abstract class TypeFormatter : Il2CppSystem.Object
+}
+#endif
+#endregion
+
+namespace QFSW.QC
+{
+    [Serializable]
+    public abstract class TypeFormatter : ISerializationCallbackReceiver
     {
         public Type Type { get; private set; }
-        private string _type;
+        [SerializeField, HideInInspector] private string _type;
 
-        protected TypeFormatter(Type type) : base(LoaderWrapper.ClassInjector.DerivedConstructorPointer<TypeFormatter>())
-        {
-            Type = type;
-            LoaderWrapper.ClassInjector.DerivedConstructorBody(this);
-        }
-
-        public TypeFormatter(IntPtr ptr) : base(ptr) { }
+        [Preserve]
+        protected TypeFormatter(Type type) { Type = type; }
 
         public void OnAfterDeserialize()
         {
@@ -30,23 +39,27 @@ namespace Hikaria.QC
         }
     }
 
+    [Serializable]
     public class TypeColorFormatter : TypeFormatter
     {
+        [FormerlySerializedAs("color")]
         public Color Color = Color.white;
 
+        [Preserve]
         public TypeColorFormatter(Type type) : base(type) { }
-
-        public TypeColorFormatter(IntPtr ptr) : base(ptr) { }
     }
 
+    [Serializable]
     public class CollectionFormatter : TypeFormatter
     {
+        [FormerlySerializedAs("seperatorString")]
         public string SeperatorString = ",";
+        [FormerlySerializedAs("leftScoper")]
         public string LeftScoper = "[";
+        [FormerlySerializedAs("rightScoper")]
         public string RightScoper = "]";
 
+        [Preserve]
         public CollectionFormatter(Type type) : base(type) { }
-
-        public CollectionFormatter(IntPtr ptr) : base(ptr) { }
     }
 }

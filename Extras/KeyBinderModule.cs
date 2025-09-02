@@ -1,20 +1,12 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-using Il2CppInterop.Runtime;
-using TheArchive.Core.ModulesAPI;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     public class KeyBinderModule : MonoBehaviour
     {
-        internal static void Init()
-        {
-            GameObject obj = new GameObject($"{nameof(KeyBinderModule)}Singleton");
-            UnityEngine.Object.DontDestroyOnLoad(obj);
-            var target = obj.AddComponent(Il2CppType.From(typeof(KeyBinderModule), true)).Cast<Component>();
-            QuantumRegistry.RegisterObject(typeof(KeyBinderModule), target);
-        }
-
         private readonly struct Binding
         {
             public readonly KeyCode Key;
@@ -27,8 +19,7 @@ namespace Hikaria.QC.Extras
             }
         }
 
-        private readonly CustomSettings<List<Binding>> _bindings = new CustomSettings<List<Binding>>("bindings", new());
-
+        private readonly List<Binding> _bindings = new List<Binding>();
         private QuantumConsole _consoleInstance;
         private bool _blocked = false;
 
@@ -37,7 +28,14 @@ namespace Hikaria.QC.Extras
 
         private void BindToConsoleInstance()
         {
-            if (!_consoleInstance) { _consoleInstance = FindObjectOfType<QuantumConsole>(); }
+            if (!_consoleInstance)
+            {
+#if UNITY_6000_0_OR_NEWER
+                _consoleInstance = FindFirstObjectByType<QuantumConsole>();
+#else
+                _consoleInstance = FindObjectOfType<QuantumConsole>();
+#endif
+            }
             if (_consoleInstance)
             {
                 _consoleInstance.OnActivate += BlockInput;
@@ -60,7 +58,7 @@ namespace Hikaria.QC.Extras
         {
             if (!_blocked)
             {
-                foreach (Binding binding in _bindings.Value)
+                foreach (Binding binding in _bindings)
                 {
                     if (InputHelper.GetKeyDown(binding.Key))
                     {
@@ -68,7 +66,7 @@ namespace Hikaria.QC.Extras
                         {
                             QuantumConsoleProcessor.InvokeCommand(binding.Command);
                         }
-                        catch (System.Exception e) { Logs.LogException(e); }
+                        catch (System.Exception e) { Debug.LogException(e); }
                     }
                 }
             }
@@ -78,28 +76,28 @@ namespace Hikaria.QC.Extras
         [CommandDescription("Binds a given command to a given key, so that every time the key is pressed, the command is invoked.")]
         private void AddBinding(KeyCode key, string command)
         {
-            _bindings.Value.Add(new Binding(key, command));
+            _bindings.Add(new Binding(key, command));
         }
 
         [Command("unbind", MonoTargetType.Singleton)]
         [CommandDescription("Removes every binding for the given key")]
         private void RemoveBindings(KeyCode key)
         {
-            _bindings.Value.RemoveAll(x => x.Key == key);
+            _bindings.RemoveAll(x => x.Key == key);
         }
 
         [Command("unbind-all", MonoTargetType.Singleton)]
         [CommandDescription("Unbinds every existing key binding")]
         private void RemoveAllBindings()
         {
-            _bindings.Value.Clear();
+            _bindings.Clear();
         }
 
         [Command("display-bindings", MonoTargetType.Singleton)]
         [CommandDescription("Displays all existing bindings on the key binder")]
         private IEnumerable<object> DisplayAllBindings()
         {
-            foreach (Binding binding in _bindings.Value.OrderBy(x => x.Key))
+            foreach (Binding binding in _bindings.OrderBy(x => x.Key))
             {
                 yield return new KeyValuePair<KeyCode, string>(binding.Key, binding.Command);
             }

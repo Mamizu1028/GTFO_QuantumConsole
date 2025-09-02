@@ -1,10 +1,11 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-using BepInEx.Unity.IL2CPP.Utils.Collections;
+using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
+    [AddComponentMenu("")]
     public class CoroutineCommands : MonoBehaviour
     {
         [Command("start-coroutine", "starts the supplied command as a coroutine", MonoTargetType.Singleton)]
@@ -13,7 +14,7 @@ namespace Hikaria.QC.Extras
             object coroutineReturn = QuantumConsoleProcessor.InvokeCommand(coroutineCommand);
             if (coroutineReturn is IEnumerator)
             {
-                StartCoroutine((coroutineReturn as IEnumerator).WrapToIl2Cpp());
+                StartCoroutine(coroutineReturn as IEnumerator);
             }
             else
             {

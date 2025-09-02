@@ -1,12 +1,14 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-using Hikaria.QC.Pooling;
-using Hikaria.QC.Utilities;
+using QFSW.QC.Pooling;
+using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using TheArchive.Utilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     public static class UtilCommands
     {
@@ -68,7 +70,7 @@ namespace Hikaria.QC.Extras
             foreach (Scene scene in SceneUtilities.GetLoadedScenes())
             {
                 objects.Clear();
-                scene.GetRootGameObjects(objects.ToIL2CPPListIfNecessary());
+                scene.GetRootGameObjects(objects);
 
                 buffer.AppendLine(scene.name);
                 GetSceneHierarchy(objects.Select(x => x.transform).ToArray(), 0, buffer, new List<bool>());

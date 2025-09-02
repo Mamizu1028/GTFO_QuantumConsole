@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Grammar
+﻿using System;
+
+namespace QFSW.QC.Grammar
 {
     internal class DynamicBinaryOperator : IBinaryOperator
     {

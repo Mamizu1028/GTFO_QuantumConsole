@@ -1,7 +1,9 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     [CommandPrefix("http.")]
     public static class HttpCommands

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// A rule for determining which entities should and shouldn't be scanned by Quantum Console for commands.

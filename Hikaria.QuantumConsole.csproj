@@ -27,12 +27,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Scripts\Editor\**" />
-    <EmbeddedResource Remove="Scripts\Editor\**" />
-    <None Remove="Scripts\Editor\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="BepInEx.Core">
       <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\GTFO\BepInEx\core\BepInEx.Core.dll</HintPath>
     </Reference>

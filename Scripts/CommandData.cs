@@ -1,11 +1,11 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Internal;
-using Hikaria.QC.Utilities;
-using System.Data;
+﻿using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
-using TheArchive.Core.Localization;
+using QFSW.QC.Internal;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Contains the full data about a command and provides an execution point for invoking the command.
@@ -17,13 +17,13 @@ namespace Hikaria.QC
         public readonly string CommandSignature;
         public readonly string ParameterSignature;
         public readonly string GenericSignature;
-        public readonly string LocalizationSignature;
 
         public readonly ParameterInfo[] MethodParamData;
         public readonly Type[] ParamTypes;
         public readonly Type[] GenericParamTypes;
         public readonly MethodInfo MethodData;
         public readonly MonoTargetType MonoTarget;
+        public readonly bool HasParamsArgument;
 
         private readonly object[] _defaultParameters;
 
@@ -32,28 +32,11 @@ namespace Hikaria.QC
         public bool HasDescription => !string.IsNullOrWhiteSpace(CommandDescription);
         public int ParamCount => ParamTypes.Length - _defaultParameters.Length;
 
-        private Dictionary<Language, CommandLocalizationData> _localization;
-
-        internal void ApplyLocalization(Dictionary<Language, CommandLocalizationData> localization)
-        {
-            _localization = localization;
-        }
-
-        internal bool TryGetLocalization(out CommandLocalizationData localization)
-        {
-            return _localization.TryGetValue(QuantumConsoleBootstrap.Localization.CurrentLanguage, out localization);
-        }
-
-        internal bool TryGetLocalization(Language language, out CommandLocalizationData localization)
-        {
-            return _localization.TryGetValue(language, out localization);
-        }
-
         public Type[] MakeGenericArguments(params Type[] genericTypeArguments)
         {
             if (genericTypeArguments.Length != GenericParamTypes.Length)
             {
-                throw new ArgumentException(QuantumConsoleBootstrap.Localization.Get(69));
+                throw new ArgumentException("Incorrect number of generic substitution types were supplied.");
             }
 
             Dictionary<string, Type> substitutionTable = new Dictionary<string, Type>();
@@ -96,12 +79,12 @@ namespace Hikaria.QC
                 return baseType.MakeGenericType(typeArguments);
             }
 
-            throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(70, genericType));
+            throw new ArgumentException($"Could not construct the generic type {genericType}");
         }
 
         public object Invoke(object[] paramData, Type[] genericTypeArguments)
         {
-            // For MonoTargetType.Argument, need to use the first argument as the invocation argument
+            // For MonoTargetType.Argument, need to use the first argument as the invocation target
             // and then forward the rest as normal
             int paramDataStart = 0;
             int paramDataLength = paramData.Length;
@@ -125,7 +108,7 @@ namespace Hikaria.QC
                 return invokingMethod.Invoke(null, arguments);
             }
 
-            // For MonoTargetType.Argument, use the first argument as the argument
+            // For MonoTargetType.Argument, use the first argument as the target
             // Otherwise, get invocation targets like normal
             IEnumerable<object> targets = MonoTarget switch
             {
@@ -139,7 +122,7 @@ namespace Hikaria.QC
 
         protected virtual IEnumerable<object> GetInvocationTargets(MethodInfo invokingMethod)
         {
-            return InvocationTargetFactory.FindTargets(invokingMethod.ReflectedType, MonoTarget);
+            return InvocationTargetFactory.FindTargets(invokingMethod.DeclaringType, MonoTarget);
         }
 
         private MethodInfo GetInvokingMethod(Type[] genericTypeArguments)
@@ -157,7 +140,7 @@ namespace Hikaria.QC
                 }
                 catch (ArgumentException)
                 {
-                    throw new ArgumentException(QuantumConsoleBootstrap.Localization.Format(71, CommandName));
+                    throw new ArgumentException($"Supplied generic parameters did not satisfy the generic constraints imposed by '{CommandName}'");
                 }
             }
 
@@ -234,10 +217,18 @@ namespace Hikaria.QC
             string signature = string.Empty;
             for (int i = 0; i < methodParams.Length - defaultParameterCount; i++)
             {
-                signature += $"{(i == 0 ? string.Empty : " ")}{methodParams[i].Name}";
+                string paramName = FormatParameterName(methodParams[i]);
+                signature += $"{(i == 0 ? string.Empty : " ")}{paramName}";
             }
 
             return signature;
+        }
+
+        private string FormatParameterName(ParameterInfo param)
+        {
+            return param.HasAttribute<ParamArrayAttribute>()
+                ? $"{param.Name}..."
+                : param.Name;
         }
 
         private Type[] BuildGenericParamTypes(MethodInfo method, Type declaringType)
@@ -259,8 +250,6 @@ namespace Hikaria.QC
 
         public CommandData(MethodInfo methodData, string commandName, MonoTargetType monoTarget, int defaultParameterCount = 0)
         {
-            _localization = new();
-
             CommandName = commandName;
             MethodData = methodData;
             MonoTarget = monoTarget;
@@ -275,7 +264,7 @@ namespace Hikaria.QC
             string prefix = BuildPrefix(declaringType);
             CommandName = $"{prefix}{CommandName}";
 
-            // Add a dummy parameter used for parsing the invoking argument if required
+            // Add a dummy parameter used for parsing the invoking target if required
             List<ParameterInfo> parameters = methodData.GetParameters().ToList();
             if (MonoTarget == MonoTargetType.Argument)
             {
@@ -291,6 +280,13 @@ namespace Hikaria.QC
                 .Select(x => x.ParameterType)
                 .ToArray();
 
+            // Check for the presence of the 'params' keyword
+            if (MethodParamData.Length > 0)
+            {
+                ParameterInfo lastParameter = MethodParamData.Last();
+                HasParamsArgument = lastParameter.HasAttribute<ParamArrayAttribute>();
+            }
+
             _defaultParameters = new object[defaultParameterCount];
             for (int i = 0; i < defaultParameterCount; i++)
             {
@@ -305,12 +301,6 @@ namespace Hikaria.QC
             CommandSignature = ParamCount > 0
                 ? $"{CommandName}{GenericSignature} {ParameterSignature}"
                 : $"{CommandName}{GenericSignature}";
-
-            LocalizationSignature = MethodParamData.Length > 0 
-                ? $"{CommandName}{GenericSignature} {BuildParameterSignature(MethodParamData, 0)}"
-                : $"{CommandName}{GenericSignature}";
-
-            this.LoadCommandLocalizationData();
         }
 
         public CommandData(MethodInfo methodData, MonoTargetType monoTarget, int defaultParameterCount = 0)
@@ -321,17 +311,15 @@ namespace Hikaria.QC
             : this(methodData, commandAttribute.Alias, commandAttribute.MonoTarget, defaultParameterCount)
         {
             CommandDescription = commandAttribute.Description;
-            this.LoadCommandLocalizationData();
         }
 
         public CommandData(MethodInfo methodData, CommandAttribute commandAttribute, CommandDescriptionAttribute descriptionAttribute, int defaultParameterCount = 0)
             : this(methodData, commandAttribute, defaultParameterCount)
         {
-            if (descriptionAttribute?.Valid ?? false)
+            if ((descriptionAttribute?.Valid ?? false) && string.IsNullOrWhiteSpace(commandAttribute.Description))
             {
                 CommandDescription = descriptionAttribute.Description;
             }
-            this.LoadCommandLocalizationData();
         }
     }
 }

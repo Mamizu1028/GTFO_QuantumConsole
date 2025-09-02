@@ -1,6 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Wraps a dynamic delegate such as Action and Func so that a lambda can be used as a command.

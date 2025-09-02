@@ -1,6 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
-namespace Hikaria.QC.Grammar
+namespace QFSW.QC.Grammar
 {
     public class BooleanNegationGrammar : IQcGrammarConstruct
     {

@@ -11,8 +11,11 @@
     contact: aeroson (theaeroson @gmail.com)
 */
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using System.Threading;
 
 public class DeferredSynchronizeInvoke : ISynchronizeInvoke
 {

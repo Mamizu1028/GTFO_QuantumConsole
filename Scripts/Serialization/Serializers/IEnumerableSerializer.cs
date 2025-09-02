@@ -1,8 +1,9 @@
-﻿using Hikaria.QC.Pooling;
+﻿using QFSW.QC.Pooling;
+using System;
 using System.Collections;
 using System.Text;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class IEnumerableSerializer : IEnumerableSerializer<IEnumerable>
     {
@@ -26,7 +27,7 @@ namespace Hikaria.QC.Serializers
             string left = "[";
             string seperator = ",";
             string right = "]";
-            if (theme != null)
+            if (theme)
             {
                 theme.GetCollectionFormatting(type, out left, out seperator, out right);
             }

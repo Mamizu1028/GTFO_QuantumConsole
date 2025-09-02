@@ -1,8 +1,9 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 using System.Globalization;
 using System.Reflection;
 
-namespace Hikaria.QC.Internal
+namespace QFSW.QC.Internal
 {
     internal class FieldDelegateMethod : FieldMethod
     {

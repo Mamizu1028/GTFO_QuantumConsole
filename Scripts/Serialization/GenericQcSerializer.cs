@@ -1,6 +1,7 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Serializer for all types that are generic constructions of a single type.

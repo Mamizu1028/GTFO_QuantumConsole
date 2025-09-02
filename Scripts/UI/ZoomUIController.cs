@@ -1,22 +1,22 @@
-﻿using Il2CppInterop.Runtime.Attributes;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hikaria.QC.UI
+namespace QFSW.QC.UI
 {
+    [ExecuteInEditMode]
     public class ZoomUIController : MonoBehaviour
     {
-        private float _zoomIncrement = 0.1f;
-        private float _minZoom = 0.1f;
-        private float _maxZoom = 2f;
+        [SerializeField] private float _zoomIncrement = 0.1f;
+        [SerializeField] private float _minZoom = 0.1f;
+        [SerializeField] private float _maxZoom = 2f;
 
-        private Button _zoomDownBtn = null;
-        private Button _zoomUpBtn = null;
+        [SerializeField] private Button _zoomDownBtn = null;
+        [SerializeField] private Button _zoomUpBtn = null;
 
-        private DynamicCanvasScaler _scaler = null;
-        private QuantumConsole _quantumConsole = null;
-        private TextMeshProUGUI _text = null;
+        [SerializeField] private DynamicCanvasScaler _scaler = null;
+        [SerializeField] private QuantumConsole _quantumConsole = null;
+        [SerializeField] private TextMeshProUGUI _text = null;
 
         private float _lastZoom = -1;
 
@@ -39,7 +39,7 @@ namespace Hikaria.QC.UI
 
         private void Update()
         {
-            if (_quantumConsole != null && _quantumConsole.KeyConfig != null)
+            if (_quantumConsole && _quantumConsole.KeyConfig)
             {
                 if (_quantumConsole.KeyConfig.ZoomInKey.IsPressed()) { ZoomUp(); }
                 if (_quantumConsole.KeyConfig.ZoomOutKey.IsPressed()) { ZoomDown(); }
@@ -69,16 +69,6 @@ namespace Hikaria.QC.UI
             {
                 _zoomUpBtn.interactable = _lastZoom < _maxZoom;
             }
-        }
-
-        [HideFromIl2Cpp]
-        internal void Setup(Button zoomSizeDownButton, Button zoomSizeUpButton, DynamicCanvasScaler dynamicCanvasScaler, QuantumConsole quantumConsole, TextMeshProUGUI textMeshProUGUI)
-        {
-            _zoomDownBtn = zoomSizeDownButton;
-            _zoomUpBtn = zoomSizeUpButton;
-            _scaler = dynamicCanvasScaler;
-            _quantumConsole = quantumConsole;
-            _text = textMeshProUGUI;
         }
     }
 }

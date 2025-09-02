@@ -1,7 +1,9 @@
-﻿using Hikaria.QC.Bootstrap;
-using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Handles formatted serialization for console returns.
@@ -57,7 +59,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumConsoleBootstrap.Localization.Format(64, type.GetDisplayName(), serializer, e.Message), e);
+                    throw new Exception($"Serialization of {type.GetDisplayName()} via {serializer} failed:\n{e.Message}", e);
                 }
             }
 
@@ -92,7 +94,7 @@ namespace Hikaria.QC
                 }
             }
 
-            if (theme != null && !string.IsNullOrWhiteSpace(result))
+            if (theme && !string.IsNullOrWhiteSpace(result))
             {
                 result = theme.ColorizeReturn(result, type);
             }

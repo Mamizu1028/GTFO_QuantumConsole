@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC.Suggestors.Tags
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace QFSW.QC.Suggestors.Tags
 {
     /// <summary>
     /// Object that holds all the inlined suggestions provided 

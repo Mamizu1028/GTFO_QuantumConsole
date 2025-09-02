@@ -1,10 +1,14 @@
 #if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-using Hikaria.QC.Suggestors.Tags;
-using Hikaria.QC.Utilities;
+using QFSW.QC.Suggestors.Tags;
+using QFSW.QC.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hikaria.QC.Extras
+namespace QFSW.QC.Extras
 {
     public static class SceneCommands
     {

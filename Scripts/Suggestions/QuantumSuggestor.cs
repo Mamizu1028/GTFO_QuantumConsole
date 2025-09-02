@@ -1,6 +1,9 @@
-﻿using Hikaria.QC.Comparators;
+﻿using QFSW.QC.Comparators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Provides a filtered and sorted list of suggestions for a given context using IQcSuggestors and IQcSuggestionFilter 

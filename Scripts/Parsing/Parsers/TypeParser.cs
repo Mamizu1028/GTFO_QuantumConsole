@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC.Parsers
+﻿using System;
+
+namespace QFSW.QC.Parsers
 {
     public class TypeParser : BasicCachedQcParser<Type>
     {

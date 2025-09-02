@@ -1,8 +1,11 @@
-﻿using System.Text;
-using Hikaria.QC.Utilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using QFSW.QC.Utilities;
 using UnityEngine;
 
-namespace Hikaria.QC.Actions
+namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Give the user a selection of choices which can be made by using the arrow keys and enter key.

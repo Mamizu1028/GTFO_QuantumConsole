@@ -1,6 +1,8 @@
-﻿using Hikaria.QC.Utilities;
+﻿using QFSW.QC.Utilities;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Hikaria.QC.Suggestors
+namespace QFSW.QC.Suggestors
 {
     public class SceneNameSuggestor : BasicCachedQcSuggestor<string>
     {

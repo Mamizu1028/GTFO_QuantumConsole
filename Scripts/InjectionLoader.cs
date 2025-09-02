@@ -1,6 +1,10 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
+using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
     /// <summary>
     /// Prevents the type from being loaded by an InjectionLoader
@@ -31,25 +35,13 @@ namespace Hikaria.QC
                                                         .Where(type => !type.IsDefined(typeof(NoInjectAttribute), false))
                                                         .ToArray();
 #else
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                var types = new List<Type>();
-
-                foreach (var asm in assemblies)
-                {
-                    try
-                    {
-                        types.AddRange(asm.GetTypes().Where(type => typeof(T).IsAssignableFrom(type))
+                _injectableTypes = AppDomain.CurrentDomain.GetAssemblies()
+                                                          .SelectMany(assembly => GetTypesSafe(assembly))
+                                                          .Where(type => typeof(T).IsAssignableFrom(type))
                                                           .Where(type => !type.IsAbstract)
                                                           .Where(type => !type.IsDefined(typeof(NoInjectAttribute), false))
-                                                          .ToArray());
-                    }
-                    catch
-                    {
-
-                    }
-                }
+                                                          .ToArray();
 #endif
-                _injectableTypes = types.ToArray();
             }
 
             return _injectableTypes;
@@ -85,17 +77,32 @@ namespace Hikaria.QC
                 }
                 catch (MissingMethodException)
                 {
-                    Logs.LogError(QuantumConsoleBootstrap.Localization.Format(72, typeof(T), type));
+                    Debug.LogError($"Could not load {typeof(T)} {type} as it is missing a public parameterless constructor.");
                 }
                 catch (Exception e)
                 {
-                    Logs.LogException(e);
+                    Debug.LogException(e);
                 }
 
                 if (success)
                 {
                     yield return instance;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Corrupted reflection data (usually caused by obfuscators) can cause GetTypes to throw an exception
+        /// </summary>
+        private Type[] GetTypesSafe(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException)
+            {
+                return Array.Empty<Type>();
             }
         }
     }

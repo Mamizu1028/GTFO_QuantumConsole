@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Actions
+﻿namespace QFSW.QC.Actions
 {
     /// <summary>
     /// Removes the most recent log from the console.

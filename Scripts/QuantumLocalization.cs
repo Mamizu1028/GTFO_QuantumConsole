@@ -1,23 +1,27 @@
-﻿using Hikaria.QC.Bootstrap;
+﻿using UnityEngine;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
-    public class QuantumLocalization
+    [CreateAssetMenu(fileName = "Untitled Localization", menuName = "Quantum Console/Localization")]
+    public class QuantumLocalization : ScriptableObject
     {
-        public string Loading => QuantumConsoleBootstrap.Localization.Get(1);
-        public string ExecutingAsyncCommand => QuantumConsoleBootstrap.Localization.Get(2);
-        public string EnterCommand => QuantumConsoleBootstrap.Localization.Get(3);
+        [SerializeField] public string Loading = "Loading...";
+        [SerializeField] public string ExecutingAsyncCommand = "Executing async command...";
+        [SerializeField] public string EnterCommand = "Enter Command...";
 
-        public string CommandError => QuantumConsoleBootstrap.Localization.Get(4);
-        public string ConsoleError => QuantumConsoleBootstrap.Localization.Get(5);
-        public string MaxLogSizeExceeded => QuantumConsoleBootstrap.Localization.Get(6);
+        [SerializeField] public string CommandError = "Error";
+        [SerializeField] public string ConsoleError = "Quantum Processor Error";
+        [SerializeField] public string MaxLogSizeExceeded = "Log of size {0} exceeded the maximum log size of {1}";
 
-        public string InitializationProgress => QuantumConsoleBootstrap.Localization.Get(7);
+        [SerializeField]
+        [TextArea]
+        public string InitializationProgress =
+            "Q:\\>Quantum Console Processor is initializing\n" +
+            "Q:\\>Table generation under progress\n" +
+            "Q:\\>{0} commands have been loaded";
 
-        public string InitializationComplete => QuantumConsoleBootstrap.Localization.Get(8);
-
-        public string SubmitButtonText => QuantumConsoleBootstrap.Localization.Get(9);
-        public string ClearButtonText => QuantumConsoleBootstrap.Localization.Get(10);
-        public string CloseButtonText => QuantumConsoleBootstrap.Localization.Get(11);
+        [SerializeField]
+        [TextArea]
+        public string InitializationComplete = "Q:\\>Quantum Console Processor ready";
     }
 }

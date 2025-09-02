@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC
+﻿namespace QFSW.QC
 {
     /// <summary>
     /// Creates a Preprocessor that is loaded and used by the QuantumConsoleProcessor.

@@ -1,5 +1,8 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
-namespace Hikaria.QC.Extras
+using System;
+using System.Collections.Generic;
+
+namespace QFSW.QC.Extras
 {
     public static class TypeCommands
     {

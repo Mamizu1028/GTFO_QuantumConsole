@@ -1,4 +1,7 @@
-﻿namespace Hikaria.QC
+﻿using System;
+using System.Collections.Generic;
+
+namespace QFSW.QC
 {
     /// <summary>
     /// Parser for all types that are generic constructions of a single type.

@@ -1,13 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Hikaria.QC
+namespace QFSW.QC
 {
+    [System.Serializable]
     public struct ModifierKeyCombo
     {
-        public KeyCode Key { get; set; }
-        public bool Ctrl { get; set; }
-        public bool Alt { get; set; }
-        public bool Shift { get; set; }
+        [FormerlySerializedAs("key")]
+        public KeyCode Key;
+        [FormerlySerializedAs("ctrl")]
+        public bool Ctrl;
+        [FormerlySerializedAs("alt")]
+        public bool Alt;
+        [FormerlySerializedAs("shift")]
+        public bool Shift;
 
         public bool ModifiersActive
         {

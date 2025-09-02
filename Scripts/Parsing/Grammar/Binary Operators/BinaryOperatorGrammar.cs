@@ -1,9 +1,12 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Hikaria.QC.Utilities;
+using QFSW.QC.Utilities;
 
-namespace Hikaria.QC.Grammar
+namespace QFSW.QC.Grammar
 {
     public abstract class BinaryOperatorGrammar : IQcGrammarConstruct
     {
@@ -48,7 +51,10 @@ namespace Hikaria.QC.Grammar
 
         private bool IsSyntaxMatch(string value)
         {
-            _operatorRegex ??= new Regex($@"^.+\{OperatorToken}.+$");
+            if (_operatorRegex == null)
+            {
+                _operatorRegex = new Regex($@"^.+\{OperatorToken}.+$");
+            }
 
             if (!_operatorRegex.IsMatch(value))
             {
@@ -64,8 +70,8 @@ namespace Hikaria.QC.Grammar
             if (type.IsPrimitive)
             {
 #if !UNITY_EDITOR && ENABLE_IL2CPP && !UNITY_2022_2_OR_NEWER
-                string typeName = Hikaria.QC.Utilities.ReflectionExtensions.GetDisplayName(type);
-                Logs.LogWarning($"{typeName} {OperatorToken} {typeName} is not supported as IL2CPP does not support dynamic value typed generics before Unity 2022.2");
+                string typeName = QFSW.QC.Utilities.ReflectionExtensions.GetDisplayName(type);
+                UnityEngine.Debug.LogWarning($"{typeName} {OperatorToken} {typeName} is not supported as IL2CPP does not support dynamic value typed generics before Unity 2022.2");
 #else
                 return GeneratePrimitiveOperator(type);
 #endif

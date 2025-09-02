@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace Hikaria.QC.Serializers
+namespace QFSW.QC.Serializers
 {
     public class DictionaryEntrySerializer : BasicQcSerializer<DictionaryEntry>
     {
