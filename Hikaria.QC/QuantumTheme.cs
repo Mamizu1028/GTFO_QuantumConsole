@@ -1,28 +1,37 @@
 ﻿using Hikaria.QC.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 namespace Hikaria.QC
 {
-    public class QuantumTheme : ScriptableObject
+    public class QuantumTheme
     {
-        public TMP_FontAsset Font = null;
-        public Material PanelMaterial = null;
-        public Color PanelColor = Color.white;
+        public TMP_FontAsset Font => QuantumConsoleSettings.GetLoadedAsset(FontAssetPath).Cast<TMP_FontAsset>();
+        public Material PanelMaterial => QuantumConsoleSettings.GetLoadedAsset(PanelMaterialAssetPath).Cast<Material>();
 
-        public Color CommandLogColor = new Color(0, 1, 1);
-        public Color SelectedSuggestionColor = new Color(1, 1, 0.55f);
-        public Color SuggestionColor = Color.gray;
-        public Color ErrorColor = Color.red;
-        public Color WarningColor = new Color(1, 0.5f, 0);
-        public Color SuccessColor = Color.green;
+        public string FontAssetPath = "Assets/Plugins/QFSW/Quantum Console/Source/Fonts/TMP/OfficeCodePro-Regular SDF.asset";
+        public string PanelMaterialAssetPath = "Assets/Plugins/QFSW/Quantum Console/Source/Materials/Blur Panel.mat";
 
-        public string TimestampFormat = "[{0}:{1}:{2}]";
+        public Color PanelColor = ColorExtensions.WHITE;
+
+        public Color CommandLogColor = ColorExtensions.BRIGHT_CYAN;
+        public Color SelectedSuggestionColor = ColorExtensions.DARK_YELLOW;
+        public Color SuggestionColor = ColorExtensions.DARK_GRAY;
+        public Color ErrorColor = ColorExtensions.DARK_RED;
+        public Color FatalErrorColor = ColorExtensions.BRIGHT_RED;
+        public Color WarningColor = ColorExtensions.BRIGHT_YELLOW;
+        public Color MessageColor = ColorExtensions.WHITE;
+        public Color DebugColor = ColorExtensions.DARK_GRAY;
+        public Color InfoColor = ColorExtensions.BRIGHT_GRAY;
+        public Color SuccessColor = ColorExtensions.BRIGHT_GREEN;
+
+        public string TimestampFormat = "[{0:00}:{1:00}:{2:00}]";
         public string CommandLogFormat = "> {0}";
 
-        public Color DefaultReturnValueColor = Color.white;
+        public Color DefaultReturnValueColor = ColorExt.Hex("FFBC8C");
         public List<TypeColorFormatter> TypeFormatters = new List<TypeColorFormatter>(0);
         public List<CollectionFormatter> CollectionFormatters = new List<CollectionFormatter>(0);
 
@@ -69,6 +78,54 @@ namespace Hikaria.QC
                 seperator = formatter.SeperatorString.Replace("\\n", "\n");
                 rightScoper = formatter.RightScoper.Replace("\\n", "\n");
             }
+        }
+
+        public static QuantumTheme DefaultTheme()
+        {
+            var theme = new QuantumTheme();
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(string))
+            {
+                Color = ColorExtensions.WHITE
+            });
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(IEnumerable))
+            {
+                Color = ColorExt.Hex("FDF269")
+            });
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(KeyValuePair))
+            {
+                Color = ColorExt.Hex("BAFFEE")
+            });
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(DictionaryEntry))
+            {
+                Color = ColorExt.Hex("BAFFEE")
+            });
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(Enum))
+            {
+                Color = ColorExt.Hex("C4FF8C")
+            });
+            theme.TypeFormatters.Add(new TypeColorFormatter(typeof(UnityEngine.Object))
+            {
+                Color = ColorExt.Hex("F799FF")
+            });
+            theme.CollectionFormatters.Add(new CollectionFormatter(typeof(Dictionary<,>))
+            {
+                LeftScoper = string.Empty,
+                RightScoper = string.Empty,
+                SeperatorString = "\n"
+            });
+            theme.CollectionFormatters.Add(new CollectionFormatter(typeof(ICollection))
+            {
+                LeftScoper = "[",
+                RightScoper = "]",
+                SeperatorString = ","
+            });
+            theme.CollectionFormatters.Add(new CollectionFormatter(typeof(IEnumerable))
+            {
+                LeftScoper = string.Empty,
+                RightScoper = string.Empty,
+                SeperatorString = "\n"
+            });
+            return theme;
         }
     }
 }

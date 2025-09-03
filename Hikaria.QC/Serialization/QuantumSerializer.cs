@@ -59,7 +59,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    throw new Exception($"Serialization of {type.GetDisplayName()} via {serializer} failed:\n{e.Message}", e);
+                    throw new Exception(QuantumGlobal.Localization.Format(64, type.GetDisplayName(), serializer, e.Message), e);
                 }
             }
 
@@ -94,7 +94,7 @@ namespace Hikaria.QC
                 }
             }
 
-            if (theme && !string.IsNullOrWhiteSpace(result))
+            if (theme is not null && !string.IsNullOrWhiteSpace(result))
             {
                 result = theme.ColorizeReturn(result, type);
             }

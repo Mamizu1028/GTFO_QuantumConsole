@@ -68,7 +68,7 @@ namespace Hikaria.QC
                 }
                 default:
                 {
-                    throw new ArgumentException($"Unsupported MonoTargetType {method}");
+                    throw new ArgumentException(QuantumGlobal.Localization.Format(73, method));
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace Hikaria.QC
             if (invokeCount == 0)
             {
                 string typeName = invokingMethod.DeclaringType.GetDisplayName();
-                throw new Exception($"Could not invoke the command because no objects of type {typeName} could be found.");
+                throw new Exception(QuantumGlobal.Localization.Format(74, typeName));
             }
 
             return null;
@@ -126,7 +126,7 @@ namespace Hikaria.QC
             switch (invocationCount)
             {
                 case 0:
-                    throw new Exception("No targets could be found");
+                    throw new Exception(QuantumGlobal.Localization.Get(75));
                 case 1:
                 {
                     string name;
@@ -138,11 +138,10 @@ namespace Hikaria.QC
                     {
                         name = lastTarget?.ToString();
                     }
-
-                    return $"> Invoked on {name}";
+                    return QuantumGlobal.Localization.Format(76, name);
                 }
                 default:
-                    return $"> Invoked on {invocationCount} targets";
+                    return QuantumGlobal.Localization.Format(77, invocationCount);
             }
         }
 
@@ -163,7 +162,7 @@ namespace Hikaria.QC
         {
             GameObject obj = new GameObject($"{classType}Singleton");
             Object.DontDestroyOnLoad(obj);
-            return obj.AddComponent(Il2CppType.From(classType, true));
+            return obj.AddComponent(Il2CppType.From(classType, true)).Cast<Component>();
         }
     }
 }

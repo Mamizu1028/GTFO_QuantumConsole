@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-
-namespace Hikaria.QC
+﻿namespace Hikaria.QC
 {
     public interface ILog
     {
         string Text { get; }
-        LogType Type { get; }
+        LogLevel Level { get; }
         bool NewLine { get; }
     }
 }

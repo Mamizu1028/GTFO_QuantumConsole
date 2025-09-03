@@ -9,32 +9,17 @@ namespace Hikaria.QC
 {
     public static partial class QuantumConsoleProcessor
     {
-
-        private const string helpStr = "Welcome to Quantum Console! In order to see specific help about any specific command, " +
-                "please use the 'man' command. Use 'man man' to see more about the man command. To see a full list of all " +
-                "commands, use 'all-commands'.\n\n" +
-                "mono-targets\nVarious commands may show a mono-target in their command signature.\n" +
-                "This means they are not static commands, and instead requires instance(s) of the class in order to invoke the command." +
-                "\nEach mono-target works differently as follows:" +
-                "\n - single: uses the first instance of the type found in the scene" +
-                "\n - all: uses all instances of the type found in the scene" +
-                "\n - registry: uses all instances of the type found in the registry" +
-                "\n - singleton: creates and manages a single instance automatically" +
-                "\n\nThe registry is a part of the Quantum Registry that allows you to decide which specific instances of the class " +
-                "should be used when invoking the command. In order to add an object to the registry, either use " +
-                "Hikaria.QC.QuantumRegistry.RegisterObject<T> or the runtime command 'register-object<T>'.";
-
         [Command("help", "Shows a basic help guide for Quantum Console")]
         private static string GetHelp()
         {
-            return helpStr;
+            return QuantumGlobal.Localization.Get(12);
         }
 
         [Command("manual")]
         [Command("man")]
         private static string ManualHelp()
         {
-            return "To use the man command, simply put the desired command name in front of it. For example, 'man my-command' will generate the manual for 'my-command'";
+            return QuantumGlobal.Localization.Get(13);
         }
 
         [CommandDescription("Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'")]
@@ -52,7 +37,7 @@ namespace Hikaria.QC
 
             if (matchingCommands.Length == 0)
             {
-                throw new ArgumentException($"No command with the name {commandName} was found.");
+                throw new ArgumentException(QuantumGlobal.Localization.Format(14, commandName));
             }
 
             Dictionary<string, ParameterInfo> foundParams = new Dictionary<string, ParameterInfo>();
@@ -60,7 +45,7 @@ namespace Hikaria.QC
             Dictionary<string, CommandParameterDescriptionAttribute> foundParamDescriptions = new Dictionary<string, CommandParameterDescriptionAttribute>();
             List<Type> declaringTypes = new List<Type>(1);
 
-            string manual = $"Generated user manual for {commandName}\nAvailable command signatures:";
+            string manual = QuantumGlobal.Localization.Format(15, commandName);
 
             for (int i = 0; i < matchingCommands.Length; i++)
             {
@@ -93,7 +78,7 @@ namespace Hikaria.QC
 
             if (foundParams.Count > 0)
             {
-                manual += "\nParameter info:";
+                manual += QuantumGlobal.Localization.Get(17);
                 ParameterInfo[] commandParams = foundParams.Values.ToArray();
                 for (int i = 0; i < commandParams.Length; i++)
                 {
@@ -132,21 +117,26 @@ namespace Hikaria.QC
                     }
                 }
             }
-            if (!string.IsNullOrWhiteSpace(genericConstraintInformation)) { manual += $"\nGeneric constraints:{genericConstraintInformation}"; }
+            if (!string.IsNullOrWhiteSpace(genericConstraintInformation)) { manual += QuantumGlobal.Localization.Format(18, genericConstraintInformation); }
 
             for (int i = 0; i < matchingCommands.Length; i++)
             {
                 CommandData currentCommand = _commandTable[matchingCommands[i]];
-                if (currentCommand.HasDescription)
+                if (currentCommand.TryGetLocalization(out var localization) && !string.IsNullOrEmpty(localization.Description))
                 {
-                    manual += $"\n\nCommand description:\n{currentCommand.CommandDescription}";
+                    manual += QuantumGlobal.Localization.Format(19, localization.Description);
+                    i = matchingCommands.Length;
+                }
+                else if (currentCommand.HasDescription)
+                {
+                    manual += QuantumGlobal.Localization.Format(19, currentCommand.CommandDescription);
                     i = matchingCommands.Length;
                 }
             }
 
             if (foundParamDescriptions.Count > 0)
             {
-                manual += "\n\nParameter descriptions:";
+                manual += QuantumGlobal.Localization.Get(20);
                 ParameterInfo[] commandParams = foundParams.Values.ToArray();
                 for (int i = 0; i < commandParams.Length; i++)
                 {
@@ -159,7 +149,7 @@ namespace Hikaria.QC
             }
 
             declaringTypes = declaringTypes.Distinct().ToList();
-            manual += "\n\nDeclared in";
+            manual += QuantumGlobal.Localization.Get(21);
             if (declaringTypes.Count == 1) { manual += $" {declaringTypes[0].GetDisplayName(true)}"; }
             else
             {
@@ -188,7 +178,7 @@ namespace Hikaria.QC
         [Command("all-commands")]
         private static string GenerateCommandList()
         {
-            string output = "List of all commands loaded by the Quantum Processor. Use 'man' on any command to see more:";
+            string output = QuantumGlobal.Localization.Get(22);
             foreach (CommandData command in GetUniqueCommands())
             {
                 output += $"\n   - {command.CommandName}";

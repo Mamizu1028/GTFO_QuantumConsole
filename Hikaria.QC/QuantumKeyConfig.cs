@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Hikaria.QC
 {
-    public class QuantumKeyConfig : ScriptableObject
+    public class QuantumKeyConfig
     {
         public KeyCode SubmitCommandKey = KeyCode.Return;
         public ModifierKeyCombo ShowConsoleKey = KeyCode.None;
         public ModifierKeyCombo HideConsoleKey = KeyCode.None;
-        public ModifierKeyCombo ToggleConsoleVisibilityKey = KeyCode.Escape;
+        public ModifierKeyCombo ToggleConsoleVisibilityKey = KeyCode.BackQuote;
 
         public ModifierKeyCombo ZoomInKey = new ModifierKeyCombo { Key = KeyCode.Equals, Ctrl = true };
         public ModifierKeyCombo ZoomOutKey = new ModifierKeyCombo { Key = KeyCode.Minus, Ctrl = true };

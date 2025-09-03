@@ -77,7 +77,7 @@ namespace Hikaria.QC
                 }
                 catch (MissingMethodException)
                 {
-                    Logs.Error($"Could not load {typeof(T)} {type} as it is missing a public parameterless constructor.");
+                    Logs.Error(QuantumGlobal.Localization.Format(72, typeof(T), type));
                 }
                 catch (Exception e)
                 {

@@ -13,7 +13,7 @@
 
         public static readonly ResponseConfig Default = new ResponseConfig
         {
-            InputPrompt = "Enter input...",
+            InputPrompt = QuantumGlobal.Localization.Get(90),
             LogInput = true
         };
     }

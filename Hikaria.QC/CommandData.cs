@@ -1,9 +1,11 @@
-﻿using Hikaria.QC.Utilities;
+﻿using Hikaria.QC.Internal;
+using Hikaria.QC.Localization;
+using Hikaria.QC.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Hikaria.QC.Internal;
+using TheArchive.Core.Localization;
 
 namespace Hikaria.QC
 {
@@ -17,6 +19,7 @@ namespace Hikaria.QC
         public readonly string CommandSignature;
         public readonly string ParameterSignature;
         public readonly string GenericSignature;
+        public readonly string LocalizationSignature;
 
         public readonly ParameterInfo[] MethodParamData;
         public readonly Type[] ParamTypes;
@@ -32,11 +35,29 @@ namespace Hikaria.QC
         public bool HasDescription => !string.IsNullOrWhiteSpace(CommandDescription);
         public int ParamCount => ParamTypes.Length - _defaultParameters.Length;
 
+
+        private Dictionary<Language, CommandLocalizationData> _localization;
+
+        internal void ApplyLocalization(Dictionary<Language, CommandLocalizationData> localization)
+        {
+            _localization = localization;
+        }
+
+        internal bool TryGetLocalization(out CommandLocalizationData localization)
+        {
+            return _localization.TryGetValue(QuantumGlobal.Localization.CurrentLanguage, out localization);
+        }
+
+        internal bool TryGetLocalization(Language language, out CommandLocalizationData localization)
+        {
+            return _localization.TryGetValue(language, out localization);
+        }
+
         public Type[] MakeGenericArguments(params Type[] genericTypeArguments)
         {
             if (genericTypeArguments.Length != GenericParamTypes.Length)
             {
-                throw new ArgumentException("Incorrect number of generic substitution types were supplied.");
+                throw new ArgumentException(QuantumGlobal.Localization.Get(69));
             }
 
             Dictionary<string, Type> substitutionTable = new Dictionary<string, Type>();
@@ -79,7 +100,7 @@ namespace Hikaria.QC
                 return baseType.MakeGenericType(typeArguments);
             }
 
-            throw new ArgumentException($"Could not construct the generic type {genericType}");
+            throw new ArgumentException(QuantumGlobal.Localization.Format(70, genericType));
         }
 
         public object Invoke(object[] paramData, Type[] genericTypeArguments)
@@ -140,7 +161,7 @@ namespace Hikaria.QC
                 }
                 catch (ArgumentException)
                 {
-                    throw new ArgumentException($"Supplied generic parameters did not satisfy the generic constraints imposed by '{CommandName}'");
+                    throw new ArgumentException(QuantumGlobal.Localization.Format(71, CommandName));
                 }
             }
 
@@ -301,6 +322,12 @@ namespace Hikaria.QC
             CommandSignature = ParamCount > 0
                 ? $"{CommandName}{GenericSignature} {ParameterSignature}"
                 : $"{CommandName}{GenericSignature}";
+
+            LocalizationSignature = MethodParamData.Length > 0
+                ? $"{CommandName}{GenericSignature} {BuildParameterSignature(MethodParamData, 0)}"
+                : $"{CommandName}{GenericSignature}";
+
+            this.LoadCommandLocalizationData();
         }
 
         public CommandData(MethodInfo methodData, MonoTargetType monoTarget, int defaultParameterCount = 0)
@@ -311,6 +338,7 @@ namespace Hikaria.QC
             : this(methodData, commandAttribute.Alias, commandAttribute.MonoTarget, defaultParameterCount)
         {
             CommandDescription = commandAttribute.Description;
+            this.LoadCommandLocalizationData();
         }
 
         public CommandData(MethodInfo methodData, CommandAttribute commandAttribute, CommandDescriptionAttribute descriptionAttribute, int defaultParameterCount = 0)
@@ -320,6 +348,7 @@ namespace Hikaria.QC
             {
                 CommandDescription = descriptionAttribute.Description;
             }
+            this.LoadCommandLocalizationData();
         }
     }
 }

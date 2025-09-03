@@ -1,22 +1,21 @@
-﻿using UnityEngine;
-
-namespace Hikaria.QC
+﻿namespace Hikaria.QC
 {
-    public class QuantumLocalization : ScriptableObject
+    public static class QuantumLocalization
     {
-        public string Loading = "Loading...";
-        public string ExecutingAsyncCommand = "Executing async command...";
-        public string EnterCommand = "Enter Command...";
+        public static string Loading => QuantumGlobal.Localization.Get(1);
+        public static string ExecutingAsyncCommand => QuantumGlobal.Localization.Get(2);
+        public static string EnterCommand => QuantumGlobal.Localization.Get(3);
 
-        public string CommandError = "Error";
-        public string ConsoleError = "Quantum Processor Error";
-        public string MaxLogSizeExceeded = "Log of size {0} exceeded the maximum log size of {1}";
+        public static string CommandError => QuantumGlobal.Localization.Get(4);
+        public static string ConsoleError => QuantumGlobal.Localization.Get(5);
+        public static string MaxLogSizeExceeded => QuantumGlobal.Localization.Get(6);
 
-        public string InitializationProgress =
-            "Q:\\>Quantum Console Processor is initializing\n" +
-            "Q:\\>Table generation under progress\n" +
-            "Q:\\>{0} commands have been loaded";
+        public static string InitializationProgress => QuantumGlobal.Localization.Get(7);
 
-        public string InitializationComplete = "Q:\\>Quantum Console Processor ready";
+        public static string InitializationComplete => QuantumGlobal.Localization.Get(8);
+
+        public static string SubmitButtonText => QuantumGlobal.Localization.Get(9);
+        public static string ClearButtonText => QuantumGlobal.Localization.Get(10);
+        public static string CloseButtonText => QuantumGlobal.Localization.Get(11);
     }
 }

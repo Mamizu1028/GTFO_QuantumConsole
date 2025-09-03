@@ -1,12 +1,13 @@
 ﻿using Hikaria.QC.Pooling;
+using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
 using Il2CppInterop.Runtime;
-using Il2CppSystem.Linq.Expressions.Interpreter;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using TheArchive.Core.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,7 +18,7 @@ namespace Hikaria.QC
     /// <summary>
     /// Provides the UI and I/O interface for the QuantumConsoleProcessor. Invokes commands on the processor and displays the output.
     /// </summary>
-    public class QuantumConsole : MonoBehaviour
+    public class QuantumConsole : MonoBehaviour, ILocalizedTextUpdater
     {
         /// <summary>
         /// Singleton reference to the console. Only valid and set if the singleton option is enabled for the console.
@@ -31,11 +32,15 @@ namespace Hikaria.QC
         private RectTransform _jobCounterRect;
         private Image[] _panels;
 
-        private QuantumTheme _theme;
-        private QuantumKeyConfig _keyConfig;
-        private QuantumLocalization _localization;
+        private QuantumTheme _theme = new();
+        private QuantumKeyConfig _keyConfig = new();
+        private QuantumConsolePreferences _preferences = new();
 
-        public QuantumTheme Theme => _theme;
+        public QuantumTheme Theme
+        {
+            get => _theme;
+            set => _theme = value;
+        }
 
         public QuantumKeyConfig KeyConfig
         {
@@ -43,40 +48,44 @@ namespace Hikaria.QC
             set => _keyConfig = value;
         }
 
-        public QuantumLocalization Localization
+        public QuantumConsolePreferences Preferences
         {
-            get => _localization;
-            set => _localization = value;
+            get => _preferences;
+            set
+            {
+                _preferences = value;
+                ApplyPreferences(value);
+            }
         }
 
         [Command("verbose-errors", "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.", MonoTargetType.Registry)]
         private bool _verboseErrors = false;
 
-        [Command("verbose-logging", "The minimum log severity required to use verbose logging.", MonoTargetType.Registry)]
-        private LoggingThreshold _verboseLogging = LoggingThreshold.Never;
+        [Command("verbose-logging", "The log levels required to use verbose logging.", MonoTargetType.Registry)]
+        private LogLevel _verboseLogging = LogLevel.None;
 
-        [Command("logging-level", "The minimum log severity required to intercept and display the log.", MonoTargetType.Registry)]
-        private LoggingThreshold _loggingLevel = LoggingThreshold.Always;
+        [Command("logging-level", "The log levels required to intercept and display the log.", MonoTargetType.Registry)]
+        private LogLevel _loggingLevel = LogLevel.All;
 
-        private LoggingThreshold _openOnLogLevel = LoggingThreshold.Never;
+        private LogLevel _openOnLogLevel = LogLevel.None;
         private bool _interceptDebugLogger = true;
         private bool _interceptWhilstInactive = true;
-        private bool _prependTimestamps = false;
+        private bool _prependTimestamps = true;
 
         private SupportedState _supportedState = SupportedState.Always;
-        private bool _activateOnStartup = true;
-        private bool _initialiseOnStartup = false;
+        private bool _activateOnStartup = false;
+        private bool _initialiseOnStartup = true;
         private bool _focusOnActivate = true;
         private bool _closeOnSubmit = false;
-        private bool _singletonMode = false;
+        private bool _singletonMode = true;
         private AutoScrollOptions _autoScroll = AutoScrollOptions.OnInvoke;
 
         private bool _enableAutocomplete = true;
         private bool _showPopupDisplay = true;
         private SortOrder _suggestionDisplayOrder = SortOrder.Descending;
-        private int _maxSuggestionDisplaySize = -1;
-        private bool _useFuzzySearch = false;
-        private bool _caseSensitiveSearch = true;
+        private int _maxSuggestionDisplaySize = 20;
+        private bool _useFuzzySearch = true;
+        private bool _caseSensitiveSearch = false;
         private bool _collapseSuggestionOverloads = true;
 
         private bool _showCurrentJobs = true;
@@ -85,7 +94,7 @@ namespace Hikaria.QC
         private bool _storeCommandHistory = true;
         private bool _storeDuplicateCommands = true;
         private bool _storeAdjacentDuplicateCommands = false;
-        private int _commandHistorySize = -1;
+        private int _commandHistorySize = 20;
 
         private int _maxStoredLogs = 1024;
         private int _maxLogSize = 8192;
@@ -98,6 +107,9 @@ namespace Hikaria.QC
         private TextMeshProUGUI _consoleSuggestionText;
         private TextMeshProUGUI _suggestionPopupText;
         private TextMeshProUGUI _jobCounterText;
+        private TextMeshProUGUI _submitButtonText;
+        private TextMeshProUGUI _clearButtonText;
+        private TextMeshProUGUI _closeButtonText;
 
         /// <summary>
         /// The maximum number of logs that may be stored in the log storage before old logs are removed.
@@ -181,7 +193,7 @@ namespace Hikaria.QC
         public void ApplyTheme(QuantumTheme theme, bool forceRefresh = false)
         {
             _theme = theme;
-            if (theme)
+            if (theme is not null)
             {
                 if (_textComponents == null || forceRefresh) { _textComponents = GetComponentsInChildren<TextMeshProUGUI>(true); }
                 foreach (TextMeshProUGUI text in _textComponents)
@@ -198,6 +210,54 @@ namespace Hikaria.QC
                     panel.color = theme.PanelColor;
                 }
             }
+        }
+
+        private void ApplyLocalization()
+        {
+            _submitButtonText.text = QuantumLocalization.SubmitButtonText;
+            _clearButtonText.text = QuantumLocalization.ClearButtonText;
+            _closeButtonText.text = QuantumLocalization.CloseButtonText;
+        }
+
+        private void ApplyPreferences(QuantumConsolePreferences pref)
+        {
+            _suggestionPopupText.fontSize = pref.SuggestionFontSize;
+            _consoleLogText.fontSize = pref.LogFontSize;
+
+            _verboseErrors = pref.VerboseErrors;
+            _verboseLogging = pref.VerboseLogging;
+            _loggingLevel = pref.LoggingLevel;
+
+            _openOnLogLevel = pref.OpenOnLogLevel;
+            _interceptDebugLogger = pref.InterceptDebugLogger;
+            _interceptWhilstInactive = pref.InterceptWhilstInactive;
+            _prependTimestamps = pref.PrependTimestamps;
+
+            _activateOnStartup = pref.ActivateOnStartup;
+            _initialiseOnStartup = pref.InitialiseOnStartup;
+            _focusOnActivate = pref.FocusOnActivate;
+            _closeOnSubmit = pref.CloseOnSubmit;
+            _autoScroll = pref.AutoScroll;
+
+            _enableAutocomplete = pref.EnableAutocomplete;
+            _showPopupDisplay = pref.ShowPopupDisplay;
+            _suggestionDisplayOrder = pref.SuggestionDisplayOrder;
+            _maxSuggestionDisplaySize = pref.MaxSuggestionDisplaySize;
+            _useFuzzySearch = pref.UseFuzzySearch;
+            _caseSensitiveSearch = pref.CaseSensitiveSearch;
+            _collapseSuggestionOverloads = pref.CollapseSuggestionOverloads;
+
+            _showCurrentJobs = pref.ShowCurrentJobs;
+            _blockOnAsync = pref.BlockOnAsync;
+
+            _storeCommandHistory = pref.StoreCommandHistory;
+            _storeDuplicateCommands = pref.StoreDuplicateCommands;
+            _storeAdjacentDuplicateCommands = pref.StoreAdjacentDuplicateCommands;
+            _commandHistorySize = pref.CommandHistorySize;
+
+            _maxStoredLogs = pref.MaxStoredLogs;
+            _maxLogSize = pref.MaxLogSize;
+            _showInitLogs = pref.ShowInitLogs;
         }
 
         protected virtual void Update()
@@ -232,7 +292,7 @@ namespace Hikaria.QC
                             OnStateChange?.Invoke();
                             _consoleLogText.text = consoleText;
                         }
-                        if (_inputPlaceholderText) { _inputPlaceholderText.text = _localization.Loading; }
+                        if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.Loading; }
                     }
 
                     return;
@@ -241,13 +301,13 @@ namespace Hikaria.QC
                 {
                     OnStateChange?.Invoke();
                     _consoleInput.interactable = false;
-                    if (_inputPlaceholderText) { _inputPlaceholderText.text = _localization.ExecutingAsyncCommand; }
+                    if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.ExecutingAsyncCommand; }
                 }
                 else if (!_consoleInput.interactable)
                 {
                     OnStateChange?.Invoke();
                     _consoleInput.interactable = true;
-                    if (_inputPlaceholderText) { _inputPlaceholderText.text = _localization.EnterCommand; }
+                    if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.EnterCommand; }
                     OverrideConsoleInput(string.Empty);
 
                     if (_isGeneratingTable)
@@ -297,7 +357,7 @@ namespace Hikaria.QC
 
         private string GetTableGenerationText()
         {
-            string text = string.Format(_localization.InitializationProgress, QuantumConsoleProcessor.LoadedCommandCount);
+            string text = string.Format(QuantumLocalization.InitializationProgress, QuantumConsoleProcessor.LoadedCommandCount);
 
             if (QuantumConsoleProcessor.TableIsGenerating)
             {
@@ -306,9 +366,9 @@ namespace Hikaria.QC
             else
             {
                 string completionText =
-                    _theme == null
-                        ? _localization.InitializationComplete
-                        : _localization.InitializationComplete.ColorText(_theme.SuccessColor);
+                    _theme is null
+                        ? QuantumLocalization.InitializationComplete
+                        : QuantumLocalization.InitializationComplete.ColorText(_theme.SuccessColor);
 
                 text += $"\n{completionText}";
             }
@@ -382,7 +442,7 @@ namespace Hikaria.QC
 
         private void FormatSuggestion(IQcSuggestion suggestion, bool selected, StringBuilder buffer)
         {
-            if (!_theme)
+            if (_theme is null)
             {
                 buffer.Append(suggestion.FullSignature);
                 return;
@@ -420,7 +480,7 @@ namespace Hikaria.QC
                 if (_maxSuggestionDisplaySize > 0 && i >= _maxSuggestionDisplaySize)
                 {
                     const string remainingSuggestion = "...";
-                    if (_theme && suggestionSet.SelectionIndex >= _maxSuggestionDisplaySize)
+                    if (_theme is not null && suggestionSet.SelectionIndex >= _maxSuggestionDisplaySize)
                     {
                         buffer.AppendColoredText(remainingSuggestion, _theme.SelectedSuggestionColor);
                     }
@@ -473,7 +533,7 @@ namespace Hikaria.QC
         {
             if (!_suggestionStack.SetSuggestionIndex(suggestionIndex))
             {
-                throw new ArgumentException($"Cannot set suggestion to index {suggestionIndex}.");
+                throw new ArgumentException(QuantumGlobal.Localization.Format(92, suggestionIndex));
             }
 
             OverrideConsoleInput(_suggestionStack.GetCompletion());
@@ -482,7 +542,7 @@ namespace Hikaria.QC
 
         private void UpdateSuggestionText()
         {
-            Color suggestionColor = _theme
+            Color suggestionColor = _theme is not null
                 ? _theme.SuggestionColor
                 : Color.gray;
 
@@ -624,7 +684,7 @@ namespace Hikaria.QC
         protected ILog GenerateCommandLog(string command)
         {
             string format =
-                _theme != null
+                _theme is not null
                     ? _theme.CommandLogFormat
                     : "> {0}";
 
@@ -635,7 +695,7 @@ namespace Hikaria.QC
             }
 
             string logValue = string.Format(format, command);
-            if (_theme)
+            if (_theme is not null)
             {
                 logValue = logValue.ColorText(_theme.CommandLogColor);
             }
@@ -671,7 +731,7 @@ namespace Hikaria.QC
                 catch (System.Reflection.TargetInvocationException e) { logTrace = GetInvocationErrorMessage(e.InnerException); }
                 catch (Exception e) { logTrace = GetErrorMessage(e); }
 
-                LogToConsole(logTrace);
+                LogToConsole(logTrace, LogLevel.Error);
                 OnInvoke?.Invoke(command);
 
                 if (_autoScroll == AutoScrollOptions.OnInvoke) { ScrollConsoleToLatest(); }
@@ -717,12 +777,12 @@ namespace Hikaria.QC
 
         private string GetErrorMessage(Exception e)
         {
-            return GetErrorMessage(e, _localization.ConsoleError);
+            return GetErrorMessage(e, QuantumLocalization.ConsoleError);
         }
 
         private string GetInvocationErrorMessage(Exception e)
         {
-            return GetErrorMessage(e, _localization.CommandError);
+            return GetErrorMessage(e, QuantumLocalization.CommandError);
         }
 
         private string GetErrorMessage(Exception e, string label)
@@ -731,7 +791,7 @@ namespace Hikaria.QC
                 ? $"{label} ({e.GetType()}): {e.Message}\n{e.StackTrace}"
                 : $"{label}: {e.Message}";
 
-            return _theme
+            return _theme is not null
                 ? message.ColorText(_theme.ErrorColor)
                 : message;
         }
@@ -739,7 +799,7 @@ namespace Hikaria.QC
         /// <summary>Thread safe API to format and log text to the Quantum Console.</summary>
         /// <param name="logText">Text to be logged.</param>
         /// <param name="logType">The type of the log to be logged.</param>
-        public void LogToConsoleAsync(string logText, LogType logType = LogType.Log)
+        public void LogToConsoleAsync(string logText, LogLevel logType = LogLevel.Message)
         {
             if (!string.IsNullOrWhiteSpace(logText))
             {
@@ -764,9 +824,8 @@ namespace Hikaria.QC
             while (_logQueue.TryDequeue(out ILog log))
             {
                 AppendLog(log);
-                LoggingThreshold severity = log.Type.ToLoggingThreshold();
                 scroll |= _autoScroll == AutoScrollOptions.Always;
-                open |= severity <= _openOnLogLevel;
+                open |= _openOnLogLevel.HasFlag(log.Level.GetHighestLevel());
             }
 
             if (scroll) { ScrollConsoleToLatest(); }
@@ -784,7 +843,7 @@ namespace Hikaria.QC
                         foreach (Exception e in _currentTasks[i].Exception.InnerExceptions)
                         {
                             string error = GetInvocationErrorMessage(e);
-                            LogToConsole(error);
+                            LogToConsole(error, LogLevel.Error);
                         }
                     }
                     else
@@ -881,7 +940,7 @@ namespace Hikaria.QC
                 {
                     _currentActions.RemoveAt(i);
                     string error = GetInvocationErrorMessage(e);
-                    LogToConsole(error);
+                    LogToConsole(error, LogLevel.Error);
                     break;
                 }
             }
@@ -918,12 +977,22 @@ namespace Hikaria.QC
         /// </summary>
         /// <param name="logText">Text to be logged.</param>
         /// <param name="newLine">If a newline should be ins</param>
-        public void LogToConsole(string logText, bool newLine = true)
+        public void LogToConsole(string logText, LogLevel logLevel = LogLevel.Message, bool prependTimestamps = false, bool newLine = true)
         {
             bool logExists = !string.IsNullOrEmpty(logText);
             if (logExists)
             {
-                LogToConsole(new Log(logText, LogType.Log, newLine));
+                if (prependTimestamps && _prependTimestamps)
+                {
+                    DateTime now = DateTime.Now;
+                    string format = _theme is not null
+                        ? _theme.TimestampFormat
+                        : "[{0:00}:{1:00}:{2:00}]";
+
+                    logText = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {logText}";
+                }
+                logText = logText.ColorText(logLevel.GetUnityColorFromTheme(_theme));
+                LogToConsole(new Log(logText, logLevel, newLine));
             }
         }
 
@@ -959,13 +1028,13 @@ namespace Hikaria.QC
                 return log;
             }
 
-            string msg = string.Format(_localization.MaxLogSizeExceeded, log.Text.Length, _maxLogSize);
-            if (_theme)
+            string msg = string.Format(QuantumLocalization.MaxLogSizeExceeded, log.Text.Length, _maxLogSize);
+            if (_theme is not null)
             {
                 msg = msg.ColorText(_theme.ErrorColor);
             }
 
-            return new Log(msg, LogType.Error);
+            return new Log(msg, LogLevel.Error);
         }
 
         protected void AppendLog(ILog log)
@@ -1032,9 +1101,92 @@ namespace Hikaria.QC
             ClearPopup();
         }
 
+        private void SetupComponents()
+        {
+            var consoleRect = transform.FindChild("ConsoleRect");
+            _containerRect = consoleRect.GetComponent<RectTransform>();
+            var dynamicCanvasScaler = gameObject.AddComponent<DynamicCanvasScaler>();
+            dynamicCanvasScaler.Setup(GetComponent<CanvasScaler>(), _containerRect);
+            var console = consoleRect.FindChild("Console");
+            var blurShaderController = gameObject.AddComponent<BlurShaderController>();
+            blurShaderController.Setup(_theme.PanelMaterial);
+            _scrollRect = console.GetComponent<ScrollRect>();
+            var resizeableUI = console.FindChild("Resize Anchor").gameObject.AddComponent<ResizableUI>();
+            resizeableUI.Setup(_containerRect, gameObject.GetComponent<Canvas>());
+            var consoleView = console.FindChild("Console View");
+            var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
+            draggableUI.Setup(_containerRect, this, _scrollRect);
+            _consoleLogText = consoleView.FindChild("View Port/Text").GetComponent<TextMeshProUGUI>();
+            _consoleLogText.fontSize = 14;
+            _consoleLogText.maxVisibleLines = int.MaxValue;
+            _consoleLogText.maxVisibleWords = int.MaxValue;
+            _consoleLogText.maxVisibleCharacters = int.MaxValue;
+            var popup = console.FindChild("Popup");
+            _suggestionPopupRect = popup.GetComponent<RectTransform>();
+            _suggestionPopupText = popup.FindChild("Text").GetComponent<TextMeshProUGUI>();
+            _suggestionPopupText.fontSize = 16;
+            var suggestionDisplay = popup.gameObject.AddComponent<SuggestionDisplay>();
+            suggestionDisplay.Setup(this, _suggestionPopupText);
+            var ioBar = consoleRect.FindChild("IOBar");
+            var jobCounter = ioBar.FindChild("JobCounter");
+            _jobCounterRect = jobCounter.GetComponent<RectTransform>();
+            _jobCounterText = jobCounter.FindChild("Text").GetComponent<TextMeshProUGUI>();
+            var inputField = ioBar.FindChild("InputField");
+            _consoleInput = inputField.GetComponent<TMP_InputField>();
+            _inputPlaceholderText = inputField.FindChild("Text Area/Placeholder").GetComponent<TextMeshProUGUI>();
+            _consoleSuggestionText = inputField.FindChild("Text Area/Backing Text").GetComponent<TextMeshProUGUI>();
+            var uiControlTab = console.FindChild("UI Controls Tab");
+            var zoomUIController = uiControlTab.gameObject.AddComponent<ZoomUIController>();
+            var zoomSizeUpButton = uiControlTab.FindChild("Zoom+").GetComponent<Button>();
+            zoomSizeUpButton.onClick.AddListener(new Action(zoomUIController.ZoomUp));
+            var zoomSizeDownButton = uiControlTab.FindChild("Zoom-").GetComponent<Button>();
+            zoomSizeDownButton.onClick.AddListener(new Action(zoomUIController.ZoomDown));
+            zoomUIController.Setup(zoomSizeDownButton, zoomSizeUpButton, dynamicCanvasScaler, this, uiControlTab.FindChild("Text").GetComponent<TextMeshProUGUI>());
+            _submitButtonText = ioBar.FindChild("Submit/Text").GetComponent<TextMeshProUGUI>();
+            _clearButtonText = ioBar.FindChild("Clear/Text").GetComponent<TextMeshProUGUI>();
+            _closeButtonText = ioBar.FindChild("Close/Text").GetComponent<TextMeshProUGUI>();
+
+            _panels = new Image[5];
+            _panels[0] = console.GetComponent<Image>();
+            _panels[1] = inputField.GetComponent<Image>();
+            _panels[2] = popup.GetComponent<Image>();
+            _panels[3] = jobCounter.GetComponent<Image>();
+            _panels[4] = uiControlTab.GetComponent<Image>();
+
+            var inputEventTrigger = _consoleInput.GetComponent<EventTrigger>();
+            var inputEventEntry = new EventTrigger.Entry
+            {
+                eventID = EventTriggerType.Submit
+            };
+            inputEventEntry.callback.AddListener(new Action<BaseEventData>((data) => { InvokeCommand(); }));
+            inputEventTrigger.triggers.Add(inputEventEntry);
+
+            var submitButton = ioBar.FindChild("Submit").GetComponent<Button>();
+            submitButton.onClick.AddListener(new Action(InvokeCommand));
+
+            var clearButton = ioBar.FindChild("Clear").GetComponent<Button>();
+            clearButton.onClick.AddListener(new Action(ClearConsole));
+
+            var closeButton = ioBar.FindChild("Close").GetComponent<Button>();
+            closeButton.onClick.AddListener(new Action(Deactivate));
+        }
+
         private void Awake()
         {
-            InitializeLogging();
+            _theme = QuantumTheme.DefaultTheme();
+            _logCallback = DelegateSupport.ConvertDelegate<Application.LogCallback>(DebugIntercept);
+
+            SetupComponents();
+
+            QuantumGlobal.Localization.AddTextUpdater(this);
+            //Application.s_LogCallbackHandlerThreaded += _logCallback;
+        }
+
+        private void OnDestroy()
+        {
+            //Application.s_LogCallbackHandlerThreaded -= _logCallback;
+
+            QuantumGlobal.Localization.RemoveTextUpdater(this);
         }
 
         private void OnEnable()
@@ -1115,8 +1267,9 @@ namespace Hikaria.QC
             _consoleSuggestionText.richText = true;
 
             ApplyTheme(_theme);
-            if (!_keyConfig) { _keyConfig = ScriptableObject.CreateInstance<QuantumKeyConfig>(); }
-            if (!_localization) { _localization = ScriptableObject.CreateInstance<QuantumLocalization>(); }
+            ApplyLocalization();
+            ApplyPreferences(_preferences);
+            if (_keyConfig is null) { _keyConfig = new(); }
         }
 
         private void InitializeSuggestionStack()
@@ -1130,7 +1283,6 @@ namespace Hikaria.QC
 
         private void InitializeLogging()
         {
-            _logCallback = _logCallback ?? DelegateSupport.ConvertDelegate<Application.LogCallback>(DebugIntercept);
             _logStorage = _logStorage ?? CreateLogStorage();
             _logQueue = _logQueue ?? CreateLogQueue();
         }
@@ -1190,9 +1342,9 @@ namespace Hikaria.QC
 
         private void DebugIntercept(string condition, string stackTrace, LogType type)
         {
-            if (_interceptDebugLogger && (IsActive || _interceptWhilstInactive) && _loggingLevel >= type.ToLoggingThreshold())
+            if (_interceptDebugLogger && (IsActive || _interceptWhilstInactive) && _loggingLevel.HasFlag(type.ToLogLevel()))
             {
-                bool appendStackTrace = _verboseLogging >= type.ToLoggingThreshold();
+                bool appendStackTrace = _verboseLogging.HasFlag(type.ToLogLevel());
                 ILog log = ConstructDebugLog(condition, stackTrace, type, _prependTimestamps, appendStackTrace);
                 LogToConsoleAsync(log);
             }
@@ -1203,7 +1355,7 @@ namespace Hikaria.QC
             if (prependTimeStamp)
             {
                 DateTime now = DateTime.Now;
-                string format = _theme
+                string format = _theme is not null
                     ? _theme.TimestampFormat
                     : "[{0:00}:{1:00}:{2:00}]";
 
@@ -1215,31 +1367,50 @@ namespace Hikaria.QC
                 condition += $"\n{stackTrace}";
             }
 
-            if (_theme)
+            var level = LogLevel.Message;
+            if (_theme is not null)
             {
                 switch (type)
                 {
+                    case LogType.Log:
+                        {
+                            condition = ColorExtensions.ColorText(condition, _theme.MessageColor);
+                            level = LogLevel.Message;
+                            break;
+                        }
                     case LogType.Warning:
-                    {
-                        condition = ColorExtensions.ColorText(condition, _theme.WarningColor);
-                        break;
-                    }
-                    case LogType.Error:
+                        {
+                            condition = ColorExtensions.ColorText(condition, _theme.WarningColor);
+                            level = LogLevel.Warning;
+                            break;
+                        }
                     case LogType.Assert:
+                        {
+                            condition = ColorExtensions.ColorText(condition, _theme.DebugColor);
+                            level = LogLevel.Debug;
+                            break;
+                        }
+                    case LogType.Error:
                     case LogType.Exception:
-                    {
-                        condition = ColorExtensions.ColorText(condition, _theme.ErrorColor);
-                        break;
-                    }
+                        {
+                            condition = ColorExtensions.ColorText(condition, _theme.ErrorColor);
+                            level = LogLevel.Error;
+                            break;
+                        }
                 }
             }
 
-            return new Log(condition, type, true);
+            return new Log(condition, level, true);
         }
 
         protected virtual void OnValidate()
         {
             MaxStoredLogs = _maxStoredLogs;
+        }
+
+        public void UpdateText()
+        {
+            ApplyLocalization();
         }
     }
 }

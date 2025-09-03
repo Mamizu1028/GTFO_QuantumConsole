@@ -78,5 +78,25 @@ namespace Hikaria.QC.Utilities
             if (nibble < 10) { return (char)('0' + nibble); }
             else { return (char)('A' + nibble - 10); }
         }
+
+        public static readonly Color BLACK = new Color(12f / 255f, 12f / 255f, 12f / 255f);
+        public static readonly Color DARK_BLUE = new Color(0f / 255f, 55f / 255f, 218f / 255f);
+        public static readonly Color DARK_GREEN = new Color(19f / 255f, 161f / 255f, 14f / 255f);
+        public static readonly Color DARK_CYAN = new Color(58f / 255f, 150f / 255f, 221f / 255f);
+        public static readonly Color DARK_RED = new Color(197f / 255f, 15f / 255f, 31f / 255f);
+        public static readonly Color DARK_MAGENTA = new Color(136f / 255f, 23f / 255f, 152f / 255f);
+        public static readonly Color DARK_YELLOW = new Color(193f / 255f, 156f / 255f, 0f / 255f);
+        public static readonly Color DARK_WHITE = new Color(204f / 255f, 204f / 255f, 204f / 255f);
+        public static readonly Color BRIGHT_BLACK = new Color(118f / 255f, 118f / 255f, 118f / 255f);
+        public static readonly Color BRIGHT_BLUE = new Color(59f / 255f, 120f / 255f, 255f / 255f);
+        public static readonly Color BRIGHT_GREEN = new Color(22f / 255f, 198f / 255f, 12f / 255f);
+        public static readonly Color BRIGHT_CYAN = new Color(97f / 255f, 214f / 255f, 214f / 255f);
+        public static readonly Color BRIGHT_RED = new Color(231f / 255f, 72f / 255f, 86f / 255f);
+        public static readonly Color BRIGHT_MAGENTA = new Color(180f / 255f, 0f / 255f, 158f / 255f);
+        public static readonly Color BRIGHT_YELLOW = new Color(249f / 255f, 241f / 255f, 165f / 255f);
+        public static readonly Color WHITE = new Color(242f / 255f, 242f / 255f, 242f / 255f);
+
+        public static Color DARK_GRAY => BRIGHT_BLACK;
+        public static Color BRIGHT_GRAY => DARK_WHITE;
     }
 }

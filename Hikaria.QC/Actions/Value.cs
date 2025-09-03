@@ -25,7 +25,7 @@
         {
             QuantumConsole console = context.Console;
             string serialized = _value as string ?? console.Serialize(_value);
-            console.LogToConsole(serialized, _newline);
+            console.LogToConsole(serialized, LogLevel.Message, false, _newline);
         }
     }
 }

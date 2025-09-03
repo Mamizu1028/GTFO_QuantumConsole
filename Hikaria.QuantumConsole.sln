@@ -69,25 +69,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC", "Hikaria.QC\Hikaria.QC.csproj", "{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Extras", "Hikaria.QC.Extras\Hikaria.QC.Extras.csproj", "{9068CAC2-540D-4A90-B056-301E7118AF55}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Grammar", "Hikaria.QC.Grammar\Hikaria.QC.Grammar.csproj", "{5F5CDCEA-1B43-479A-A51C-5C8B06F029DC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Parsers", "Hikaria.QC.Parsers\Hikaria.QC.Parsers.csproj", "{BBE02B8C-9FE5-4497-819D-720DC5CEE0A6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.QGUI", "Hikaria.QC.QGUI\Hikaria.QC.QGUI.csproj", "{4B43144A-B80B-4628-A589-554EA1CA6957}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.ScanRules", "Hikaria.QC.ScanRules\Hikaria.QC.ScanRules.csproj", "{C9360086-7F39-4349-94A2-EEC86F28A770}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Serializers", "Hikaria.QC.Serializers\Hikaria.QC.Serializers.csproj", "{1D781100-2CE1-477C-9AEB-910827BF00DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Suggestors", "Hikaria.QC.Suggestors\Hikaria.QC.Suggestors.csproj", "{3DF20893-CE09-4AA6-A63E-A0B0C637A739}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.UI", "Hikaria.QC.UI\Hikaria.QC.UI.csproj", "{C2EFC155-404F-4040-AE5E-EBD748EA3F35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Editor", "Hikaria.QC.Editor\Hikaria.QC.Editor.csproj", "{86443177-FAF0-401C-B33C-5382435F6FAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Editor.Tools", "Hikaria.QC.Editor.Tools\Hikaria.QC.Editor.Tools.csproj", "{956CA8DB-B7DF-477D-9882-8483B3A26740}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{AE5C61FB-14F7-4DE8-940F-EED795280C68}"
+	ProjectSection(SolutionItems) = preProject
+		Localization\Hikaria.QC_QuantumCommands_Localization.json = Localization\Hikaria.QC_QuantumCommands_Localization.json
+		Localization\QuantumConsoleSettings_Localization.json = Localization\QuantumConsoleSettings_Localization.json
+		Localization\_Hikaria.QC_ModuleLocalization.json = Localization\_Hikaria.QC_ModuleLocalization.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,38 +92,10 @@ Global
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9068CAC2-540D-4A90-B056-301E7118AF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9068CAC2-540D-4A90-B056-301E7118AF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9068CAC2-540D-4A90-B056-301E7118AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9068CAC2-540D-4A90-B056-301E7118AF55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F5CDCEA-1B43-479A-A51C-5C8B06F029DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F5CDCEA-1B43-479A-A51C-5C8B06F029DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F5CDCEA-1B43-479A-A51C-5C8B06F029DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F5CDCEA-1B43-479A-A51C-5C8B06F029DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBE02B8C-9FE5-4497-819D-720DC5CEE0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBE02B8C-9FE5-4497-819D-720DC5CEE0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBE02B8C-9FE5-4497-819D-720DC5CEE0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBE02B8C-9FE5-4497-819D-720DC5CEE0A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4B43144A-B80B-4628-A589-554EA1CA6957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4B43144A-B80B-4628-A589-554EA1CA6957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B43144A-B80B-4628-A589-554EA1CA6957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B43144A-B80B-4628-A589-554EA1CA6957}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C9360086-7F39-4349-94A2-EEC86F28A770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9360086-7F39-4349-94A2-EEC86F28A770}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9360086-7F39-4349-94A2-EEC86F28A770}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9360086-7F39-4349-94A2-EEC86F28A770}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D781100-2CE1-477C-9AEB-910827BF00DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D781100-2CE1-477C-9AEB-910827BF00DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D781100-2CE1-477C-9AEB-910827BF00DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D781100-2CE1-477C-9AEB-910827BF00DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DF20893-CE09-4AA6-A63E-A0B0C637A739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DF20893-CE09-4AA6-A63E-A0B0C637A739}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DF20893-CE09-4AA6-A63E-A0B0C637A739}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DF20893-CE09-4AA6-A63E-A0B0C637A739}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2EFC155-404F-4040-AE5E-EBD748EA3F35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2EFC155-404F-4040-AE5E-EBD748EA3F35}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2EFC155-404F-4040-AE5E-EBD748EA3F35}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2EFC155-404F-4040-AE5E-EBD748EA3F35}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86443177-FAF0-401C-B33C-5382435F6FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{86443177-FAF0-401C-B33C-5382435F6FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86443177-FAF0-401C-B33C-5382435F6FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU

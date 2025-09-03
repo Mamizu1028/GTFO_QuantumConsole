@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace Hikaria.QC
 {
@@ -29,7 +27,7 @@ namespace Hikaria.QC
             {
                 if (Alias.Contains(_bannedAliasChars[i]))
                 {
-                    string errorMessage = $"Development Processor Error: Command with alias '{Alias}' contains the char '{_bannedAliasChars[i]}' which is banned. Unexpected behaviour may occur.";
+                    string errorMessage = QuantumGlobal.Localization.Format(40, Alias, _bannedAliasChars[i]);
                     Logs.Error(errorMessage);
                     Valid = false;
                     throw new ArgumentException(errorMessage, nameof(aliasOverride));
