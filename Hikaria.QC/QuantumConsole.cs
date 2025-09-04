@@ -1254,6 +1254,7 @@ namespace Hikaria.QC
             enabled = false;
         }
 
+        private bool _initialized;
         private void Initialize()
         {
             if (!QuantumConsoleProcessor.TableGenerated)
@@ -1269,10 +1270,13 @@ namespace Hikaria.QC
             _consoleLogText.richText = true;
             _consoleSuggestionText.richText = true;
 
-            ApplyTheme(_theme);
-            ApplyLocalization();
-            ApplyPreferences(_preferences);
-            if (_keyConfig is null) { _keyConfig = new(); }
+            if (!_initialized)
+            {
+                ApplyTheme(_theme);
+                ApplyLocalization();
+                ApplyPreferences(_preferences);
+                _initialized = true;
+            }
         }
 
         private void InitializeSuggestionStack()
