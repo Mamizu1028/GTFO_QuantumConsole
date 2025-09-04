@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Hikaria.QC.Utilities;
 
-public class TMPTagCloser
+public static class RichTextTagsExtensions
 {
     // 定义TMP支持的标签类型
     private static readonly HashSet<string> SupportedTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -22,10 +22,13 @@ public class TMPTagCloser
         "br", "nobr", "page", "sprite", "quad"
     };
 
-    public static string CloseTMPTags(string input)
+    public static void FixRichTextTags(this string input)
     {
         if (string.IsNullOrEmpty(input))
-            return input;
+            return;
+
+        // 首先处理特殊格式 <#{colorHex}> 转换为标准的 <color=#{colorHex}>
+        string correctedInput = Regex.Replace(input, @"<#([0-9A-Fa-f]{3,6,8})>", "<color=#$1>");
 
         // 用于跟踪打开的标签
         Stack<string> openTags = new Stack<string>();
@@ -34,7 +37,7 @@ public class TMPTagCloser
         StringBuilder result = new StringBuilder(input);
 
         // 查找所有标签
-        string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
+        const string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
         MatchCollection matches = Regex.Matches(input, pattern, RegexOptions.IgnoreCase);
 
         foreach (Match match in matches)
@@ -72,17 +75,20 @@ public class TMPTagCloser
             result.Append($"</{tagToClose}>");
         }
 
-        return result.ToString();
+        input = result.ToString();
     }
 
     // 更复杂的版本，处理嵌套标签的正确顺序
-    public static string CloseTMPTagsAdvanced(string input)
+    public static void FixRichTextTagsAdvanced(this string input)
     {
         if (string.IsNullOrEmpty(input))
-            return input;
+            return;
+
+        // 首先处理特殊格式 <#{colorHex}> 转换为标准的 <color=#{colorHex}>
+        string correctedInput = Regex.Replace(input, @"<#([0-9A-Fa-f]{3,6,8})>", "<color=#$1>");
 
         // 使用正则表达式找出所有标签
-        string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
+        const string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
 
         // 用于存储标签及其位置信息
         List<TagInfo> tags = new List<TagInfo>();
@@ -212,7 +218,7 @@ public class TMPTagCloser
             }
         }
 
-        return result.ToString();
+        input = result.ToString();
     }
 
     private class TagInfo

@@ -26,7 +26,7 @@ namespace Hikaria.QC.Actions
             {
                 ItemFormat = "{0} [{1}]",
                 Delimiter = " ",
-                SelectedColor = Color.green
+                SelectedColor = ColorExtensions.BRIGHT_GREEN
             };
         }
 

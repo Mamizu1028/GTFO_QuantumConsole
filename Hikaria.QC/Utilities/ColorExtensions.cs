@@ -33,7 +33,7 @@ namespace Hikaria.QC.Utilities
             }
 
             string hexColor = Color32ToStringNonAlloc(color);
-            stringBuilder.Append("<#");
+            stringBuilder.Append("<color=#");
             stringBuilder.Append(hexColor);
             stringBuilder.Append('>');
             stringBuilder.Append(text);

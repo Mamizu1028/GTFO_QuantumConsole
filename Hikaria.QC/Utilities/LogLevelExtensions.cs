@@ -50,6 +50,6 @@ public static class LogLevelExtensions
             default:
                 break;
         }
-        return Color.gray;
+        return ColorExtensions.BRIGHT_GRAY;
     }
 }

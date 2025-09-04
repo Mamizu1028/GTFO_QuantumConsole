@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using Hikaria.QC.Utilities;
+using Il2CppInterop.Runtime.Attributes;
 using System;
 using TheArchive.Loader;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Hikaria.QC
     [Serializable]
     public class TypeColorFormatter : TypeFormatter
     {
-        public Color Color = Color.white;
+        public Color Color = ColorExtensions.WHITE;
 
         public TypeColorFormatter(Type type) : base(type) { }
         public TypeColorFormatter(IntPtr ptr) : base(ptr) { }

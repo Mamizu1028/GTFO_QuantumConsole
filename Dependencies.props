@@ -63,4 +63,36 @@
 		<Message Text="Localization files copied!" Importance="High" />
 	</Target>
 
+	<Target Name="CopyAssetsFilesAfterBuild" AfterTargets="CopyAssemblyAfterBuild"  Condition="'$(AssetsFileDir)' != ''">
+		<Message Text="Copying Assets files to Output Folder ..." />
+		<ItemGroup>
+			<AssetsFilesToCopy Include="$(AssetsFileDir)\**\*.*" />
+		</ItemGroup>
+		<Copy
+				SourceFiles="@(AssetsFilesToCopy)"
+				DestinationFolder="$(PluginOutputPath)\Assets\%(RecursiveDir)"
+				SkipUnchangedFiles="true"
+				OverwriteReadOnlyFiles="true"
+				Retries="3"
+				RetryDelayMilliseconds="300"/>
+		<Message Text="Assets files copied!" Importance="High" />
+	</Target>
+
+	<Target Name="CopyOutputFilesToPluginFolder" AfterTargets="CopyAssemblyAfterBuild;CopyLocalizationFilesAfterBuild;CopyAssetsFilesAfterBuild" Condition="$(CopyBuildToPluginFolder) == 'true'">
+		<Message Text="Copying Output to Plugins Folder..." />
+		<MakeDir Directories="$(PluginsFolder)\$(AssemblyName)" Condition="!Exists('$(PluginsFolder)\$(AssemblyName)')"  />
+		<ItemGroup>
+			<OutputFilesToCopy Include="$(PluginOutputPath)\**\*.*" />
+		</ItemGroup>
+		<Copy
+				SourceFiles="@(OutputFilesToCopy)"
+				DestinationFolder="$(PluginsFolder)\$(AssemblyName)\%(RecursiveDir)"
+				SkipUnchangedFiles="true"
+				OverwriteReadOnlyFiles="true"
+				Retries="3"
+				RetryDelayMilliseconds="300"/>
+
+		<Message Text="Output has been copied to Plugins Folder!" Importance="High"/>
+	</Target>
+
 </Project>

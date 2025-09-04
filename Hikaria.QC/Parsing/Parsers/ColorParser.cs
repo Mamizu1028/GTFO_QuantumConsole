@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hikaria.QC.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -54,7 +55,7 @@ namespace Hikaria.QC.Parsers
         private Color ParseRGBAColor(string value)
         {
             string[] colorParts = value.Split(',');
-            Color parsedColor = Color.white;
+            Color parsedColor = ColorExtensions.WHITE;
             int i = 0;
 
             if (colorParts.Length < 3 || colorParts.Length > 4) { throw new FormatException(QuantumGlobal.Localization.Get(48)); }
@@ -89,7 +90,7 @@ namespace Hikaria.QC.Parsers
                 throw new FormatException(QuantumGlobal.Localization.Get(51));
             }
 
-            Color parsedColor = Color.white;
+            Color parsedColor = ColorExtensions.WHITE;
             int byteCount = digitCount / 2;
             int i = 0;
 

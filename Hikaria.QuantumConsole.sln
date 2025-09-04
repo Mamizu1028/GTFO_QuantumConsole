@@ -59,6 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prefabs", "Prefabs", "{B663
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DBA1AEDC-50B7-4FD2-8DF8-2DF43F9ACCBD}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		changelog.txt = changelog.txt
 		DefineConstants.props = DefineConstants.props
 		Dependencies.props = Dependencies.props

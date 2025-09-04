@@ -448,7 +448,7 @@ namespace Hikaria.QC
                 return;
             }
 
-            Color primaryColor = Color.white;
+            Color primaryColor = ColorExtensions.WHITE;
             Color secondaryColor = _theme.SuggestionColor;
             if (selected)
             {
@@ -544,7 +544,7 @@ namespace Hikaria.QC
         {
             Color suggestionColor = _theme is not null
                 ? _theme.SuggestionColor
-                : Color.gray;
+                : ColorExtensions.BRIGHT_GRAY;
 
             StringBuilder buffer = _stringBuilderPool.GetStringBuilder();
             buffer.AppendColoredText(_currentInput, Color.clear);
@@ -976,6 +976,7 @@ namespace Hikaria.QC
         /// Logs text to the Quantum Console.
         /// </summary>
         /// <param name="logText">Text to be logged.</param>
+        /// <param name="prependTimestamps">If a timestamp should be prepended.</param>
         /// <param name="newLine">If a newline should be ins</param>
         public void LogToConsole(string logText, LogLevel logLevel = LogLevel.Message, bool prependTimestamps = false, bool newLine = true)
         {
@@ -992,6 +993,7 @@ namespace Hikaria.QC
                     logText = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {logText}";
                 }
                 logText = logText.ColorText(logLevel.GetUnityColorFromTheme(_theme));
+                logText.FixRichTextTagsAdvanced();
                 LogToConsole(new Log(logText, logLevel, newLine));
             }
         }
@@ -1121,6 +1123,7 @@ namespace Hikaria.QC
             _consoleLogText.maxVisibleLines = int.MaxValue;
             _consoleLogText.maxVisibleWords = int.MaxValue;
             _consoleLogText.maxVisibleCharacters = int.MaxValue;
+            _consoleLogText.color = ColorExtensions.WHITE;
             var popup = console.FindChild("Popup");
             _suggestionPopupRect = popup.GetComponent<RectTransform>();
             _suggestionPopupText = popup.FindChild("Text").GetComponent<TextMeshProUGUI>();
@@ -1240,7 +1243,7 @@ namespace Hikaria.QC
         private void OnDisable()
         {
             QuantumRegistry.DeregisterObject(this);
-            Application.remove_logMessageReceivedThreaded(_logCallback);
+            //Application.remove_logMessageReceivedThreaded(_logCallback);
 
             Deactivate();
         }

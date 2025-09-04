@@ -8,6 +8,13 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<AssetsFileDir>../Assets/</AssetsFileDir>
+		<PluginOutputPath>../output/Hikaria.QuantumConsole/plugins/</PluginOutputPath>
+		<LocalizationFileDir>../Localization/</LocalizationFileDir>
+		<CopyBuildToPluginFolder>true</CopyBuildToPluginFolder>
+	</PropertyGroup>
+
 	<Import Project="../Dependencies.props" />
 	<Import Project="../DefineConstants.props" />
 
