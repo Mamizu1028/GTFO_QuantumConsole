@@ -70,12 +70,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC", "Hikaria.QC\Hikaria.QC.csproj", "{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.QGUI", "Hikaria.QC.QGUI\Hikaria.QC.QGUI.csproj", "{4B43144A-B80B-4628-A589-554EA1CA6957}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Editor", "Hikaria.QC.Editor\Hikaria.QC.Editor.csproj", "{86443177-FAF0-401C-B33C-5382435F6FAB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Editor.Tools", "Hikaria.QC.Editor.Tools\Hikaria.QC.Editor.Tools.csproj", "{956CA8DB-B7DF-477D-9882-8483B3A26740}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{AE5C61FB-14F7-4DE8-940F-EED795280C68}"
 	ProjectSection(SolutionItems) = preProject
 		Localization\Hikaria.QC_QuantumCommands_Localization.json = Localization\Hikaria.QC_QuantumCommands_Localization.json
@@ -93,18 +87,6 @@ Global
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E70D18E1-1847-F4CB-B3D3-1007D522B3BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B43144A-B80B-4628-A589-554EA1CA6957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B43144A-B80B-4628-A589-554EA1CA6957}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B43144A-B80B-4628-A589-554EA1CA6957}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B43144A-B80B-4628-A589-554EA1CA6957}.Release|Any CPU.Build.0 = Release|Any CPU
-		{86443177-FAF0-401C-B33C-5382435F6FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86443177-FAF0-401C-B33C-5382435F6FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{86443177-FAF0-401C-B33C-5382435F6FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86443177-FAF0-401C-B33C-5382435F6FAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{956CA8DB-B7DF-477D-9882-8483B3A26740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{956CA8DB-B7DF-477D-9882-8483B3A26740}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{956CA8DB-B7DF-477D-9882-8483B3A26740}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{956CA8DB-B7DF-477D-9882-8483B3A26740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
