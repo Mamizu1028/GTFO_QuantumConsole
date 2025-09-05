@@ -330,10 +330,8 @@ internal class QuantumConsoleSettings : Feature
 
         public void LogEvent(object sender, LogEventArgs eventArgs)
         {
-            if (eventArgs.Source.SourceName == "Unity")
-                return;
-
-            if (eventArgs.Level == BepInEx.Logging.LogLevel.None)
+            if (eventArgs.Source.SourceName == "Unity"
+                || eventArgs.Source.SourceName == "Hikaria.QuantumConsole")
                 return;
 
             if (QuantumConsole.Instance == null)
