@@ -15,7 +15,8 @@
                 case "off": return false;
                 case "0": return false;
                 case "no": return false;
-                default: throw new ParserInputException(QuantumGlobal.Localization.Format(46, value));
+                default: throw new ParserInputException(QuantumGlobal.Localization.Format(46, 
+                    "Cannot parse '{0}' to a bool.", value));
             }
         }
     }

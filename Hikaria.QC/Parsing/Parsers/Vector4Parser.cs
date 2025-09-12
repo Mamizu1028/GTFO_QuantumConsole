@@ -11,7 +11,8 @@ namespace Hikaria.QC.Parsers
 
             if (vectorParts.Length < 2 || vectorParts.Length > 4)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(60, value));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(60,
+                    "Cannot parse '{0}' as a vector, the format must be either x,y x,y,z or x,y,z,w.", value));
             }
 
             for (int i = 0; i < vectorParts.Length; i++)

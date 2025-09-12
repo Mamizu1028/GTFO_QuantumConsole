@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using TheArchive.Core.Localization;
+using TheArchive.Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,6 +25,11 @@ namespace Hikaria.QC
         /// Singleton reference to the console. Only valid and set if the singleton option is enabled for the console.
         /// </summary>
         public static QuantumConsole Instance { get; private set; }
+
+        /// <summary>
+        /// Called once quantum console has been loaded.
+        /// </summary>
+        public static event Action QuantumConsoleReady;
 
 #pragma warning disable 0414, 0067, 0649
         private RectTransform _containerRect;
@@ -533,7 +539,7 @@ namespace Hikaria.QC
         {
             if (!_suggestionStack.SetSuggestionIndex(suggestionIndex))
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(92, suggestionIndex));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(92, "Cannot set suggestion to index {0}.", suggestionIndex));
             }
 
             OverrideConsoleInput(_suggestionStack.GetCompletion());
@@ -1275,6 +1281,7 @@ namespace Hikaria.QC
                 ApplyTheme(_theme);
                 ApplyLocalization();
                 ApplyPreferences(_preferences);
+                Utils.SafeInvoke(QuantumConsoleReady);
                 _initialized = true;
             }
         }

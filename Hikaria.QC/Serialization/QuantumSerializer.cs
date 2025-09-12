@@ -59,7 +59,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumGlobal.Localization.Format(64, type.GetDisplayName(), serializer, e.Message), e);
+                    throw new Exception(QuantumGlobal.Localization.Format(64, "Serialization of {0} via {1} failed:\n{2}", type.GetDisplayName(), serializer, e.Message), e);
                 }
             }
 

@@ -4,19 +4,18 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AssetsFileDir>../Assets/</AssetsFileDir>
-		<DefinitionFileDir>../Definitions/</DefinitionFileDir>
-		<PluginOutputPath>../output/Hikaria.QuantumConsole/plugins/</PluginOutputPath>
-		<LocalizationFileDir>../Localization/</LocalizationFileDir>
+		<PluginOutputPath>../output/Hikaria.QuantumConsole.Extras/plugins/</PluginOutputPath>
+		<LocalizationFileDir>./Localization/</LocalizationFileDir>
 		<CopyBuildToPluginFolder>true</CopyBuildToPluginFolder>
 	</PropertyGroup>
 
 	<Import Project="../Dependencies.props" />
 	<Import Project="../DefineConstants.props" />
+	<ItemGroup>
+	  <ProjectReference Include="..\Hikaria.QC\Hikaria.QC.csproj" />
+	</ItemGroup>
 
 </Project>

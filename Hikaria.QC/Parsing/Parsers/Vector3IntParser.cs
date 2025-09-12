@@ -11,7 +11,8 @@ namespace Hikaria.QC.Parsers
 
             if (vectorParts.Length < 2 || vectorParts.Length > 3)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(58, value));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(58, 
+                    "Cannot parse '{0}' as an int vector, the format must be either x,y or x,y,z.", value));
             }
 
             int i = 0;
@@ -26,7 +27,8 @@ namespace Hikaria.QC.Parsers
             }
             catch
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(59, vectorParts[i]));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(59, 
+                    "Cannot parse '{0}' as it must be integral.", vectorParts[i]));
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
+using Hikaria.QC.Utilities;
 using Il2CppInterop.Runtime;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,14 +50,6 @@ namespace Hikaria.QC.Extras
             {
                 UnblockInput();
             }
-        }
-
-        public static void Init()
-        {
-            GameObject obj = new GameObject($"{nameof(KeyBinderModule)}Singleton");
-            UnityEngine.Object.DontDestroyOnLoad(obj);
-            var target = obj.AddComponent(Il2CppType.From(typeof(KeyBinderModule), true)).Cast<Component>();
-            QuantumRegistry.RegisterObject(typeof(KeyBinderModule), target);
         }
 
         private void Awake()

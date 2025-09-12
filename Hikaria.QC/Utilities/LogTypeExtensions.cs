@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Hikaria.QC
+namespace Hikaria.QC.Utilities
 {
     public static class LogTypeExtensions
     {

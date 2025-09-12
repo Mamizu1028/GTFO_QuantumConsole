@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using Hikaria.QC.Utilities;
+using System;
 using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace Hikaria.QC
 {
@@ -23,7 +22,8 @@ namespace Hikaria.QC
             {
                 if (Prefix.Contains(c))
                 {
-                    string errorMessage = QuantumGlobal.Localization.Format(41, Prefix, c);
+                    string errorMessage = QuantumGlobal.Localization.Format(41,
+                        "Development Processor Error: Command prefix '{0}' contains the char '{1}' which is banned. Unexpected behaviour may occurr.", Prefix, c);
                     Logs.Error(errorMessage);
 
                     Valid = false;

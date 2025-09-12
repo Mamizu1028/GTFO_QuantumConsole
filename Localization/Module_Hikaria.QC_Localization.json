@@ -1,32 +1,4 @@
 ﻿{
-  "ModuleGroup": {
-    "DisplayName": {
-      "English": "Quantum Console",
-      "Chinese": "量子控制台",
-      "French": null,
-      "Italian": null,
-      "German": null,
-      "Spanish": null,
-      "Russian": null,
-      "Portuguese_Brazil": null,
-      "Polish": null,
-      "Japanese": null,
-      "Korean": null
-    },
-    "Description": {
-      "English": null,
-      "Chinese": null,
-      "French": null,
-      "Italian": null,
-      "German": null,
-      "Spanish": null,
-      "Russian": null,
-      "Portuguese_Brazil": null,
-      "Polish": null,
-      "Japanese": null,
-      "Korean": null
-    }
-  },
   "GenericTexts": {
     "1": {
       "Comment": "Loading",
@@ -131,13 +103,6 @@
       "Data": {
         "English": "Generated user manual for {0}\nAvailable command signatures:",
         "Chinese": "为 {0} 生成的使用手册\n可用的指令签名："
-      }
-    },
-    "16": {
-      "Comment": "manualText",
-      "Data": {
-        "English": " (mono-target = {0})",
-        "Chinese": " (mono-target = {0})"
       }
     },
     "17": {

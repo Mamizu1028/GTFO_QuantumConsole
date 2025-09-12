@@ -39,7 +39,7 @@ namespace Hikaria.QC.Parsers
             }
             catch (FormatException e)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(56, value, type.GetDisplayName()), e);
+                throw new ParserInputException(QuantumGlobal.Localization.Format(56, "Cannot parse '{0}' to the type '{1}'.", value, type.GetDisplayName()), e);
             }
         }
     }

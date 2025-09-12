@@ -1,6 +1,5 @@
 ﻿using BepInEx.Logging;
 using Globals;
-using Hikaria.QC.Extras;
 using Hikaria.QC.Localization;
 using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
@@ -16,6 +15,7 @@ using TheArchive.Core.Attributes.Feature.Settings;
 using TheArchive.Core.FeaturesAPI;
 using TheArchive.Loader;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Logger = BepInEx.Logging.Logger;
 
 namespace Hikaria.QC;
@@ -27,7 +27,7 @@ internal class QuantumConsoleSettings : Feature
 {
     public override string Name => "量子终端设置";
 
-    public override Type[] LocalizationExternalTypes => new[]
+    public override Type[] ExternalLocalizedTypes => new[]
     {
         typeof(BepInEx.Logging.LogLevel), typeof(LogLevel), typeof(AutoScrollOptions), typeof(SortOrder)
     };
@@ -271,7 +271,7 @@ internal class QuantumConsoleSettings : Feature
     public override void Init()
     {
         BIELogListener.Init();
-        CommandLocalizationHelper.Init();
+        CommandLocalizationManager.Init();
     }
 
     public override void OnEnable()
@@ -366,9 +366,6 @@ internal class QuantumConsoleSettings : Feature
         {
             if (!_inited)
             {
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<CoroutineCommands>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<KeyBinderModule>();
-
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<QuantumConsole>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DraggableUI>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<BlurShaderController>();
@@ -396,8 +393,6 @@ internal class QuantumConsoleSettings : Feature
                 console.Theme = Settings.ThemeSettings;
                 console.KeyConfig = Settings.KeySettings;
                 console.Preferences = Settings.PreferenceSettings;
-
-                KeyBinderModule.Init();
 
                 _inited = true;
             }

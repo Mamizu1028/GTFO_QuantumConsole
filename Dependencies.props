@@ -34,6 +34,7 @@
 		<Reference Include="$(PluginsFolder)/**/UnityExplorer.BIE.Unity.IL2CPP.CoreCLR.dll" Private="false" />
 		<Reference Include="$(PluginsFolder)/**/Clonesoft.Json.dll" Private="false" />
 		<Reference Include="$(PluginsFolder)/**/TheArchive.Core.dll" Private="false" />
+		<Reference Include="$(PluginsFolder)/**/Hikaria.EnhancedScroller.dll" Private="false" />
 	</ItemGroup>
 
 	<!-- MSBuild Actions -->
@@ -47,7 +48,23 @@
 
 		<Message Text="Assembly has been copied to Ouput Folder!" Importance="High"/>
 	</Target>
-	
+
+	<Target Name="CopyDefinitionFilesAfterBuild" AfterTargets="CopyAssemblyAfterBuild"  Condition="'$(DefinitionFileDir)' != ''">
+		<Message Text="Copying Definition files to Output Folder ..." />
+		<ItemGroup>
+			<DefinitionFilesToCopy Include="$(DefinitionFileDir)\**\*.*" />
+		</ItemGroup>
+		<Copy
+				SourceFiles="@(DefinitionFilesToCopy)"
+				DestinationFolder="$(PluginOutputPath)\%(RecursiveDir)"
+				SkipUnchangedFiles="true"
+				OverwriteReadOnlyFiles="true"
+				Retries="3"
+				RetryDelayMilliseconds="300"/>
+		<Message Text="Definition files copied!" Importance="High" />
+	</Target>
+
+
 	<Target Name="CopyLocalizationFilesAfterBuild" AfterTargets="CopyAssemblyAfterBuild"  Condition="'$(LocalizationFileDir)' != ''">
 		<Message Text="Copying Localization files to Output Folder ..." />
 		<ItemGroup>
@@ -78,7 +95,7 @@
 		<Message Text="Assets files copied!" Importance="High" />
 	</Target>
 
-	<Target Name="CopyOutputFilesToPluginFolder" AfterTargets="CopyAssemblyAfterBuild;CopyLocalizationFilesAfterBuild;CopyAssetsFilesAfterBuild" Condition="$(CopyBuildToPluginFolder) == 'true'">
+	<Target Name="CopyOutputFilesToPluginFolder" AfterTargets="CopyAssemblyAfterBuild;CopyDefinitionFilesAfterBuild;CopyLocalizationFilesAfterBuild;CopyAssetsFilesAfterBuild" Condition="$(CopyBuildToPluginFolder) == 'true'">
 		<Message Text="Copying Output to Plugins Folder..." />
 		<MakeDir Directories="$(PluginsFolder)\$(AssemblyName)" Condition="!Exists('$(PluginsFolder)\$(AssemblyName)')"  />
 		<ItemGroup>

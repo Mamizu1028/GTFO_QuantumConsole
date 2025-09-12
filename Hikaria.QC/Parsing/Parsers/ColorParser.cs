@@ -48,7 +48,8 @@ namespace Hikaria.QC.Parsers
             }
             catch (FormatException e)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(47, e.Message), e);
+                throw new ParserInputException(QuantumGlobal.Localization.Format(47,
+                    "{0}\nThe format must be either of:\n   - R,G,B\n   - R,G,B,A\n   - 0xRRGGBB\n   - 0xRRGGBBAA\n   - A preset color such as 'red'", e.Message), e);
             }
         }
 
@@ -58,12 +59,12 @@ namespace Hikaria.QC.Parsers
             Color parsedColor = ColorExtensions.WHITE;
             int i = 0;
 
-            if (colorParts.Length < 3 || colorParts.Length > 4) { throw new FormatException(QuantumGlobal.Localization.Get(48)); }
+            if (colorParts.Length < 3 || colorParts.Length > 4) { throw new FormatException(QuantumGlobal.Localization.GetById(48, "Cannot parse '{0}' to a Color.")); }
 
             float ParsePart(string part)
             {
                 float val = float.Parse(part);
-                if (val < 0 || val > 1) { throw new FormatException(QuantumGlobal.Localization.Format(49, val)); }
+                if (val < 0 || val > 1) { throw new FormatException(QuantumGlobal.Localization.Format(49, "{0} falls outside of the valid [0,1] range for a component of a Color.", val)); }
                 return val;
             }
 
@@ -78,7 +79,8 @@ namespace Hikaria.QC.Parsers
             }
             catch (FormatException)
             {
-                throw new FormatException(QuantumGlobal.Localization.Format(50, colorParts[i]));
+                throw new FormatException(QuantumGlobal.Localization.Format(50, 
+                    "Cannot parse '{0}' as part of a Color, it must be numerical and in the valid range [0,1].", colorParts[i]));
             }
         }
 
@@ -87,7 +89,7 @@ namespace Hikaria.QC.Parsers
             int digitCount = value.Length - 2;
             if (digitCount != 6 && digitCount != 8)
             {
-                throw new FormatException(QuantumGlobal.Localization.Get(51));
+                throw new FormatException(QuantumGlobal.Localization.GetById(51, "Hex colors must contain either 6 or 8 hex digits."));
             }
 
             Color parsedColor = ColorExtensions.WHITE;
@@ -105,7 +107,7 @@ namespace Hikaria.QC.Parsers
             }
             catch (FormatException)
             {
-                throw new FormatException(QuantumGlobal.Localization.Format(52, value.Substring(2 * (1 + i), 2)));
+                throw new FormatException(QuantumGlobal.Localization.Format(52, "Cannot parse '{0}' as part of a Color as it was invalid hex.", value.Substring(2 * (1 + i), 2)));
             }
         }
     }

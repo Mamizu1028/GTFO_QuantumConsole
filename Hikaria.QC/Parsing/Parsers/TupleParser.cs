@@ -37,7 +37,8 @@ namespace Hikaria.QC.Parsers
 
             if (elementTypes.Length != inputParts.Length)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(57, type, elementTypes.Length, inputParts.Length));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(57, 
+                    "Desired tuple type {0} has {1} elements but input contained {2}.", type, elementTypes.Length, inputParts.Length));
             }
 
             object[] tupleParts = new object[inputParts.Length];

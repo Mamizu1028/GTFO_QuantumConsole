@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Hikaria.QC.Localization;
 
-internal static class CommandLocalizationHelper
+internal static class CommandLocalizationManager
 {
     public static void Init()
     {
@@ -26,7 +26,7 @@ internal static class CommandLocalizationHelper
             var path = Path.Combine(Path.GetDirectoryName(assembly.Location), "Localization");
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-            var file = Path.Combine(path, $"{assembly.GetName().Name}_QuantumCommands_Localization.json");
+            var file = Path.Combine(path, $"Module_{assembly.GetName().Name}_QC_Localization.json");
             if (File.Exists(file))
             {
                 foreach (var kvp in JsonConvert.DeserializeObject<Dictionary<string, Dictionary<Language, CommandLocalizationData>>>(File.ReadAllText(file), QuantumGlobal.JsonSerializerSettings))
@@ -74,7 +74,7 @@ internal static class CommandLocalizationHelper
         var path = Path.Combine(Path.GetDirectoryName(assembly.Location), "Localization");
         if (!Directory.Exists(path))
             Directory.CreateDirectory(path);
-        var file = Path.Combine(path, $"{assembly.GetName().Name}_QuantumCommands_Localization.json");
+        var file = Path.Combine(path, $"Module_{assembly.GetName().Name}_QC_Localization.json");
         if (!File.Exists(file))
         {
             if (!_commandLocalizationLookup.TryGetValue(assembly, out var lookup))

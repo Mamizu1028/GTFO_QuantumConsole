@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using UnityEngine;
+using Hikaria.QC.Utilities;
 
 namespace Hikaria.QC
 {
@@ -77,7 +78,8 @@ namespace Hikaria.QC
                 }
                 catch (MissingMethodException)
                 {
-                    Logs.Error(QuantumGlobal.Localization.Format(72, typeof(T), type));
+                    Logs.Error(QuantumGlobal.Localization.Format(72, 
+                        "Could not load {0} {1} as it is missing a public parameterless constructor.", typeof(T), type));
                 }
                 catch (Exception e)
                 {

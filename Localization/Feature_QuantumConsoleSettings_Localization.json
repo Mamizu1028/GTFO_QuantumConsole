@@ -1,10 +1,10 @@
-{
+﻿{
   "Internal": {
-    "FeatureSettingsTexts": {
+    "FeatureSettingTexts": {
       "Hikaria.QC.QuantumConsoleSettings.Name": {
         "FName": {
           "English": "Quantum Console Settings",
-          "Chinese": "量子终端设置",
+          "Chinese": "量子控制台设置",
           "French": null,
           "Italian": null,
           "German": null,
@@ -847,12 +847,11 @@
         }
       }
     },
-    "FeatureSettingsEnumTexts": {},
-    "ExtraTexts": []
+    "EnumTexts": {}
   },
   "External": {
-    "ExternalFeatureSettingsTexts": {},
-    "ExternalEnumTexts": {
+    "FeatureSettingTexts": {},
+    "EnumTexts": {
       "BepInEx.Logging.LogLevel": {
         "English": {
           "None": "None",

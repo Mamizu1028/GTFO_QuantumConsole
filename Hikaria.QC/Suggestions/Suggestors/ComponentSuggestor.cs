@@ -28,7 +28,7 @@ namespace Hikaria.QC.Suggestors
 #if UNITY_6000_0_OR_NEWER
             return Object.FindObjectsByType(context.TargetType, FindObjectsSortMode.None)
 #else
-            return Object.FindObjectsOfType(Il2CppType.From(context.TargetType))
+            return Object.FindObjectsOfType(Il2CppType.From(context.TargetType, true))
 #endif
                 .Select(cmp => cmp.Cast<Component>())
                 .Select(cmp => cmp.gameObject.name);

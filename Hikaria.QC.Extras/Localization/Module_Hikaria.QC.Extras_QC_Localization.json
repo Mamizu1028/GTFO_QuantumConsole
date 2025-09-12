@@ -1,0 +1,6076 @@
+{
+  "#define macroName macroExpansion": {
+    "English": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Chinese": {
+      "Description": "将宏添加到宏定义表中，然后可以在量子控制台中使用该宏。如果添加了宏 'name'，则所有实例的 '#name' 将展开为完整的宏扩展。这允许您为各种内容定义快捷方式，例如长类型名称或常用指令字符串。\n\n宏的名称中不得包含井号或空格。\n\n注意：在使用 #define 时，宏不会被展开，这样可以实现定义嵌套宏的可能性。",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "French": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Italian": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "German": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Spanish": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Russian": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Polish": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Japanese": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    },
+    "Korean": {
+      "Description": "Adds a macro to the macro table which can then be used in the Quantum Console. If the macro 'name' is added, then all instances of '#name' will be expanded into the full macro expansion. This allows you to define shortcuts for various things such as long type names or commonly used command strings.\n\nMacros may not contain hashtags or whitespace in their name.\n\nNote: macros will not be expanded when using #define, this is so that defining nested macros is possible.",
+      "ParameterDescriptions": {
+        "macroName": null,
+        "macroExpansion": null
+      }
+    }
+  },
+  "active-scene": {
+    "English": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "获取活动主场景的名称",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "gets the name of the active primary scene",
+      "ParameterDescriptions": {}
+    }
+  },
+  "add-component<T> target": {
+    "English": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Chinese": {
+      "Description": "将指定的 GameObject 添加类型为 T 的组件",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "French": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Italian": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "German": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Spanish": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Russian": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Polish": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Japanese": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Korean": {
+      "Description": "Adds a component of type T to the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    }
+  },
+  "all-commands": {
+    "English": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "生成量子控制台处理器当前加载的所有指令的列表",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    }
+  },
+  "all-macros": {
+    "English": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "显示所有当前存储在宏定义表中的宏",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Displays all of the macros currently stored in the macro table",
+      "ParameterDescriptions": {}
+    }
+  },
+  "all-namespaces": {
+    "English": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "显示当前在命名空间表中所有命名空间",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Displays all of the namespaces currently in use by the namespace table",
+      "ParameterDescriptions": {}
+    }
+  },
+  "all-scenes": {
+    "English": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "获取构建中包含的每个场景的名称和索引",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "gets the name and index of every scene included in the build",
+      "ParameterDescriptions": {}
+    }
+  },
+  "bind key command": {
+    "English": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Chinese": {
+      "Description": "将给定的指令绑定到给定的键上，使每次按下该键时，都会调用该指令。",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "French": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Italian": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "German": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Spanish": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Russian": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Polish": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Japanese": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    },
+    "Korean": {
+      "Description": "Binds a given command to a given key, so that every time the key is pressed, the command is invoked.",
+      "ParameterDescriptions": {
+        "key": null,
+        "command": null
+      }
+    }
+  },
+  "call-instance classType funcName targetType": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null
+      }
+    }
+  },
+  "call-instance classType funcName targetType args": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "targetType": null,
+        "args": null
+      }
+    }
+  },
+  "call-instance classType funcName targetType args argTypes": {
+    "English": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Chinese": {
+      "Description": "调用指定的非静态方法或属性，并使用提供的参数。如果存在不明确重载，请提供 [argTypes]",
+      "ParameterDescriptions": {
+        "classType": "类的命名空间限定类型名称。",
+        "funcName": "方法或属性的名称。",
+        "targetType": "用于查找目标实例的 MonoTargetType。",
+        "args": "函数调用的参数。",
+        "argTypes": "解决模糊重载的参数类型。"
+      }
+    },
+    "French": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Italian": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "German": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Spanish": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Russian": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Polish": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Japanese": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Korean": {
+      "Description": "Invokes the specified non-static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "targetType": "The MonoTargetType used to find the target instances.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    }
+  },
+  "call-static classType funcName": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null
+      }
+    }
+  },
+  "call-static classType funcName args": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "classType": null,
+        "funcName": null,
+        "args": null
+      }
+    }
+  },
+  "call-static classType funcName args argTypes": {
+    "English": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Chinese": {
+      "Description": "调用指定的静态方法或属性，并使用提供的参数。如果存在不明确的重载，请提供 [argTypes]。",
+      "ParameterDescriptions": {
+        "classType": "类的命名空间限定类型名称。",
+        "funcName": "方法或属性的名称。",
+        "targetType": "用于查找目标实例的 MonoTargetType。",
+        "args": "函数调用的参数。",
+        "argTypes": "解决模糊重载的参数类型。"
+      }
+    },
+    "French": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Italian": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "German": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Spanish": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Russian": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Polish": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Japanese": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    },
+    "Korean": {
+      "Description": "Invokes the specified static method or property with the provided arguments. Provide [argTypes] if there are ambiguous overloads",
+      "ParameterDescriptions": {
+        "classType": "Namespace qualified typename of the class.",
+        "funcName": "Name of the method or property.",
+        "args": "The arguments for the function call.",
+        "argTypes": "The types of the arguments to resolve ambiguous overloads."
+      }
+    }
+  },
+  "capture-screenshot filename superSize": {
+    "English": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Chinese": {
+      "Description": "捕获屏幕截图并将其保存到提供的文件路径中，格式为 PNG。\n如果提供了 superSize，则截图将以高于原生分辨率的方式捕获。",
+      "ParameterDescriptions": {
+        "filename": "要保存截图的文件名",
+        "superSize": "增加分辨率的倍数"
+      }
+    },
+    "French": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Italian": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "German": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Spanish": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Russian": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Polish": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Japanese": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    },
+    "Korean": {
+      "Description": "Captures a screenshot and saves it to the supplied file path as a PNG.\nIf superSize is supplied the screenshot will be captured at a higher than native resolution.",
+      "ParameterDescriptions": {
+        "filename": "The name of the file to save the screenshot in",
+        "superSize": "Factor by which to increase resolution"
+      }
+    }
+  },
+  "clear": {
+    "English": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "清除日志",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Clears the Quantum Console",
+      "ParameterDescriptions": {}
+    }
+  },
+  "clear-macros": {
+    "English": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "清除宏定义表的内容",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Clears the macro table",
+      "ParameterDescriptions": {}
+    }
+  },
+  "clear-registry<T>": {
+    "English": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "清除指定注册表的内容",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Clears the contents of the specified registry",
+      "ParameterDescriptions": {}
+    }
+  },
+  "close": {
+    "English": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "关闭量子控制台",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Closes the Quantum Console",
+      "ParameterDescriptions": {}
+    }
+  },
+  "command-count": {
+    "English": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "获取已加载指令的数量",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Gets the number of loaded commands",
+      "ParameterDescriptions": {}
+    }
+  },
+  "commands": {
+    "English": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "生成量子控制台处理器当前加载的所有指令的列表",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Generates a list of all commands currently loaded by the Quantum Console Processor",
+      "ParameterDescriptions": {}
+    }
+  },
+  "current-resolution": {
+    "English": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "当前应用程序或窗口的分辨率。",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "current resolution of the application or window.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "deregister-object<T> obj": {
+    "English": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Chinese": {
+      "Description": "将通过 MonoTargetType = Registry 的指令注册的对象从注册表移除",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "French": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Italian": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "German": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Spanish": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Russian": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Polish": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Japanese": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Korean": {
+      "Description": "Removes the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    }
+  },
+  "destroy target": {
+    "English": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Chinese": {
+      "Description": "销毁一个 GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "French": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Italian": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "German": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Spanish": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Russian": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Polish": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Japanese": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Korean": {
+      "Description": "Destroys a GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    }
+  },
+  "destroy-component<T> target": {
+    "English": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Chinese": {
+      "Description": "销毁指定 GameObject 上的类型为 T 的组件",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "French": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Italian": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "German": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Spanish": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Russian": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Polish": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Japanese": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Korean": {
+      "Description": "Destroys the component of type T on the specified GameObject",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    }
+  },
+  "display-bindings": {
+    "English": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "显示所有的按键绑定",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Displays all existing bindings on the key binder",
+      "ParameterDescriptions": {}
+    }
+  },
+  "display-registry<T>": {
+    "English": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "显示指定注册表的内容",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Displays the contents of the specified registry",
+      "ParameterDescriptions": {}
+    }
+  },
+  "dump-macros filePath": {
+    "English": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Chinese": {
+      "Description": "创建宏定义表的文件转储，可以使用 load-macros 加载以重新填充表格",
+      "ParameterDescriptions": {
+        "filePath": "文件路径"
+      }
+    },
+    "French": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Italian": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "German": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Spanish": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Russian": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Polish": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Japanese": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Korean": {
+      "Description": "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    }
+  },
+  "enum-info enumType": {
+    "English": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Chinese": {
+      "Description": "获取指定枚举类型的所有数值和数值名称。",
+      "ParameterDescriptions": {
+        "enumType": "枚举类型"
+      }
+    },
+    "French": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Italian": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "German": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Spanish": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Russian": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Polish": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Japanese": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    },
+    "Korean": {
+      "Description": "gets all of the numeric values and value names for the specified enum type.",
+      "ParameterDescriptions": {
+        "enumType": null
+      }
+    }
+  },
+  "fullscreen": {
+    "English": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "fullscreen value": {
+    "English": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "应用程序的全屏状态。",
+      "ParameterDescriptions": {
+        "value": "是否全屏"
+      }
+    },
+    "French": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "fullscreen state of the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "get-object-info target": {
+    "English": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Chinese": {
+      "Description": "查找指定的 GameObject 并显示其 transform 和 component 数据",
+      "ParameterDescriptions": {
+        "target": "目标物体"
+      }
+    },
+    "French": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Italian": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "German": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Spanish": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Russian": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Polish": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Japanese": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    },
+    "Korean": {
+      "Description": "Finds the specified GameObject and displays its transform and component data",
+      "ParameterDescriptions": {
+        "target": null
+      }
+    }
+  },
+  "get-scene-hierarchy": {
+    "English": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "渲染当前打开场景的 GameObject 层次结构",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Renders the GameObject hierarchy of the currently open scenes",
+      "ParameterDescriptions": {}
+    }
+  },
+  "help": {
+    "English": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "显示量子控制台的基础指南",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Shows a basic help guide for Quantum Console",
+      "ParameterDescriptions": {}
+    }
+  },
+  "help commandName": {
+    "English": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Chinese": {
+      "Description": "生成任何给定指令的用户手册，包括内置指令。要使用手册指令，只需将所需的指令名称填写其前面。例如，'manual my-command' 将生成 'my-command' 的手册。",
+      "ParameterDescriptions": {
+        "commandName": "指令名称"
+      }
+    },
+    "French": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Italian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "German": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Russian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Polish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Korean": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    }
+  },
+  "http.delete url": {
+    "English": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Chinese": {
+      "Description": "向指定的 URL 发送 DELETE 请求。",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "French": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Italian": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "German": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Spanish": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Russian": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Polish": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Japanese": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Korean": {
+      "Description": "Sends a DELETE request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    }
+  },
+  "http.get url": {
+    "English": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Chinese": {
+      "Description": "向指定的 URL 发送 GET 请求。",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "French": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Italian": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "German": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Spanish": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Russian": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Polish": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Japanese": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    },
+    "Korean": {
+      "Description": "Sends a GET request to the specified URL.",
+      "ParameterDescriptions": {
+        "url": null
+      }
+    }
+  },
+  "http.post url content mediaType": {
+    "English": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Chinese": {
+      "Description": "向指定的 URL 发送 POST 请求。请求中可以发送主体，默认的 mediaType 为 text/plain。",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "French": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Italian": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "German": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Spanish": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Russian": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Polish": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Japanese": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Korean": {
+      "Description": "Sends a POST request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    }
+  },
+  "http.put url content mediaType": {
+    "English": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Chinese": {
+      "Description": "向指定的 URL 发送 PUT 请求。请求中可以发送主体，默认的 mediaType 为 text/plain。",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "French": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Italian": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "German": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Spanish": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Russian": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Polish": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Japanese": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    },
+    "Korean": {
+      "Description": "Sends a PUT request to the specified URL. A body may be sent with the request, with a default mediaType of text/plain.",
+      "ParameterDescriptions": {
+        "url": null,
+        "content": null,
+        "mediaType": null
+      }
+    }
+  },
+  "instantiate original": {
+    "English": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Chinese": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "French": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Italian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "German": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Spanish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Russian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Polish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Japanese": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    },
+    "Korean": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null
+      }
+    }
+  },
+  "instantiate original position": {
+    "English": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Chinese": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "French": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Italian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "German": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Spanish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Russian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Polish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Japanese": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    },
+    "Korean": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": null,
+        "position": null
+      }
+    }
+  },
+  "instantiate original position rotation": {
+    "English": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Chinese": {
+      "Description": "实例化一个 GameObject",
+      "ParameterDescriptions": {
+        "original": "要实例化副本的原始 GameObject。",
+        "position": "实例化 GameObject 的位置。",
+        "rotation": "实例化 GameObject 的旋转。"
+      }
+    },
+    "French": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Italian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "German": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Spanish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Russian": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Polish": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Japanese": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    },
+    "Korean": {
+      "Description": "Instantiates a GameObject",
+      "ParameterDescriptions": {
+        "original": "The original GameObject to instantiate a copy of.",
+        "position": "The position of the instantiated GameObject.",
+        "rotation": "The rotation of the instantiated GameObject."
+      }
+    }
+  },
+  "load-macros filePath": {
+    "English": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Chinese": {
+      "Description": "从外部文件加载宏到宏定义表中",
+      "ParameterDescriptions": {
+        "filePath": "文件路径"
+      }
+    },
+    "French": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Italian": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "German": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Spanish": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Russian": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Polish": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Japanese": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Korean": {
+      "Description": "Loads macros from an external file into the macro table",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    }
+  },
+  "load-scene ": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    }
+  },
+  "load-scene sceneName loadMode": {
+    "English": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Chinese": {
+      "Description": "通过名称加载场景到游戏中",
+      "ParameterDescriptions": {
+        "sceneName": "场景名称",
+        "loadMode": "'Single' 模式将当前场景替换为新场景，而 'Additive' 模式则将它们合并"
+      }
+    },
+    "French": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Italian": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "German": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Spanish": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Russian": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Polish": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Japanese": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Korean": {
+      "Description": "loads a scene by name into the game",
+      "ParameterDescriptions": {
+        "sceneName": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    }
+  },
+  "load-scene-index ": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    }
+  },
+  "load-scene-index sceneIndex loadMode": {
+    "English": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Chinese": {
+      "Description": "通过索引加载游戏场景",
+      "ParameterDescriptions": {
+        "sceneIndex": "场景索引",
+        "loadMode": "'Signle'模式用新场景替换当前场景，而'Additive'模式则合并它们"
+      }
+    },
+    "French": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Italian": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "German": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Spanish": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Russian": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Polish": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Japanese": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    },
+    "Korean": {
+      "Description": "loads a scene by index into the game",
+      "ParameterDescriptions": {
+        "sceneIndex": null,
+        "loadMode": "'Single' mode replaces the current scene with the new scene, whereas 'Additive' merges them"
+      }
+    }
+  },
+  "loaded-scenes": {
+    "English": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "获取当前加载的每个场景的名称和索引",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "gets the name and index of every scene currently loaded",
+      "ParameterDescriptions": {}
+    }
+  },
+  "logging-level": {
+    "English": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "logging-level value": {
+    "English": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "拦截和显示日志所需的日志级别。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "Log levels required to intercept and display the log.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "man": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    }
+  },
+  "man commandName": {
+    "English": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Chinese": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "French": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Italian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "German": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Russian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Polish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Korean": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the man command, simply put the desired command name infront of it. For example, 'man my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    }
+  },
+  "manual": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {}
+    }
+  },
+  "manual commandName": {
+    "English": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Chinese": {
+      "Description": "生成任何给定指令的用户手册，包括内置指令。要使用 manual 指令，只需在其前面填写所需指令的名称。例如，'manual my-command' 将生成 'my-command' 的手册。",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "French": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Italian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "German": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Russian": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Polish": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    },
+    "Korean": {
+      "Description": "Generates a user manual for any given command, including built in ones. To use the manual command, simply put the desired command name infront of it. For example, 'manual my-command' will generate the manual for 'my-command'",
+      "ParameterDescriptions": {
+        "commandName": null
+      }
+    }
+  },
+  "max-fps": {
+    "English": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "max-fps value": {
+    "English": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "对应用程序施加的最大帧率。设置为 -1 表示无限制。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "the maximum FPS imposed on the application. Set to -1 for unlimited.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "max-logs": {
+    "English": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "max-logs value": {
+    "English": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "在日志存储中可以存储的最大日志数量，超过此数量后，将删除旧日志。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "The maximum number of logs that may be stored in the log storage before old logs are removed.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "msaa": {
+    "English": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "msaa value": {
+    "English": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "获取或设置使用的 MSAA 采样数量。有效值为 0、2、4 和 8。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "Gets or sets the number of msaa samples in use. Valid values are 0, 2, 4 and 8.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "qc-script-extern filePath": {
+    "English": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Chinese": {
+      "Description": "执行外部源的 QC 脚本文件，其中每一行都是一个单独的 QC 指令。",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "French": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Italian": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "German": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Spanish": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Russian": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Polish": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Japanese": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    },
+    "Korean": {
+      "Description": "Executes an external source of QC script file, where each line is a separate QC command.",
+      "ParameterDescriptions": {
+        "filePath": null
+      }
+    }
+  },
+  "quit": {
+    "English": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "退出应用程序",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Quits the player application",
+      "ParameterDescriptions": {}
+    }
+  },
+  "read-file path": {
+    "English": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Chinese": {
+      "Description": "读取指定路径的文件的内容",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "French": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Italian": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "German": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Spanish": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Russian": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Polish": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Japanese": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    },
+    "Korean": {
+      "Description": "Reads the contents of the file at the provided path",
+      "ParameterDescriptions": {
+        "path": null
+      }
+    }
+  },
+  "register-object<T> obj": {
+    "English": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Chinese": {
+      "Description": "将 MonoTargetType = Registry 的指令所在对象注册表添加到注册表",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "French": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Italian": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "German": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Spanish": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Russian": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Polish": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Japanese": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    },
+    "Korean": {
+      "Description": "Adds the object to the registry to be used by commands with MonoTargetType = Registry",
+      "ParameterDescriptions": {
+        "obj": null
+      }
+    }
+  },
+  "remove-macro macroName": {
+    "English": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Chinese": {
+      "Description": "将指定的宏从宏定义表中移除",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "French": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Italian": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "German": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Russian": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Polish": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    },
+    "Korean": {
+      "Description": "Removes the specified macro from the macro table",
+      "ParameterDescriptions": {
+        "macroName": null
+      }
+    }
+  },
+  "remove-namespace namespaceName": {
+    "English": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Chinese": {
+      "Description": "从命名空间表中移除一个命名空间",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "French": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Italian": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "German": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Russian": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Polish": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Korean": {
+      "Description": "Removes a namespace from the table",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    }
+  },
+  "reset-namespaces": {
+    "English": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "将命名空间表重置为其初始状态",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Resets the namespace table to its initial state",
+      "ParameterDescriptions": {}
+    }
+  },
+  "rotate target rotation": {
+    "English": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Chinese": {
+      "Description": "旋转一个 GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "French": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Italian": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "German": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Spanish": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Russian": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Polish": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Japanese": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    },
+    "Korean": {
+      "Description": "Rotates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "rotation": null
+      }
+    }
+  },
+  "screen-dpi": {
+    "English": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "当前设备屏幕的 dpi",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "dpi of the current device's screen.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "send-message target methodName": {
+    "English": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Chinese": {
+      "Description": "对目标 GameObject 中的每个 MonoBehaviour 调用名为 'methodName' 的方法",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "French": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Italian": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "German": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Russian": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Polish": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    },
+    "Korean": {
+      "Description": "Calls the method named 'methodName' on every MonoBehaviour in the target GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "methodName": null
+      }
+    }
+  },
+  "set-active target active": {
+    "English": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Chinese": {
+      "Description": "激活/停用一个 GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "French": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Italian": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "German": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Spanish": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Russian": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Polish": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Japanese": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    },
+    "Korean": {
+      "Description": "Activates/deactivates a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "active": null
+      }
+    }
+  },
+  "set-active-scene sceneName": {
+    "English": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Chinese": {
+      "Description": "将活动场景设置为名称为 'sceneName' 的场景",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "French": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Italian": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "German": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Spanish": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Russian": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Polish": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Japanese": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Korean": {
+      "Description": "sets the active scene to the scene with name 'sceneName'",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    }
+  },
+  "set-parent target parentTarget": {
+    "English": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Chinese": {
+      "Description": "设置目标 transform 的 parent。",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "French": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Italian": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "German": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Spanish": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Russian": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Polish": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Japanese": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    },
+    "Korean": {
+      "Description": "Sets the parent of the targert transform.",
+      "ParameterDescriptions": {
+        "target": null,
+        "parentTarget": null
+      }
+    }
+  },
+  "set-resolution x y": {
+    "English": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Chinese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "French": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Italian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "German": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Spanish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Russian": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Polish": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Japanese": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    },
+    "Korean": {
+      "Description": null,
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null
+      }
+    }
+  },
+  "set-resolution x y fullscreen": {
+    "English": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Chinese": {
+      "Description": "设置当前应用程序的分辨率，可选设置全屏状态。",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "French": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Italian": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "German": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Spanish": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Russian": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Polish": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Japanese": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    },
+    "Korean": {
+      "Description": "sets the resolution of the current application, optionally setting the fullscreen state too.",
+      "ParameterDescriptions": {
+        "x": null,
+        "y": null,
+        "fullscreen": null
+      }
+    }
+  },
+  "start-coroutine coroutineCommand": {
+    "English": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Chinese": {
+      "Description": "将提供的指令作为协程启动",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "French": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Italian": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "German": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Spanish": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Russian": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Polish": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Japanese": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    },
+    "Korean": {
+      "Description": "starts the supplied command as a coroutine",
+      "ParameterDescriptions": {
+        "coroutineCommand": null
+      }
+    }
+  },
+  "supported-resolutions": {
+    "English": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "该设备在全屏模式下支持的所有分辨率。",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "all resolutions supported by this device in fullscreen mode.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "teleport target position": {
+    "English": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Chinese": {
+      "Description": "传送一个物体",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "French": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Italian": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "German": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Spanish": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Russian": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Polish": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Japanese": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    },
+    "Korean": {
+      "Description": "Teleports a GameObject",
+      "ParameterDescriptions": {
+        "target": null,
+        "position": null
+      }
+    }
+  },
+  "teleport-relative target offset": {
+    "English": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Chinese": {
+      "Description": "通过相对偏移量将 GameObject 传送到其当前位置",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "French": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Italian": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "German": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Spanish": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Russian": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Polish": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Japanese": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    },
+    "Korean": {
+      "Description": "Teleports a GameObject by a relative offset to its current position",
+      "ParameterDescriptions": {
+        "target": null,
+        "offset": null
+      }
+    }
+  },
+  "time-scale": {
+    "English": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "time-scale value": {
+    "English": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "时间流逝的尺度。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "the scale at which time is passing by.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "unbind key": {
+    "English": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Chinese": {
+      "Description": "删除给定按键的所有绑定",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "French": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Italian": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "German": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Spanish": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Russian": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Polish": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Japanese": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    },
+    "Korean": {
+      "Description": "Removes every binding for the given key",
+      "ParameterDescriptions": {
+        "key": null
+      }
+    }
+  },
+  "unbind-all": {
+    "English": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "删除所有按键的所有绑定",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Unbinds every existing key binding",
+      "ParameterDescriptions": {}
+    }
+  },
+  "unload-scene sceneName": {
+    "English": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Chinese": {
+      "Description": "通过名称卸载场景",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "French": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Italian": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "German": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Spanish": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Russian": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Polish": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Japanese": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    },
+    "Korean": {
+      "Description": "unloads a scene by name",
+      "ParameterDescriptions": {
+        "sceneName": null
+      }
+    }
+  },
+  "unload-scene-index sceneIndex": {
+    "English": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Chinese": {
+      "Description": "通过索引卸载场景",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "French": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Italian": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "German": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Spanish": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Russian": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Polish": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Japanese": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    },
+    "Korean": {
+      "Description": "unloads a scene by index",
+      "ParameterDescriptions": {
+        "sceneIndex": null
+      }
+    }
+  },
+  "use-namespace namespaceName": {
+    "English": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Chinese": {
+      "Description": "添加一个命名空间到表中，以便可以用于类型解析",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "French": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Italian": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "German": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Spanish": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Russian": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Polish": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Japanese": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    },
+    "Korean": {
+      "Description": "Adds a namespace to the table so that it can be used to type resolution",
+      "ParameterDescriptions": {
+        "namespaceName": null
+      }
+    }
+  },
+  "user-commands": {
+    "English": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "生成用户添加的所有指令的列表",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Generates a list of all commands added by the user",
+      "ParameterDescriptions": {}
+    }
+  },
+  "verbose-errors": {
+    "English": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "verbose-errors value": {
+    "English": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "由量子控制台处理器或指令引起的错误是否应在详细模式下记录。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "verbose-logging": {
+    "English": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "verbose-logging value": {
+    "English": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "详细日志记录所需的日志级别。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "Log levels required to use verbose logging.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "vsync": {
+    "English": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Chinese": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "French": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Italian": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "German": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Spanish": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Russian": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Portuguese_Brazil": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Polish": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Japanese": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    },
+    "Korean": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {}
+    }
+  },
+  "vsync value": {
+    "English": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Chinese": {
+      "Description": "启用或禁用应用程序的垂直同步。",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "French": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Italian": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "German": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Spanish": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Russian": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Polish": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Japanese": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    },
+    "Korean": {
+      "Description": "enables or disables vsync for the application.",
+      "ParameterDescriptions": {
+        "value": null
+      }
+    }
+  },
+  "write-file path data": {
+    "English": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Chinese": {
+      "Description": "将提供的数据写入指定路径的文件",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "French": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Italian": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "German": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Spanish": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Russian": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Portuguese_Brazil": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Polish": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Japanese": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    },
+    "Korean": {
+      "Description": "Writes the provided data to a file at the provided path",
+      "ParameterDescriptions": {
+        "path": null,
+        "data": null
+      }
+    }
+  }
+}

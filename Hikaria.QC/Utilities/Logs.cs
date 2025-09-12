@@ -1,7 +1,7 @@
 ﻿using System;
 using TheArchive.Interfaces;
 
-namespace Hikaria.QC;
+namespace Hikaria.QC.Utilities;
 
 internal static class Logs
 {

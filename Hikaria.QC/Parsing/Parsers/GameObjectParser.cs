@@ -12,7 +12,7 @@ namespace Hikaria.QC.Parsers
 
             if (!obj)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(55, value));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(55, "Could not find GameObject of name {0}.", value));
             }
 
             return obj;

@@ -5,11 +5,10 @@ using TheArchive.Interfaces;
 
 namespace Hikaria.QC;
 
+[ArchiveDependency(EnhancedScroller.PluginInfo.GUID)]
 [ArchiveModule(QuantumGlobal.GUID, QuantumGlobal.NAME, QuantumGlobal.VERSION)]
-public class EntryPoint : IArchiveModule
+internal class EntryPoint : IArchiveModule
 {
-    public string ModuleGroup => QuantumGlobal.GUID;
-
     public ILocalizationService LocalizationService { get; set; }
 
     public IArchiveLogger Logger { get; set; }

@@ -95,12 +95,12 @@ namespace Hikaria.QC
         public static void DefineMacro(string macroName, string macroExpansion)
         {
             macroName = macroName.Trim();
-            if (macroName.Contains(' ')) { throw new ArgumentException(QuantumGlobal.Localization.Get(23)); }
-            if (macroName.Contains('\n')) { throw new ArgumentException(QuantumGlobal.Localization.Get(24)); }
-            if (macroName.Contains('#')) { throw new ArgumentException(QuantumGlobal.Localization.Get(25)); }
-            if (macroName == "define") { throw new ArgumentException(QuantumGlobal.Localization.Get(26)); }
-            if (macroExpansion.Contains('\n')) { throw new ArgumentException(QuantumGlobal.Localization.Get(27)); }
-            if (macroExpansion.Contains($"#{macroName}")) { throw new ArgumentException(QuantumGlobal.Localization.Get(28)); }
+            if (macroName.Contains(' ')) { throw new ArgumentException(QuantumGlobal.Localization.GetById(23, "Macro names cannot contain whitespace.")); }
+            if (macroName.Contains('\n')) { throw new ArgumentException(QuantumGlobal.Localization.GetById(24, "Macro names cannot contain newlines.")); }
+            if (macroName.Contains('#')) { throw new ArgumentException(QuantumGlobal.Localization.GetById(25, "Macro names cannot contain hashtags.")); }
+            if (macroName == "define") { throw new ArgumentException(QuantumGlobal.Localization.GetById(26, "Macros cannot be named define")); }
+            if (macroExpansion.Contains('\n')) { throw new ArgumentException(QuantumGlobal.Localization.GetById(27, "Macro expansions cannot contain newlines.")); }
+            if (macroExpansion.Contains($"#{macroName}")) { throw new ArgumentException(QuantumGlobal.Localization.GetById(28, "Macros cannot contain themselves within the expansion.")); }
 
             if (_macroTable.Value.ContainsKey(macroName)) { _macroTable.Value[macroName] = macroExpansion; }
             else { _macroTable.Value.Add(macroName, macroExpansion); }
@@ -111,7 +111,7 @@ namespace Hikaria.QC
         public static void RemoveMacro(string macroName)
         {
             if (_macroTable.Value.ContainsKey(macroName)) { _macroTable.Value.Remove(macroName); }
-            else { throw new Exception(QuantumGlobal.Localization.Format(29, macroName)); }
+            else { throw new Exception(QuantumGlobal.Localization.Format(29, "Specified macro #{0} as it was not defined.", macroName)); }
         }
 
         [Command("clear-macros")]
@@ -121,8 +121,8 @@ namespace Hikaria.QC
         [Command("all-macros", "Displays all of the macros currently stored in the macro table")]
         private static string GetAllMacros()
         {
-            if (_macroTable.Value.Values.Count == 0) { return QuantumGlobal.Localization.Get(30); }
-            else { return QuantumGlobal.Localization.Format(31, string.Join("\n", _macroTable.Value.Select((x) => $"#{x.Key} = {x.Value}"))); }
+            if (_macroTable.Value.Values.Count == 0) { return QuantumGlobal.Localization.GetById(30, "Macro table is empty"); }
+            else { return QuantumGlobal.Localization.Format(31, "Macro table:\n{0}", string.Join("\n", _macroTable.Value.Select((x) => $"#{x.Key} = {x.Value}"))); }
         }
 
         [Command("dump-macros", "Creates a file dump of macro table which can the be loaded to repopulate the table using load-macros")]
@@ -147,7 +147,7 @@ namespace Hikaria.QC
         {
             if (!File.Exists(filePath))
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(32, filePath));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(32, "file at the specified path '{0}' did not exist.", filePath));
             }
 
             using (StreamReader macroFile = new StreamReader(filePath))
@@ -159,17 +159,17 @@ namespace Hikaria.QC
                     string[] parts = line.Split(" ".ToCharArray(), 2);
                     if (parts.Length != 2)
                     {
-                        messages.Add(QuantumGlobal.Localization.Format(33, line));
+                        messages.Add(QuantumGlobal.Localization.Format(33, "'{0}' is not a valid macro definition", line));
                     }
 
                     try
                     {
                         DefineMacro(parts[0], parts[1]);
-                        messages.Add(QuantumGlobal.Localization.Format(34, parts[0]));
+                        messages.Add(QuantumGlobal.Localization.Format(34, "#{0} was successfully defined", parts[0]));
                     }
                     catch (Exception e)
                     {
-                        messages.Add(QuantumGlobal.Localization.Format(35, parts[0], e.Message));
+                        messages.Add(QuantumGlobal.Localization.Format(35, "#{0} could not be defined: {1}", parts[0], e.Message));
                     }
                 }
 

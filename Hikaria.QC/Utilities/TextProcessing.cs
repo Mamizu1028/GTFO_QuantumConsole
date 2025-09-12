@@ -160,7 +160,7 @@ namespace Hikaria.QC
         {
             if (leftScopers.Count != rightScopers.Count)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Get(68));
+                throw new ArgumentException(QuantumGlobal.Localization.GetById(68, "There must be an equal number of corresponding left and right scopers"));
             }
 
             if (string.IsNullOrWhiteSpace(input))
@@ -402,7 +402,7 @@ namespace Hikaria.QC
         {
             if (leftScopers.Count != rightScopers.Count)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Get(68));
+                throw new ArgumentException(QuantumGlobal.Localization.GetById(68, "There must be an equal number of corresponding left and right scopers"));
             }
 
             int[] scopes = new int[leftScopers.Count];

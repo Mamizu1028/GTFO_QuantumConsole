@@ -57,7 +57,7 @@ namespace Hikaria.QC
         {
             if (genericTypeArguments.Length != GenericParamTypes.Length)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Get(69));
+                throw new ArgumentException(QuantumGlobal.Localization.GetById(69, "Incorrect number of generic substitution types were supplied."));
             }
 
             Dictionary<string, Type> substitutionTable = new Dictionary<string, Type>();
@@ -100,7 +100,7 @@ namespace Hikaria.QC
                 return baseType.MakeGenericType(typeArguments);
             }
 
-            throw new ArgumentException(QuantumGlobal.Localization.Format(70, genericType));
+            throw new ArgumentException(QuantumGlobal.Localization.Format(70, "Could not construct the generic type {0}", genericType));
         }
 
         public object Invoke(object[] paramData, Type[] genericTypeArguments)
@@ -161,7 +161,8 @@ namespace Hikaria.QC
                 }
                 catch (ArgumentException)
                 {
-                    throw new ArgumentException(QuantumGlobal.Localization.Format(71, CommandName));
+                    throw new ArgumentException(QuantumGlobal.Localization.Format(71, 
+                        "Supplied generic parameters did not satisfy the generic constraints imposed by '{0}'", CommandName));
                 }
             }
 

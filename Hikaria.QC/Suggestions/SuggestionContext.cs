@@ -71,7 +71,7 @@ namespace Hikaria.QC
                 }
             }
 
-            throw new KeyNotFoundException(QuantumGlobal.Localization.Format(65, typeof(T)));
+            throw new KeyNotFoundException(QuantumGlobal.Localization.Format(65, "No tags of type {0} could be found.", typeof(T)));
         }
 
         /// <summary>

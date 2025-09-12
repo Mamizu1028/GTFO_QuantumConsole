@@ -19,12 +19,12 @@ namespace Hikaria.QC
         {
             if (!GenericType.IsGenericType)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Get(61));
+                throw new ArgumentException(QuantumGlobal.Localization.GetById(61, "Generic Parsers must use a generic type as their base"));
             }
 
             if (GenericType.IsConstructedGenericType)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Get(62));
+                throw new ArgumentException(QuantumGlobal.Localization.GetById(62, "Generic Parsers must use an incomplete generic type as their base"));
             }
         }
 

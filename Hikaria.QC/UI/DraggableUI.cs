@@ -51,7 +51,7 @@ namespace Hikaria.QC.UI
             if (_isDragging)
             {
                 Transform root = _dragRoot;
-                if (!root) { root = transform as RectTransform; }
+                if (!root) { root = transform.Cast<RectTransform>(); }
 
                 Vector2 pos = InputHelper.GetMousePosition();
                 Vector2 delta = pos - _lastPos;
@@ -94,7 +94,6 @@ namespace Hikaria.QC.UI
 
         public void OnScroll(PointerEventData eventData)
         {
-            //_scrollRect.velocity = Vector3.zero;
             _scrollRect.OnScroll(eventData);
         }
 

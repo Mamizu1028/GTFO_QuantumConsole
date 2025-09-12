@@ -1,6 +1,7 @@
 ﻿using Clonesoft.Json;
 using Clonesoft.Json.Converters;
 using Clonesoft.Json.Serialization;
+using Hikaria.QC.Utilities;
 using TheArchive.Core;
 using TheArchive.Core.Localization;
 
@@ -12,7 +13,7 @@ public static class QuantumGlobal
 
     public const string NAME = "QuantumConsole";
 
-    public const string VERSION = "1.0.0";
+    public const string VERSION = "1.0.1";
 
     public const string QC_VERSION = "2.6.7";
 

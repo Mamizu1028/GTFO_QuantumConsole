@@ -64,7 +64,7 @@ namespace Hikaria.QC
                     }
                     catch (Exception e)
                     {
-                        Logs.Error(QuantumGlobal.Localization.Format(93, $"{parser.GetType().GetDisplayName()}.CanParse"));
+                        Logs.Error(QuantumGlobal.Localization.Format(93, "{0} is malformed and throws", $"{parser.GetType().GetDisplayName()}.CanParse"));
                         Logs.Exception(e);
                     }
                 }
@@ -93,7 +93,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    Logs.Error(QuantumGlobal.Localization.Format(93, $"{grammar.GetType().GetDisplayName()}.Match"));
+                    Logs.Error(QuantumGlobal.Localization.Format(93, "{0} is malformed and throws", $"{grammar.GetType().GetDisplayName()}.Match"));
                     Logs.Exception(e);
                 }
             }
@@ -137,14 +137,14 @@ namespace Hikaria.QC
                 catch (ParserException) { throw; }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumGlobal.Localization.Format(94, type.GetDisplayName(), grammar, e.Message), e);
+                    throw new Exception(QuantumGlobal.Localization.Format(94, "Parsing of {0} via {1} failed:\n{2}", type.GetDisplayName(), grammar, e.Message), e);
                 }
             }
 
             IQcParser parser = GetParser(type);
             if (parser == null)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(95, type.GetDisplayName()));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(95, "Cannot parse object of type '{0}'", type.GetDisplayName()));
             }
 
             try
@@ -154,7 +154,7 @@ namespace Hikaria.QC
             catch (ParserException) { throw; }
             catch (Exception e)
             {
-                throw new Exception(QuantumGlobal.Localization.Format(94, type.GetDisplayName(), parser, e.Message), e);
+                throw new Exception(QuantumGlobal.Localization.Format(94, "Parsing of {0} via {1} failed:\n{2}", type.GetDisplayName(), parser, e.Message), e);
             }
         }
 
@@ -213,7 +213,7 @@ namespace Hikaria.QC
             }
             else
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(42, namespaceName));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(42, "No namespace named {0} was present in the table", namespaceName));
             }
         }
 
@@ -221,7 +221,7 @@ namespace Hikaria.QC
         private static string ShowNamespaces()
         {
             _namespaceTable.Sort();
-            if (_namespaceTable.Count == 0) { return QuantumGlobal.Localization.Get(43); }
+            if (_namespaceTable.Count == 0) { return QuantumGlobal.Localization.GetById(43, "Namespace table is empty"); }
             else { return string.Join("\n", _namespaceTable); }
         }
 
@@ -372,7 +372,7 @@ namespace Hikaria.QC
 
             if (throwOnError)
             {
-                throw new TypeLoadException(QuantumGlobal.Localization.Format(44, typeName));
+                throw new TypeLoadException(QuantumGlobal.Localization.Format(44, "No type of name '{0}' could be found in the specified assemblies and namespaces.", typeName));
             }
 
             return null;
@@ -388,7 +388,7 @@ namespace Hikaria.QC
 
             if (throwOnError)
             {
-                throw new TypeLoadException(QuantumGlobal.Localization.Format(45, typeName));
+                throw new TypeLoadException(QuantumGlobal.Localization.Format(45, "No type of name '{0}' could be found in the specified assemblies.", typeName));
             }
 
             return null;

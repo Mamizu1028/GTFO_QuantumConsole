@@ -367,12 +367,12 @@ namespace Hikaria.QC.Utilities
 
             if (candidates.Length == 0)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(66, method, newBase));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(66, "Could not rebase method {0} onto type {1} as no matching candidates were found", method, newBase));
             }
 
             if (candidates.Length > 1)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(67, method, newBase));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(67, "Could not rebase method {0} onto type {1} as too many matching candidates were found", method, newBase));
             }
 
             return candidates[0];

@@ -31,7 +31,7 @@ namespace Hikaria.QC
 #if UNITY_6000_0_OR_NEWER
                     Object target = Object.FindFirstObjectByType(classType);
 #else
-                    Object target = Object.FindObjectOfType(Il2CppType.From(classType));
+                    Object target = Object.FindObjectOfType(Il2CppType.From(classType, true));
 #endif
                     return target == null ? Enumerable.Empty<object>() : target.Yield();
                 }
@@ -39,7 +39,7 @@ namespace Hikaria.QC
                 {
                     return WrapSingleCached(classType, method, type =>
                     {
-                        return Resources.FindObjectsOfTypeAll(Il2CppType.From(type))
+                        return Resources.FindObjectsOfTypeAll(Il2CppType.From(type, true))
                             .FirstOrDefault(x => !x.hideFlags.HasFlag(HideFlags.HideInHierarchy));
                     });
                 }
@@ -48,13 +48,13 @@ namespace Hikaria.QC
 #if UNITY_6000_0_OR_NEWER
                     return Object.FindObjectsByType(classType, FindObjectsSortMode.None)
 #else
-                    return Object.FindObjectsOfType(Il2CppType.From(classType))
+                    return Object.FindObjectsOfType(Il2CppType.From(classType, true))
 #endif
                         .OrderBy(x => x.name, new AlphanumComparator());
                 }
                 case MonoTargetType.AllInactive:
                 {
-                    return Resources.FindObjectsOfTypeAll(Il2CppType.From(classType))
+                    return Resources.FindObjectsOfTypeAll(Il2CppType.From(classType, true))
                         .Where(x => !x.hideFlags.HasFlag(HideFlags.HideInHierarchy))
                         .OrderBy(x => x.name, new AlphanumComparator());
                 }
@@ -68,7 +68,8 @@ namespace Hikaria.QC
                 }
                 default:
                 {
-                    throw new ArgumentException(QuantumGlobal.Localization.Format(73, method));
+                    throw new ArgumentException(QuantumGlobal.Localization.Format(73, 
+                        "Unsupported MonoTargetType {0}", method));
                 }
             }
         }
@@ -115,7 +116,8 @@ namespace Hikaria.QC
             if (invokeCount == 0)
             {
                 string typeName = invokingMethod.DeclaringType.GetDisplayName();
-                throw new Exception(QuantumGlobal.Localization.Format(74, typeName));
+                throw new Exception(QuantumGlobal.Localization.Format(74,
+                    "Could not invoke the command because no objects of type {0} could be found.", typeName));
             }
 
             return null;
@@ -126,7 +128,7 @@ namespace Hikaria.QC
             switch (invocationCount)
             {
                 case 0:
-                    throw new Exception(QuantumGlobal.Localization.Get(75));
+                    throw new Exception(QuantumGlobal.Localization.GetById(75, "No targets could be found"));
                 case 1:
                 {
                     string name;
@@ -138,10 +140,10 @@ namespace Hikaria.QC
                     {
                         name = lastTarget?.ToString();
                     }
-                    return QuantumGlobal.Localization.Format(76, name);
+                    return QuantumGlobal.Localization.Format(76, "> Invoked on {0}", name);
                 }
                 default:
-                    return QuantumGlobal.Localization.Format(77, invocationCount);
+                    return QuantumGlobal.Localization.Format(77, "> Invoked on {0} targets", invocationCount);
             }
         }
 

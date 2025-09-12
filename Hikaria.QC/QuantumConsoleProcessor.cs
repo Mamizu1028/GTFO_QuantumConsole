@@ -166,7 +166,8 @@ namespace Hikaria.QC
                         }
                         else if (loggingLevel >= LoggingLevel.Warnings)
                         {
-                            Logs.Warning(QuantumGlobal.Localization.Format(78, field.Name, field.DeclaringType));
+                            Logs.Warning(QuantumGlobal.Localization.Format(78, 
+                                "Quantum Processor Warning: Could not add '{0}' from {1} to the table as it is an invalid delegate type.", field.Name, field.DeclaringType));
                         }
                     }
                     else
@@ -193,7 +194,8 @@ namespace Hikaria.QC
 
                 if (!_parser.CanParse(paramType) && !paramType.IsGenericParameter)
                 {
-                    unsupportedReason = QuantumGlobal.Localization.Format(79, paramType);
+                    unsupportedReason = QuantumGlobal.Localization.Format(79, 
+                        "Parameter type {0} is not supported by the Quantum Parser.", paramType);
                     return false;
                 }
             }
@@ -202,7 +204,7 @@ namespace Hikaria.QC
                 && !command.MethodData.IsStatic
                 && !command.MethodData.DeclaringType.IsDerivedTypeOf(typeof(MonoBehaviour)))
             {
-                unsupportedReason = QuantumGlobal.Localization.Format(80, command.MonoTarget);
+                unsupportedReason = QuantumGlobal.Localization.Format(80, "Non static non MonoBehaviour commands are incompatible with MonoTargetType.{0}.", command.MonoTarget);
                 return false;
             }
 
@@ -285,7 +287,7 @@ namespace Hikaria.QC
                 {
                     if (loggingLevel >= LoggingLevel.Warnings)
                     {
-                        Logs.Warning(QuantumGlobal.Localization.Format(81, commandAttribute.Alias));
+                        Logs.Warning(QuantumGlobal.Localization.Format(81, "Quantum Processor Warning: Could not add '{0}' to the table as it is invalid.", commandAttribute.Alias));
                     }
                 }
                 else
@@ -333,7 +335,8 @@ namespace Hikaria.QC
             {
                 if (loggingLevel >= LoggingLevel.Warnings)
                 {
-                    Logs.Warning(QuantumGlobal.Localization.Format(82, command.CommandSignature, command.MethodData.DeclaringType.GetDisplayName(), reason));
+                    Logs.Warning(QuantumGlobal.Localization.Format(82, 
+                        "Quantum Processor Warning: Could not add '{0}' from {1} to the table as it is not supported. {2}", command.CommandSignature, command.MethodData.DeclaringType.GetDisplayName(), reason));
                 }
 
                 return false;
@@ -347,7 +350,8 @@ namespace Hikaria.QC
                 if (loggingLevel >= LoggingLevel.Warnings)
                 {
                     string fullMethodName = $"{command.MethodData.DeclaringType.FullName}.{command.MethodData.Name}";
-                    Logs.Warning(QuantumGlobal.Localization.Format(83, fullMethodName, key));
+                    Logs.Warning(QuantumGlobal.Localization.Format(83, 
+                        "Quantum Processor Warning: Could not add {0} to the table as another method with the same alias and parameter count, {1}, already exists.", fullMethodName, key));
                 }
 
                 return false;
@@ -388,7 +392,7 @@ namespace Hikaria.QC
             commandString = commandString.Trim();
             commandString = _preprocessor.Process(commandString);
 
-            if (string.IsNullOrWhiteSpace(commandString)) { throw new ArgumentException(QuantumGlobal.Localization.Get(84)); }
+            if (string.IsNullOrWhiteSpace(commandString)) { throw new ArgumentException(QuantumGlobal.Localization.GetById(84, "Cannot parse an empty string.")); }
             string[] commandParts = commandString.SplitScoped(' ');
             commandParts = commandParts.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
 
@@ -421,7 +425,7 @@ namespace Hikaria.QC
 #if !UNITY_EDITOR && ENABLE_IL2CPP && !UNITY_2022_2_OR_NEWER
             if (genericTypes.Any((Type x) => x.IsValueType))
             {
-                throw new NotSupportedException(QuantumGlobal.Localization.Get(89));
+                throw new NotSupportedException(QuantumGlobal.Localization.GetById(89, "Value types in generic commands are not supported in IL2CPP before Unity 2022.2"));
             }
 #endif
 
@@ -455,8 +459,8 @@ namespace Hikaria.QC
             // All failed, throw error
             bool overloadExists = _commandCache.Any(command => command.CommandName == commandName);
             throw overloadExists
-                ? new ArgumentException(QuantumGlobal.Localization.Format(85, commandName, paramCount))
-                : new ArgumentException(QuantumGlobal.Localization.Format(86, commandName));
+                ? new ArgumentException(QuantumGlobal.Localization.Format(85, "No overload of '{0}' with {1} parameters could be found.", commandName, paramCount))
+                : new ArgumentException(QuantumGlobal.Localization.Format(86, "Command '{0}' could not be found.", commandName));
         }
 
         private static Type[] ParseGenericTypes(CommandData command, string genericSignature)
@@ -466,7 +470,7 @@ namespace Hikaria.QC
             {
                 if (genericSignature != string.Empty)
                 {
-                    throw new ArgumentException(QuantumGlobal.Localization.Format(88, command.CommandName));
+                    throw new ArgumentException(QuantumGlobal.Localization.Format(88, "Command '{0}' is not a generic command and cannot be invoked as such.", command.CommandName));
                 }
 
                 return Array.Empty<Type>();
@@ -477,7 +481,8 @@ namespace Hikaria.QC
             string[] genericArgNames = genericSignature.ReduceScope('<', '>').SplitScoped(',');
             if (genericArgNames.Length != expectedArgCount)
             {
-                throw new ArgumentException(QuantumGlobal.Localization.Format(87, command.CommandName, expectedArgCount, expectedArgCount == 1 ? "" : "s", genericArgNames.Length));
+                throw new ArgumentException(QuantumGlobal.Localization.Format(87, 
+                    "Generic command '{0}' requires {1} generic parameter{2} but was supplied with {3}.", command.CommandName, expectedArgCount, expectedArgCount == 1 ? "" : "s", genericArgNames.Length));
             }
 
             // Parse the actual types

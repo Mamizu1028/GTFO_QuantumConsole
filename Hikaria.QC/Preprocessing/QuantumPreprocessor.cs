@@ -44,7 +44,7 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(QuantumGlobal.Localization.Format(63, preprocessor, e.Message), e);
+                    throw new Exception(QuantumGlobal.Localization.Format(63, "Preprocessor {0} failed:\n{1}", preprocessor, e.Message), e);
                 }
             }
 

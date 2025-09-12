@@ -10,11 +10,11 @@ namespace Hikaria.QC.Parsers
         public override Component Parse(string value, Type type)
         {
             GameObject obj = ParseRecursive<GameObject>(value);
-            Component objComponent = obj.GetComponent(Il2CppType.From(type));
+            Component objComponent = obj.GetComponent(Il2CppType.From(type, true));
 
             if (!objComponent)
             {
-                throw new ParserInputException(QuantumGlobal.Localization.Format(53, value, type.GetDisplayName()));
+                throw new ParserInputException(QuantumGlobal.Localization.Format(53, "No component on the object '{0}' of type {1} existed.", value, type.GetDisplayName()));
             }
 
             return objComponent;
