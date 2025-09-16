@@ -1,4 +1,5 @@
-﻿using Hikaria.QC.Pooling;
+﻿using Hikaria.ES;
+using Hikaria.QC.Pooling;
 using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
 using Il2CppInterop.Runtime;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using TheArchive.Core.FeaturesAPI;
 using TheArchive.Core.Localization;
 using TheArchive.Utilities;
 using TMPro;
@@ -29,7 +31,7 @@ namespace Hikaria.QC
         /// <summary>
         /// Called once quantum console has been loaded.
         /// </summary>
-        public static event Action QuantumConsoleReady;
+        public static event Action<QuantumConsole> QuantumConsoleReady;
 
 #pragma warning disable 0414, 0067, 0649
         private RectTransform _containerRect;
@@ -37,6 +39,11 @@ namespace Hikaria.QC
         private RectTransform _suggestionPopupRect;
         private RectTransform _jobCounterRect;
         private Image[] _panels;
+
+        private EnhancedScroller _enhancedScroller;
+        private LogCellView _logCellViewPrefab;
+        private RectTransform _viewportTransform;
+        private RectTransform _consoleLogTransform;
 
         private QuantumTheme _theme = new();
         private QuantumKeyConfig _keyConfig = new();
@@ -63,6 +70,8 @@ namespace Hikaria.QC
                 ApplyPreferences(value);
             }
         }
+
+        internal RectTransform ViewportRectTransform => _viewportTransform;
 
         [Command("verbose-errors", "If errors caused by the Quantum Console Processor or commands should be logged in verbose mode.", MonoTargetType.Registry)]
         private bool _verboseErrors = false;
@@ -103,7 +112,6 @@ namespace Hikaria.QC
         private int _commandHistorySize = 20;
 
         private int _maxStoredLogs = 1024;
-        private int _maxLogSize = 8192;
         private bool _showInitLogs = true;
 
 
@@ -128,7 +136,7 @@ namespace Hikaria.QC
             set
             {
                 _maxStoredLogs = value;
-                if (_logStorage != null) { _logStorage.MaxStoredLogs = value; }
+                if (_logController != null) { _logController.MaxStoredLogs = value; }
                 if (_logQueue != null) { _logQueue.MaxStoredLogs = value; }
             }
         }
@@ -165,7 +173,7 @@ namespace Hikaria.QC
         private readonly QuantumSerializer _serializer = new QuantumSerializer();
 
         private SuggestionStack _suggestionStack;
-        private ILogStorage _logStorage;
+        private ILogController _logController;
         private ILogQueue _logQueue;
 
         public bool IsActive { get; private set; }
@@ -228,7 +236,7 @@ namespace Hikaria.QC
         private void ApplyPreferences(QuantumConsolePreferences pref)
         {
             _suggestionPopupText.fontSize = pref.SuggestionFontSize;
-            _consoleLogText.fontSize = pref.LogFontSize;
+            _logCellViewPrefab.LogText.fontSize = pref.LogFontSize;
 
             _verboseErrors = pref.VerboseErrors;
             _verboseLogging = pref.VerboseLogging;
@@ -262,7 +270,6 @@ namespace Hikaria.QC
             _commandHistorySize = pref.CommandHistorySize;
 
             _maxStoredLogs = pref.MaxStoredLogs;
-            _maxLogSize = pref.MaxLogSize;
             _showInitLogs = pref.ShowInitLogs;
         }
 
@@ -290,6 +297,17 @@ namespace Hikaria.QC
                 if (QuantumConsoleProcessor.TableIsGenerating)
                 {
                     _consoleInput.interactable = false;
+
+                    if (!QuantumConsoleProcessor.TableIsGeneratingHandled)
+                    {
+                        if (_showInitLogs)
+                        {
+                            OnStateChange?.Invoke();
+                        }
+                        if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.Loading; }
+                        QuantumConsoleProcessor.TableIsGeneratingHandled = true;
+                    }
+#if false
                     string consoleText = $"{_logStorage.GetLogString()}\n{GetTableGenerationText()}".Trim();
                     if (consoleText != _consoleLogText.text)
                     {
@@ -300,6 +318,7 @@ namespace Hikaria.QC
                         }
                         if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.Loading; }
                     }
+#endif
 
                     return;
                 }
@@ -321,7 +340,7 @@ namespace Hikaria.QC
                         if (_showInitLogs)
                         {
                             AppendLog(new Log(GetTableGenerationText()));
-                            _consoleLogText.text = _logStorage.GetLogString();
+                            RequireFlush();
                         }
 
                         _isGeneratingTable = false;
@@ -1025,33 +1044,22 @@ namespace Hikaria.QC
             if (_consoleRequiresFlush)
             {
                 _consoleRequiresFlush = false;
-                _consoleLogText.text = _logStorage.GetLogString();
+                _logController.FlushLogText();
             }
-        }
-
-        private ILog TruncateLog(ILog log)
-        {
-            if (log.Text.Length <= _maxLogSize || _maxLogSize < 0)
-            {
-                return log;
-            }
-
-            string msg = string.Format(QuantumLocalization.MaxLogSizeExceeded, log.Text.Length, _maxLogSize);
-            if (_theme is not null)
-            {
-                msg = msg.ColorText(_theme.ErrorColor);
-            }
-
-            return new Log(msg, LogLevel.Error);
         }
 
         protected void AppendLog(ILog log)
         {
-            _logStorage.AddLog(TruncateLog(log));
+            _logController.AddLog(log);
             RequireFlush();
         }
 
         protected void RequireFlush()
+        {
+            _consoleRequiresFlush = true;
+        }
+
+        internal void RequireRebuild()
         {
             _consoleRequiresFlush = true;
         }
@@ -1061,16 +1069,13 @@ namespace Hikaria.QC
         /// </summary>
         public void RemoveLogTrace()
         {
-            _logStorage.RemoveLog();
+            _logController.RemoveLog();
             RequireFlush();
         }
 
         private void ScrollConsoleToLatest()
         {
-            if (_scrollRect)
-            {
-                _scrollRect.verticalNormalizedPosition = 0;
-            }
+            _logController.ScrollConsoleToLatest();
         }
 
         private void StoreCommand(string command)
@@ -1089,17 +1094,10 @@ namespace Hikaria.QC
         [Command("clear", "Clears the Quantum Console", MonoTargetType.Registry)]
         public void ClearConsole()
         {
-            _logStorage.Clear();
+            _logController.Clear();
             _logQueue.Clear();
-            _consoleLogText.text = string.Empty;
-            _consoleLogText.SetLayoutDirty();
             ClearBuffers();
             OnClear?.Invoke();
-        }
-
-        public string GetConsoleText()
-        {
-            return _consoleLogText.text;
         }
 
         protected virtual void ClearBuffers()
@@ -1114,22 +1112,36 @@ namespace Hikaria.QC
             var consoleRect = transform.FindChild("ConsoleRect");
             _containerRect = consoleRect.GetComponent<RectTransform>();
             var dynamicCanvasScaler = gameObject.AddComponent<DynamicCanvasScaler>();
-            dynamicCanvasScaler.Setup(GetComponent<CanvasScaler>(), _containerRect);
+            dynamicCanvasScaler.Setup(this, GetComponent<CanvasScaler>(), _containerRect);
             var console = consoleRect.FindChild("Console");
             var blurShaderController = gameObject.AddComponent<BlurShaderController>();
             blurShaderController.Setup(_theme.PanelMaterial);
             _scrollRect = console.GetComponent<ScrollRect>();
             var resizeableUI = console.FindChild("Resize Anchor").gameObject.AddComponent<ResizableUI>();
-            resizeableUI.Setup(_containerRect, gameObject.GetComponent<Canvas>());
+            resizeableUI.Setup(this, _containerRect, gameObject.GetComponent<Canvas>());
             var consoleView = console.FindChild("Console View");
             var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
-            draggableUI.Setup(_containerRect, this, _scrollRect);
-            _consoleLogText = consoleView.FindChild("View Port/Text").GetComponent<TextMeshProUGUI>();
+            draggableUI.Setup(this, _containerRect, _scrollRect);
+            var viewport = consoleView.FindChild("View Port");
+            _viewportTransform = viewport.GetComponent<RectTransform>();
+            _consoleLogTransform = viewport.FindChild("Text").GetComponent<RectTransform>();
+            _enhancedScroller = console.gameObject.AddComponent<EnhancedScroller>();
+            _enhancedScroller.spacing = 0;
+            _enhancedScroller.padding = new();
+            _enhancedScroller.enableTopSpacer = true;
+            _enhancedScroller.Setup(_scrollRect, _consoleLogTransform, _viewportTransform);
+
+            _logCellViewPrefab = _theme.LogCellViewPrefab.AddComponent<LogCellView>();
+            _logCellViewPrefab.Setup();
+
+            _logCellViewPrefab.gameObject.hideFlags = HideFlags.HideAndDontSave | HideFlags.DontUnloadUnusedAsset;
+            UnityEngine.Object.DontDestroyOnLoad(_logCellViewPrefab);
+
+            _consoleLogText = viewport.FindChild("Text").GetComponent<TextMeshProUGUI>();
             _consoleLogText.fontSize = 14;
-            _consoleLogText.maxVisibleLines = int.MaxValue;
-            _consoleLogText.maxVisibleWords = int.MaxValue;
-            _consoleLogText.maxVisibleCharacters = int.MaxValue;
             _consoleLogText.color = ColorExtensions.WHITE;
+            _consoleLogText.enabled = false;
+            _consoleLogText.GetComponent<ContentSizeFitter>().enabled = false;
             var popup = console.FindChild("Popup");
             _suggestionPopupRect = popup.GetComponent<RectTransform>();
             _suggestionPopupText = popup.FindChild("Text").GetComponent<TextMeshProUGUI>();
@@ -1147,9 +1159,7 @@ namespace Hikaria.QC
             var uiControlTab = console.FindChild("UI Controls Tab");
             var zoomUIController = uiControlTab.gameObject.AddComponent<ZoomUIController>();
             var zoomSizeUpButton = uiControlTab.FindChild("Zoom+").GetComponent<Button>();
-            zoomSizeUpButton.onClick.AddListener(new Action(zoomUIController.ZoomUp));
             var zoomSizeDownButton = uiControlTab.FindChild("Zoom-").GetComponent<Button>();
-            zoomSizeDownButton.onClick.AddListener(new Action(zoomUIController.ZoomDown));
             zoomUIController.Setup(zoomSizeDownButton, zoomSizeUpButton, dynamicCanvasScaler, this, uiControlTab.FindChild("Text").GetComponent<TextMeshProUGUI>());
             _submitButtonText = ioBar.FindChild("Submit/Text").GetComponent<TextMeshProUGUI>();
             _clearButtonText = ioBar.FindChild("Clear/Text").GetComponent<TextMeshProUGUI>();
@@ -1171,13 +1181,13 @@ namespace Hikaria.QC
             inputEventTrigger.triggers.Add(inputEventEntry);
 
             var submitButton = ioBar.FindChild("Submit").GetComponent<Button>();
-            submitButton.onClick.AddListener(new Action(InvokeCommand));
+            submitButton.onClick.AddListener((Action)(InvokeCommand));
 
             var clearButton = ioBar.FindChild("Clear").GetComponent<Button>();
-            clearButton.onClick.AddListener(new Action(ClearConsole));
+            clearButton.onClick.AddListener((Action)(ClearConsole));
 
             var closeButton = ioBar.FindChild("Close").GetComponent<Button>();
-            closeButton.onClick.AddListener(new Action(Deactivate));
+            closeButton.onClick.AddListener((Action)(Deactivate));
         }
 
         private void Awake()
@@ -1249,7 +1259,8 @@ namespace Hikaria.QC
         private void OnDisable()
         {
             QuantumRegistry.DeregisterObject(this);
-            //Application.remove_logMessageReceivedThreaded(_logCallback);
+            if (!Feature.IsApplicationQuitting)
+                Application.remove_logMessageReceivedThreaded(_logCallback);
 
             Deactivate();
         }
@@ -1281,7 +1292,7 @@ namespace Hikaria.QC
                 ApplyTheme(_theme);
                 ApplyLocalization();
                 ApplyPreferences(_preferences);
-                Utils.SafeInvoke(QuantumConsoleReady);
+                Utils.SafeInvoke(QuantumConsoleReady, this);
                 _initialized = true;
             }
         }
@@ -1297,11 +1308,21 @@ namespace Hikaria.QC
 
         private void InitializeLogging()
         {
-            _logStorage = _logStorage ?? CreateLogStorage();
+            _logController = _logController ?? CreateLogStorage();
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogStorage CreateLogStorage() => new LogStorage(_maxStoredLogs);
+        protected virtual ILogController CreateLogStorage()
+        {
+            var logStorage = gameObject.GetComponent<LogController>();
+            if (!logStorage)
+            {
+                logStorage = gameObject.AddComponent<LogController>();
+                logStorage.Setup(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
+            }
+
+            return logStorage;
+        }
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 

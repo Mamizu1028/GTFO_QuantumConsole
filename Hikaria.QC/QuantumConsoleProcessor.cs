@@ -39,7 +39,18 @@ namespace Hikaria.QC
         private static readonly List<CommandData> _commandCache = new List<CommandData>();
 
         public static bool TableGenerated { get; private set; }
-        public static bool TableIsGenerating { get; private set; }
+        public static bool TableIsGenerating
+        {
+            get => _tableIsGenerating;
+            private set
+            {
+                if (_tableIsGenerating != value && value)
+                    TableIsGeneratingHandled = false;
+                _tableIsGenerating = value;
+            }
+        }
+        private static bool _tableIsGenerating;
+        internal static bool TableIsGeneratingHandled { get; set; } = true;
 
         [Command("command-count", "Gets the number of loaded commands")]
         public static int LoadedCommandCount => _loadedCommandCount;

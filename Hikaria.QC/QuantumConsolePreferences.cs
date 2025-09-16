@@ -34,7 +34,6 @@ public class QuantumConsolePreferences
     public int CommandHistorySize = 30;
 
     public int MaxStoredLogs = 1024;
-    public int MaxLogSize = 8192;
     public bool ShowInitLogs = true;
 
     public int LogFontSize = 14;

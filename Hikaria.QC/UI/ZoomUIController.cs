@@ -1,4 +1,5 @@
 ﻿using Il2CppInterop.Runtime.Attributes;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,12 +28,12 @@ namespace Hikaria.QC.UI
             return snappedZoom;
         }
 
-        public void ZoomUp()
+        private void ZoomUp()
         {
             _scaler.ZoomMagnification = ClampAndSnapZoom(_scaler.ZoomMagnification + _zoomIncrement);
         }
 
-        public void ZoomDown()
+        private void ZoomDown()
         {
             _scaler.ZoomMagnification = ClampAndSnapZoom(_scaler.ZoomMagnification - _zoomIncrement);
         }
@@ -79,6 +80,9 @@ namespace Hikaria.QC.UI
             _scaler = dynamicCanvasScaler;
             _quantumConsole = quantumConsole;
             _text = textMeshProUGUI;
+
+            _zoomUpBtn.onClick.AddListener((Action)ZoomUp);
+            _zoomDownBtn.onClick.AddListener((Action)ZoomDown);
         }
     }
 }

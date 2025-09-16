@@ -2,7 +2,7 @@
 
 namespace Hikaria.QC
 {
-    public interface ILogStorage
+    public interface ILogController
     {
         int MaxStoredLogs { get; set; }
         IReadOnlyList<ILog> Logs { get; }
@@ -11,7 +11,10 @@ namespace Hikaria.QC
         void RemoveLog();
         void Clear();
 
-        string GetLogString();
-    }
+        void FlushLogText();
 
+        void UpdateLayout();
+
+        void ScrollConsoleToLatest();
+    }
 }

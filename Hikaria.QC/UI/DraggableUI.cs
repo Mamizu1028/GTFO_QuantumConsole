@@ -25,7 +25,7 @@ namespace Hikaria.QC.UI
 
         private RaycastResult _pointerCurrentRaycast;
 
-        public void OnPointerDown(PointerEventData eventData)
+        private void OnPointerDown(PointerEventData eventData)
         {
             _isDragging =
                 _quantumConsole &&
@@ -46,7 +46,7 @@ namespace Hikaria.QC.UI
             }
         }
 
-        public void LateUpdate()
+        private void LateUpdate()
         {
             if (_isDragging)
             {
@@ -78,7 +78,7 @@ namespace Hikaria.QC.UI
             }
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        private void OnPointerUp(PointerEventData eventData)
         {
             if (_isDragging)
             {
@@ -92,13 +92,13 @@ namespace Hikaria.QC.UI
             }
         }
 
-        public void OnScroll(PointerEventData eventData)
+        private void OnScroll(PointerEventData eventData)
         {
             _scrollRect.OnScroll(eventData);
         }
 
         [HideFromIl2Cpp]
-        public void Setup(RectTransform containerRect, QuantumConsole quantumConsole, ScrollRect scrollRect)
+        public void Setup(QuantumConsole quantumConsole, RectTransform containerRect, ScrollRect scrollRect)
         {
             _dragRoot = containerRect;
             _quantumConsole = quantumConsole;

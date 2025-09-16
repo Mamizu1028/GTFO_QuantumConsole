@@ -1,4 +1,5 @@
-﻿using Hikaria.QC.Utilities;
+﻿using Hikaria.QC.UI;
+using Hikaria.QC.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace Hikaria.QC
     {
         public TMP_FontAsset Font => QuantumConsoleSettings.GetLoadedAsset(FontAssetPath).Cast<TMP_FontAsset>();
         public Material PanelMaterial => QuantumConsoleSettings.GetLoadedAsset(PanelMaterialAssetPath).Cast<Material>();
+        public GameObject LogCellViewPrefab => QuantumConsoleSettings.GetLoadedAsset(LogCellViewPrefabAssetPath).Cast<GameObject>();
 
         public string FontAssetPath = "Assets/Plugins/QFSW/Quantum Console/Source/Fonts/TMP/OfficeCodePro-Regular SDF.asset";
         public string PanelMaterialAssetPath = "Assets/Plugins/QFSW/Quantum Console/Source/Materials/Blur Panel.mat";
+        public string LogCellViewPrefabAssetPath = "Assets/Plugins/QFSW/Quantum Console/Source/Prefabs/LogCellView.prefab";
 
         public Color PanelColor = ColorExtensions.WHITE;
 

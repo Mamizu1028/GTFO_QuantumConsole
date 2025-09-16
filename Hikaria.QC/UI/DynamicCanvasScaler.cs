@@ -34,6 +34,7 @@ namespace Hikaria.QC.UI
         //[Range(0.5f, 2f)]
         private float _zoomMagnification = 1f;
 
+        private QuantumConsole _quantumConsole = null;
         private CanvasScaler _scaler = null;
         private RectTransform _uiRoot = null;
         private Vector2 _referenceResolution = new Vector2(1920, 1080);
@@ -64,13 +65,15 @@ namespace Hikaria.QC.UI
                     UnityEditor.EditorUtility.SetDirty(_uiRoot);
                     UnityEditor.EditorUtility.SetDirty(_scaler);
 #endif
+                    _quantumConsole.RequireRebuild();
                 }
             }
         }
 
         [HideFromIl2Cpp]
-        public void Setup(CanvasScaler canvasScaler, RectTransform containerRect)
+        public void Setup(QuantumConsole quantumConsole, CanvasScaler canvasScaler, RectTransform containerRect)
         {
+            _quantumConsole = quantumConsole;
             _scaler = canvasScaler;
             _uiRoot = containerRect;
         }

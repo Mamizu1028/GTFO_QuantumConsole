@@ -34,7 +34,7 @@
 		<Reference Include="$(PluginsFolder)/**/UnityExplorer.BIE.Unity.IL2CPP.CoreCLR.dll" Private="false" />
 		<Reference Include="$(PluginsFolder)/**/Clonesoft.Json.dll" Private="false" />
 		<Reference Include="$(PluginsFolder)/**/TheArchive.Core.dll" Private="false" />
-		<Reference Include="$(PluginsFolder)/**/Hikaria.EnhancedScroller.dll" Private="false" />
+		<Reference Include="$(PluginsFolder)/**/Hikaria.ES.dll" Private="false" />
 	</ItemGroup>
 
 	<!-- MSBuild Actions -->

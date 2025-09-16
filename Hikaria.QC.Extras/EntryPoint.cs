@@ -18,9 +18,9 @@ internal class EntryPoint : IArchiveModule
         LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<CoroutineCommands>();
         LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<KeyBinderModule>();
 
-        QuantumConsole.QuantumConsoleReady += () =>
+        QuantumConsole.QuantumConsoleReady += (console) =>
         {
-            var obj = QuantumConsole.Instance.gameObject;
+            var obj = console.gameObject;
             QuantumRegistry.RegisterObject(obj.AddComponent<CoroutineCommands>());
             QuantumRegistry.RegisterObject(obj.AddComponent<KeyBinderModule>());
         };

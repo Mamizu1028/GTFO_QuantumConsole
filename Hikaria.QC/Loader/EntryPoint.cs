@@ -5,7 +5,7 @@ using TheArchive.Interfaces;
 
 namespace Hikaria.QC;
 
-[ArchiveDependency(EnhancedScroller.PluginInfo.GUID)]
+[ArchiveDependency(ES.PluginInfo.GUID)]
 [ArchiveModule(QuantumGlobal.GUID, QuantumGlobal.NAME, QuantumGlobal.VERSION)]
 internal class EntryPoint : IArchiveModule
 {

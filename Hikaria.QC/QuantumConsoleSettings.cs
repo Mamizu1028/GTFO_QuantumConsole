@@ -15,7 +15,6 @@ using TheArchive.Core.Attributes.Feature.Settings;
 using TheArchive.Core.FeaturesAPI;
 using TheArchive.Loader;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using Logger = BepInEx.Logging.Logger;
 
 namespace Hikaria.QC;
@@ -104,8 +103,6 @@ internal class QuantumConsoleSettings : Feature
 
         [FSDisplayName("日志最大容量")]
         public int MaxStoredLogs { get; set; } = 1024;
-        [FSDisplayName("日志最大长度")]
-        public int MaxLogSize { get; set; } = 8192;
         [FSDisplayName("日志文本大小")]
         public int LogFontSize { get; set; } = 14;
         [FSDisplayName("显示初始化日志")]
@@ -191,7 +188,6 @@ internal class QuantumConsoleSettings : Feature
             pref.CommandHistorySize = settings.CommandHistorySize;
 
             pref.MaxStoredLogs = settings.MaxStoredLogs;
-            pref.MaxLogSize = settings.MaxLogSize;
             pref.ShowInitLogs = settings.ShowInitLogs;
 
             pref.LogFontSize = settings.LogFontSize;
@@ -373,6 +369,8 @@ internal class QuantumConsoleSettings : Feature
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ResizableUI>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ZoomUIController>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<SuggestionDisplay>();
+                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogCellView>();
+                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogController>();
 
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeFormatter>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeColorFormatter>();
