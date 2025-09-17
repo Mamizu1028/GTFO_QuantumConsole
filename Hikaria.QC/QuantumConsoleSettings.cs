@@ -370,7 +370,6 @@ internal class QuantumConsoleSettings : Feature
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ZoomUIController>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<SuggestionDisplay>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogCellView>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogController>();
 
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeFormatter>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeColorFormatter>();
