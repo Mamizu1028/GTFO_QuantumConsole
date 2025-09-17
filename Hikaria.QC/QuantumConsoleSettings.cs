@@ -62,7 +62,7 @@ internal class QuantumConsoleSettings : Feature
         public QuantumConsolePreferenceSettings PreferenceSettings { get; set; } = new();
 
         public static BepInEx.Logging.LogLevel BIELogLevel => _bieLogLevel;
-        private static BepInEx.Logging.LogLevel _bieLogLevel = BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Warning | BepInEx.Logging.LogLevel.Error | BepInEx.Logging.LogLevel.Fatal;
+        private static BepInEx.Logging.LogLevel _bieLogLevel = BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Error | BepInEx.Logging.LogLevel.Fatal;
         private List<BepInEx.Logging.LogLevel> _bieListenLevel = new();
     }
 

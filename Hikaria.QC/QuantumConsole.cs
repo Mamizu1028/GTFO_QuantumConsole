@@ -3,6 +3,7 @@ using Hikaria.QC.Pooling;
 using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
 using Il2CppInterop.Runtime;
+using SickDev.DevConsole;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1160,7 +1161,7 @@ namespace Hikaria.QC
             var zoomUIController = uiControlTab.gameObject.AddComponent<ZoomUIController>();
             var zoomSizeUpButton = uiControlTab.FindChild("Zoom+").GetComponent<Button>();
             var zoomSizeDownButton = uiControlTab.FindChild("Zoom-").GetComponent<Button>();
-            zoomUIController.Setup(zoomSizeDownButton, zoomSizeUpButton, dynamicCanvasScaler, this, uiControlTab.FindChild("Text").GetComponent<TextMeshProUGUI>());
+            zoomUIController.Setup(this, zoomSizeDownButton, zoomSizeUpButton, dynamicCanvasScaler, uiControlTab.FindChild("Text").GetComponent<TextMeshProUGUI>());
             _submitButtonText = ioBar.FindChild("Submit/Text").GetComponent<TextMeshProUGUI>();
             _clearButtonText = ioBar.FindChild("Clear/Text").GetComponent<TextMeshProUGUI>();
             _closeButtonText = ioBar.FindChild("Close/Text").GetComponent<TextMeshProUGUI>();
@@ -1308,21 +1309,17 @@ namespace Hikaria.QC
 
         private void InitializeLogging()
         {
-            _logController = _logController ?? CreateLogStorage();
+            _logController = _logController ?? CreateLogController();
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogController CreateLogStorage()
+        protected virtual ILogController CreateLogController()
         {
-            var logStorage = gameObject.GetComponent<LogController>();
-            if (!logStorage)
-            {
-                logStorage = gameObject.AddComponent<LogController>();
-                logStorage.Setup(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
-            }
-
-            return logStorage;
+            var logController = new LogController();
+            logController.Setup(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
+            return logController;
         }
+
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 

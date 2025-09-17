@@ -1,6 +1,5 @@
 ﻿#if !QC_DISABLED && !QC_DISABLE_BUILTIN_ALL && !QC_DISABLE_BUILTIN_EXTRA
 using Hikaria.QC.Utilities;
-using Il2CppInterop.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using TheArchive.Core.ModulesAPI;

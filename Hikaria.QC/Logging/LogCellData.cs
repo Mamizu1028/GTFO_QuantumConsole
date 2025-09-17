@@ -1,4 +1,4 @@
-﻿namespace Hikaria.QC.Logging;
+﻿namespace Hikaria.QC;
 
 public class LogCellData
 {

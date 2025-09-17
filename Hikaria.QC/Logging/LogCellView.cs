@@ -1,9 +1,8 @@
 ﻿using Hikaria.ES;
-using Hikaria.QC.Logging;
 using TMPro;
 using UnityEngine;
 
-namespace Hikaria.QC.UI;
+namespace Hikaria.QC;
 
 public class LogCellView : EnhancedScrollerCellView
 {

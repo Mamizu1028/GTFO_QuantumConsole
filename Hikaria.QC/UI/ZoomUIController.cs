@@ -73,7 +73,7 @@ namespace Hikaria.QC.UI
         }
 
         [HideFromIl2Cpp]
-        public void Setup(Button zoomSizeDownButton, Button zoomSizeUpButton, DynamicCanvasScaler dynamicCanvasScaler, QuantumConsole quantumConsole, TextMeshProUGUI textMeshProUGUI)
+        public void Setup(QuantumConsole quantumConsole, Button zoomSizeDownButton, Button zoomSizeUpButton, DynamicCanvasScaler dynamicCanvasScaler, TextMeshProUGUI textMeshProUGUI)
         {
             _zoomDownBtn = zoomSizeDownButton;
             _zoomUpBtn = zoomSizeUpButton;

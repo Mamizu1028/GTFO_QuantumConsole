@@ -1,13 +1,11 @@
 ﻿using Hikaria.ES;
-using Hikaria.QC.Logging;
-using Hikaria.QC.UI;
 using Il2CppInterop.Runtime.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hikaria.QC
 {
-    public class LogController : MonoBehaviour, ILogController, IEnhancedScrollerDelegate
+    public class LogController : ILogController, IEnhancedScrollerDelegate
     {
         private readonly List<ILog> _consoleLogs = new List<ILog>(10);
 
@@ -72,19 +70,16 @@ namespace Hikaria.QC
         private LogCellView _logCellViewPrefab;
         private bool _calculateLayout;
 
-        [HideFromIl2Cpp]
         public int GetNumberOfCells(EnhancedScroller scroller)
         {
             return _logDatas.Count;
         }
 
-        [HideFromIl2Cpp]
         public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
         {
             return _logDatas[dataIndex].CellSize;
         }
 
-        [HideFromIl2Cpp]
         public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
         {
             LogCellView cellView = scroller.GetCellView(_logCellViewPrefab) as LogCellView;
