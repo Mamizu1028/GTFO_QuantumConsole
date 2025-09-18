@@ -3,7 +3,6 @@ using Hikaria.QC.Pooling;
 using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
 using Il2CppInterop.Runtime;
-using SickDev.DevConsole;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -1130,7 +1129,7 @@ namespace Hikaria.QC
             _enhancedScroller.spacing = 0;
             _enhancedScroller.padding = new();
             _enhancedScroller.enableTopSpacer = true;
-            _enhancedScroller.Setup(_scrollRect, _consoleLogTransform, _viewportTransform);
+            _enhancedScroller.Setup(_consoleLogTransform, _viewportTransform);
 
             _logCellViewPrefab = _theme.LogCellViewPrefab.AddComponent<LogCellView>();
             _logCellViewPrefab.Setup();

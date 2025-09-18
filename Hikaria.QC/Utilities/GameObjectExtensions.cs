@@ -1,4 +1,4 @@
-﻿using GTFO.API.Extensions;
+﻿using Il2CppInterop.Runtime;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -50,9 +50,9 @@ namespace Hikaria.QC.Utilities
                 }
 
                 obj = Resources
-                    .FindObjectsOfTypeAll<GameObject>()
+                    .FindObjectsOfTypeAll(Il2CppType.Of<GameObject>())
                     .Where(x => !x.hideFlags.HasFlag(HideFlags.HideInHierarchy))
-                    .FirstOrDefault(x => x.name == name);
+                    .FirstOrDefault(x => x.name == name).Cast<GameObject>();
 
                 if (obj)
                 {

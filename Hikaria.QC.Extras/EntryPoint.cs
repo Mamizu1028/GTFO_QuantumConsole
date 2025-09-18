@@ -15,6 +15,8 @@ internal class EntryPoint : IArchiveModule
 
     public void Init()
     {
+        Logs.Setup(Logger);
+
         LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<CoroutineCommands>();
         LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<KeyBinderModule>();
 

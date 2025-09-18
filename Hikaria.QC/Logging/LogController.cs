@@ -1,13 +1,17 @@
 ﻿using Hikaria.ES;
 using Il2CppInterop.Runtime.Attributes;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Hikaria.QC
 {
     public class LogController : ILogController, IEnhancedScrollerDelegate
     {
-        private readonly List<ILog> _consoleLogs = new List<ILog>(10);
+        private readonly List<ILog> _consoleLogs = new List<ILog>(1025);
+        private readonly List<LogCellData> _logDatas = new List<LogCellData>(1025);
+        private EnhancedScroller _scroller;
+        private LogCellView _logCellViewPrefab;
+        private bool _calculateLayout;
 
         public int MaxStoredLogs { get; set; }
         public IReadOnlyList<ILog> Logs => _consoleLogs;
@@ -42,6 +46,9 @@ namespace Hikaria.QC
                 while (_consoleLogs.Count > MaxStoredLogs)
                 {
                     _consoleLogs.RemoveAt(0);
+                }
+                while (_logDatas.Count > MaxStoredLogs)
+                {
                     _logDatas.RemoveAt(0);
                 }
             }
@@ -49,9 +56,19 @@ namespace Hikaria.QC
 
         public void RemoveLog()
         {
-            if (_logDatas.Count > 0)
+            if (_consoleLogs.Count > 0)
             {
-                _logDatas.RemoveAt(_logDatas.Count - 1);
+                ILog log = _consoleLogs[_consoleLogs.Count - 1];
+                _consoleLogs.RemoveAt(_consoleLogs.Count - 1);
+
+                int removeLength = log.Text.Length;
+                if (log.NewLine && _consoleLogs.Count > 0)
+                {
+                    removeLength += Environment.NewLine.Length;
+                }
+
+                var logData = _logDatas[_logDatas.Count - 1];
+                logData.LogText = logData.LogText.Remove(logData.LogText.Length - removeLength, removeLength);
             }
         }
 
@@ -64,11 +81,6 @@ namespace Hikaria.QC
 
             _scroller.ReloadData();
         }
-
-        private readonly List<LogCellData> _logDatas = new List<LogCellData>(1024);
-        private EnhancedScroller _scroller;
-        private LogCellView _logCellViewPrefab;
-        private bool _calculateLayout;
 
         public int GetNumberOfCells(EnhancedScroller scroller)
         {
@@ -102,29 +114,12 @@ namespace Hikaria.QC
             _calculateLayout = false;
             _scroller.ReloadData();
 
-            _scroller.JumpToDataIndex(_logDatas.Count - 1);
+            _scroller.JumpToDataIndex(Math.Max(0, _logDatas.Count - 1));
         }
 
         public void ScrollConsoleToLatest()
         {
-            _scroller.JumpToDataIndex(_logDatas.Count - 1);
-        }
-
-        public void UpdateLayout()
-        {
-            _scroller.ScrollPosition = 0;
-
-            for (int i = 0; i < _logDatas.Count; i++)
-            {
-                _logDatas[i].CellSize = 0;
-            }
-
-            _calculateLayout = true;
-            _scroller.ReloadData();
-            _calculateLayout = false;
-            _scroller.ReloadData();
-
-            _scroller.JumpToDataIndex(_logDatas.Count - 1);
+            _scroller.JumpToDataIndex(Math.Max(0, _logDatas.Count - 1));
         }
     }
 }

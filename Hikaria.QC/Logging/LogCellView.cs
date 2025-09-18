@@ -58,6 +58,6 @@ public class LogCellView : EnhancedScrollerCellView
 
         _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
 
-        _logCellData.CellSize = _textRectTransform.rect.height;
+        _logCellData.CellSize = textHeight;
     }
 }

@@ -42,6 +42,9 @@ namespace Hikaria.QC.ScanRules
                         return ScanRuleResult.Reject;
                     }
                 }
+
+                if (assembly.GetCustomAttribute<QcIncludeAttribute>() == null)
+                    return ScanRuleResult.Reject;
             }
 
             return ScanRuleResult.Accept;

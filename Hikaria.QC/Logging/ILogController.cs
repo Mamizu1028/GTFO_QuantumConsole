@@ -13,8 +13,6 @@ namespace Hikaria.QC
 
         void FlushLogText();
 
-        void UpdateLayout();
-
         void ScrollConsoleToLatest();
     }
 }
