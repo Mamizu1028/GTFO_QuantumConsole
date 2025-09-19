@@ -1,4 +1,16 @@
 ﻿{
+  "GroupTexts": {
+    "Hikaria.QC.ModuleGroup": {
+      "DisplayName": {
+        "English": "Quantum Console",
+        "Chinese": "量子控制台"
+      },
+      "Description": {
+        "English": null,
+        "Chinese": null
+      }
+    }
+  },
   "GenericTexts": {
     "1": {
       "Comment": "Loading",

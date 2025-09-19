@@ -67,8 +67,24 @@ namespace Hikaria.QC
                     removeLength += Environment.NewLine.Length;
                 }
 
-                var logData = _logDatas[_logDatas.Count - 1];
-                logData.LogText = logData.LogText.Remove(logData.LogText.Length - removeLength, removeLength);
+                if (_logDatas.Count > 0)
+                {
+                    var logData = _logDatas[_logDatas.Count - 1];
+
+                    if (logData.LogText.Length >= removeLength)
+                    {
+                        logData.LogText = logData.LogText.Remove(logData.LogText.Length - removeLength, removeLength);
+                    }
+                    else
+                    {
+                        _logDatas.RemoveAt(_logDatas.Count - 1);
+                    }
+
+                    if (logData.LogText.Length == 0)
+                    {
+                        _logDatas.RemoveAt(_logDatas.Count - 1);
+                    }
+                }
             }
         }
 
@@ -102,6 +118,8 @@ namespace Hikaria.QC
 
         public void FlushLogText()
         {
+            bool hasLogData = _logDatas.Count > 0;
+
             _scroller.ScrollPosition = 0;
 
             for (int i = 0; i < _logDatas.Count; i++)
@@ -114,12 +132,19 @@ namespace Hikaria.QC
             _calculateLayout = false;
             _scroller.ReloadData();
 
-            _scroller.JumpToDataIndex(Math.Max(0, _logDatas.Count - 1));
+            if (hasLogData)
+            {
+                _scroller.JumpToDataIndex(Math.Max(0, _logDatas.Count - 1));
+            }
+            else
+            {
+                _scroller.ScrollPosition = 0;
+            }
         }
 
         public void ScrollConsoleToLatest()
         {
-            _scroller.JumpToDataIndex(Math.Max(0, _logDatas.Count - 1));
+            _scroller.ScrollPosition = _scroller.ScrollSize;
         }
     }
 }
