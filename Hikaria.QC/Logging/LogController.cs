@@ -13,6 +13,8 @@ namespace Hikaria.QC
 
         public int MaxStoredLogs { get; set; }
 
+        public IReadOnlyList<ILogData> LogDatas => _logDatas;
+
         public LogController(EnhancedScroller scroller, LogCellView logCellViewPrefab, int maxStoredLogs = -1)
         {
             MaxStoredLogs = maxStoredLogs;

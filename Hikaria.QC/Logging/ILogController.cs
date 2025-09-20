@@ -6,6 +6,8 @@ namespace Hikaria.QC
     {
         int MaxStoredLogs { get; set; }
 
+        IReadOnlyList<ILogData> LogDatas { get; }
+
         void AddLog(ILog log);
         void RemoveLog();
         void Clear();
