@@ -1,23 +1,19 @@
 ﻿using Hikaria.ES;
-using Il2CppInterop.Runtime.Attributes;
 using System;
 using System.Collections.Generic;
 
 namespace Hikaria.QC
 {
-    public class LogController : ILogController, IEnhancedScrollerDelegate
+    internal class LogController : ILogController, IEnhancedScrollerDelegate
     {
-        private readonly List<ILog> _consoleLogs = new List<ILog>(1025);
         private readonly List<LogCellData> _logDatas = new List<LogCellData>(1025);
         private EnhancedScroller _scroller;
         private LogCellView _logCellViewPrefab;
         private bool _calculateLayout;
 
         public int MaxStoredLogs { get; set; }
-        public IReadOnlyList<ILog> Logs => _consoleLogs;
 
-        [HideFromIl2Cpp]
-        public void Setup(EnhancedScroller scroller, LogCellView logCellViewPrefab, int maxStoredLogs = -1)
+        public LogController(EnhancedScroller scroller, LogCellView logCellViewPrefab, int maxStoredLogs = -1)
         {
             MaxStoredLogs = maxStoredLogs;
             _logCellViewPrefab = logCellViewPrefab;
@@ -27,26 +23,13 @@ namespace Hikaria.QC
 
         public void AddLog(ILog log)
         {
-            _consoleLogs.Add(log);
-
-            if (!log.NewLine && _logDatas.Count > 0)
-            {
-                _logDatas[_logDatas.Count - 1].LogText += log.Text;
-            }
+            if (log.NewLine || _logDatas.Count == 0)
+                _logDatas.Add(new LogCellData(log));
             else
-            {
-                _logDatas.Add(new LogCellData()
-                {
-                    LogText = log.Text
-                });
-            }
+                _logDatas[_logDatas.Count - 1].AppendLog(log);
 
             if (MaxStoredLogs > 0)
             {
-                while (_consoleLogs.Count > MaxStoredLogs)
-                {
-                    _consoleLogs.RemoveAt(0);
-                }
                 while (_logDatas.Count > MaxStoredLogs)
                 {
                     _logDatas.RemoveAt(0);
@@ -56,41 +39,17 @@ namespace Hikaria.QC
 
         public void RemoveLog()
         {
-            if (_consoleLogs.Count > 0)
-            {
-                ILog log = _consoleLogs[_consoleLogs.Count - 1];
-                _consoleLogs.RemoveAt(_consoleLogs.Count - 1);
+            if (_logDatas.Count == 0)
+                return;
 
-                int removeLength = log.Text.Length;
-                if (log.NewLine && _consoleLogs.Count > 0)
-                {
-                    removeLength += Environment.NewLine.Length;
-                }
-
-                if (_logDatas.Count > 0)
-                {
-                    var logData = _logDatas[_logDatas.Count - 1];
-
-                    if (logData.LogText.Length >= removeLength)
-                    {
-                        logData.LogText = logData.LogText.Remove(logData.LogText.Length - removeLength, removeLength);
-                    }
-                    else
-                    {
-                        _logDatas.RemoveAt(_logDatas.Count - 1);
-                    }
-
-                    if (logData.LogText.Length == 0)
-                    {
-                        _logDatas.RemoveAt(_logDatas.Count - 1);
-                    }
-                }
-            }
+            var logDataIndex = _logDatas.Count - 1;
+            var logData = _logDatas[logDataIndex];
+            if (!logData.RemoveLog() || logData.Logs.Count == 0)
+                _logDatas.RemoveAt(logDataIndex);
         }
 
         public void Clear()
         {
-            _consoleLogs.Clear();
             _scroller.ClearAll();
             _scroller.ScrollPosition = 0;
             _logDatas.Clear();

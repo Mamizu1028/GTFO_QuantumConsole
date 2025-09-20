@@ -1312,13 +1312,7 @@ namespace Hikaria.QC
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogController CreateLogController()
-        {
-            var logController = new LogController();
-            logController.Setup(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
-            return logController;
-        }
-
+        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 

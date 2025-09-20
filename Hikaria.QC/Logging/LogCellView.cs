@@ -40,7 +40,7 @@ public class LogCellView : EnhancedScrollerCellView
 
     public override void RefreshCellView()
     {
-        LogText.text = _logCellData.LogText;
+        LogText.text = _logCellData.GetLogString();
     }
 
     public void UpdateLayout()
