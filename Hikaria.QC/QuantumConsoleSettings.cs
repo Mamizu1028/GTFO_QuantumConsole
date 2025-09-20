@@ -13,7 +13,10 @@ using TheArchive.Core.Attributes.Feature.Members;
 using TheArchive.Core.Attributes.Feature.Patches;
 using TheArchive.Core.Attributes.Feature.Settings;
 using TheArchive.Core.FeaturesAPI;
+using TheArchive.Core.FeaturesAPI.Settings;
+using TheArchive.Interfaces;
 using TheArchive.Loader;
+using TheArchive.Utilities;
 using UnityEngine;
 using Logger = BepInEx.Logging.Logger;
 
@@ -35,35 +38,30 @@ internal class QuantumConsoleSettings : Feature
 
     public override bool InlineSettingsIntoParentMenu => true;
 
+    public new static IArchiveLogger FeatureLogger { get; set; }
+
     [FeatureConfig]
     public static QuantumSettings Settings { get; set; }
 
     public class QuantumSettings
     {
+        [FSIdentifier("BIELogLevel")]
         [FSDisplayName("BepInEx 日志监听级别")]
-        public List<BepInEx.Logging.LogLevel> BIEListenLevel
-        {
-            get
-            {
-                return _bieListenLevel;
-            }
-            set
-            {
-                _bieListenLevel = value;
-
-                _bieLogLevel = (BepInEx.Logging.LogLevel)(ulong)_bieListenLevel.ToFlags();
-            }
-        }
+        public List<BepInEx.Logging.LogLevel> BIEListenLevel { get; set; }
         [FSDisplayName("按键绑定")]
         public QuantumKeySettings KeySettings { get; set; } = new();
         [FSDisplayName("主题设置")]
         public QuantumThemeSettings ThemeSettings { get; set; } = new();
         [FSDisplayName("控制台设置")]
         public QuantumConsolePreferenceSettings PreferenceSettings { get; set; } = new();
+    }
 
-        public static BepInEx.Logging.LogLevel BIELogLevel => _bieLogLevel;
-        private static BepInEx.Logging.LogLevel _bieLogLevel = BepInEx.Logging.LogLevel.Message | BepInEx.Logging.LogLevel.Error | BepInEx.Logging.LogLevel.Fatal;
-        private List<BepInEx.Logging.LogLevel> _bieListenLevel = new();
+    public override void OnFeatureSettingChanged(FeatureSetting setting)
+    {
+        if (setting.Identifier == "BIELogLevel")
+        {
+            BIELogListener.BIELogLevel = (setting.GetValue() as List<BepInEx.Logging.LogLevel>).ToFlags();
+        }
     }
 
     public class QuantumThemeSettings
@@ -350,7 +348,8 @@ internal class QuantumConsoleSettings : Feature
             };
         }
 
-        public BepInEx.Logging.LogLevel LogLevelFilter => QuantumSettings.BIELogLevel;
+        public BepInEx.Logging.LogLevel LogLevelFilter => BIELogLevel;
+        public static BepInEx.Logging.LogLevel BIELogLevel;
     }
 
     [ArchivePatch(typeof(GlobalSetup), nameof(GlobalSetup.Awake))]
