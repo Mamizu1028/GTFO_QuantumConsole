@@ -264,6 +264,7 @@ internal class QuantumConsoleSettings : Feature
 
     public override void Init()
     {
+        BIELogListener.BIELogLevel = Settings.BIEListenLevel.ToFlags();
         BIELogListener.Init();
         CommandLocalizationManager.Init();
     }
