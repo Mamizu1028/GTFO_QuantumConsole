@@ -5,7 +5,7 @@ namespace Hikaria.QC;
 
 public class LogCellData : ILogData
 {
-    private StringBuilder LogTraceBuilder { get; }
+    private StringBuilder _logTraceBuilder;
     private List<ILog> _logs = new List<ILog>(10);
 
     public float CellSize { get; set; } = 0f;
@@ -14,36 +14,34 @@ public class LogCellData : ILogData
 
     public override string ToString()
     {
-        return LogTraceBuilder.ToString();
+        return _logTraceBuilder.ToString();
     }
 
     public string GetLogString()
     {
-        return LogTraceBuilder.ToString();
+        return _logTraceBuilder.ToString();
     }
 
     public LogCellData(ILog log)
     {
-        LogTraceBuilder = new StringBuilder(log.Text.Length);
-        LogTraceBuilder.Append(log.Text);
+        _logTraceBuilder = new StringBuilder(log.Text.Length);
+        _logTraceBuilder.Append(log.Text);
     }
-
-    private LogCellData() { }
 
     public void AppendLog(ILog log)
     {
         _logs.Add(log);
 
-        int logLength = LogTraceBuilder.Length + log.Text.Length;
-        int capacity = LogTraceBuilder.Capacity;
+        int logLength = _logTraceBuilder.Length + log.Text.Length;
+        int capacity = _logTraceBuilder.Capacity;
         while (capacity < logLength)
         {
             capacity *= 2;
         }
 
-        LogTraceBuilder.EnsureCapacity(capacity);
+        _logTraceBuilder.EnsureCapacity(capacity);
 
-        LogTraceBuilder.Append(log.Text);
+        _logTraceBuilder.Append(log.Text);
     }
 
     public bool RemoveLog()
@@ -60,6 +58,6 @@ public class LogCellData : ILogData
     public void Clear()
     {
         _logs.Clear();
-        LogTraceBuilder.Clear();
+        _logTraceBuilder.Clear();
     }
 }
