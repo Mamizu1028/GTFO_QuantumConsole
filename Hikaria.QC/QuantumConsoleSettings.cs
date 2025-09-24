@@ -1,5 +1,6 @@
 ﻿using BepInEx.Logging;
 using Globals;
+using Hikaria.ES;
 using Hikaria.QC.Localization;
 using Hikaria.QC.UI;
 using Hikaria.QC.Utilities;
@@ -18,7 +19,6 @@ using TheArchive.Interfaces;
 using TheArchive.Loader;
 using TheArchive.Utilities;
 using UnityEngine;
-using Logger = BepInEx.Logging.Logger;
 
 namespace Hikaria.QC;
 
@@ -47,7 +47,7 @@ internal class QuantumConsoleSettings : Feature
     {
         [FSIdentifier("BIELogLevel")]
         [FSDisplayName("BepInEx 日志监听级别")]
-        public List<BepInEx.Logging.LogLevel> BIEListenLevel { get; set; }
+        public List<BepInEx.Logging.LogLevel> BIEListenLevel { get; set; } = new();
         [FSDisplayName("按键绑定")]
         public QuantumKeySettings KeySettings { get; set; } = new();
         [FSDisplayName("主题设置")]
@@ -115,6 +115,10 @@ internal class QuantumConsoleSettings : Feature
         public bool CloseOnSubmit { get; set; } = false;
         [FSDisplayName("自动滚动模式")]
         public AutoScrollOptions AutoScroll { get; set; } = AutoScrollOptions.OnInvoke;
+        [FSDisplayName("缓动模式")]
+        public EnhancedScroller.TweenType TweenType { get; set; } = EnhancedScroller.TweenType.easeOutSine;
+        [FSDisplayName("缓动时长")]
+        public float TweenTime { get; set; } = 0.5f;
 
         [FSHeader("指令设置")]
         [FSDisplayName("自动补全")]
@@ -168,6 +172,8 @@ internal class QuantumConsoleSettings : Feature
             pref.FocusOnActivate = settings.FocusOnActivate;
             pref.CloseOnSubmit = settings.CloseOnSubmit;
             pref.AutoScroll = settings.AutoScroll;
+            pref.TweenType = settings.TweenType;
+            pref.TweenTime = settings.TweenTime;
 
             pref.EnableAutocomplete = settings.EnableAutocomplete;
             pref.ShowPopupDisplay = settings.ShowPopupDisplay;
@@ -196,6 +202,7 @@ internal class QuantumConsoleSettings : Feature
 
     public class QuantumKeySettings
     {
+        [FSHeader("按键绑定")]
         [FSDisplayName("提交命令")]
         public KeyCode SubmitCommandKey { get; set; } = KeyCode.Return;
         [FSDisplayName("显示控制台")]
@@ -301,32 +308,32 @@ internal class QuantumConsoleSettings : Feature
 
         public void OnEnable()
         {
-            if (!Logger.Listeners.Contains(this))
+            if (!BepInEx.Logging.Logger.Listeners.Contains(this))
             {
-                Logger.Listeners.Add(this);
+                BepInEx.Logging.Logger.Listeners.Add(this);
             }
         }
 
         public void OnDisable()
         {
-            if (Logger.Listeners.Contains(this))
+            if (BepInEx.Logging.Logger.Listeners.Contains(this))
             {
-                Logger.Listeners.Remove(this);
+                BepInEx.Logging.Logger.Listeners.Remove(this);
             }
         }
 
         public void Dispose()
         {
-            if (Logger.Listeners.Contains(this))
+            if (BepInEx.Logging.Logger.Listeners.Contains(this))
             {
-                Logger.Listeners.Remove(this);
+                BepInEx.Logging.Logger.Listeners.Remove(this);
             }
         }
 
         public void LogEvent(object sender, LogEventArgs eventArgs)
         {
-            if (eventArgs.Source.SourceName == "Unity"
-                || eventArgs.Source.SourceName == "Hikaria.QuantumConsole")
+            if (eventArgs.Source.SourceName == "Unity" // 不使用 BepInEx 重定向的 Unity 日志，因为其不包含 StackTrace
+                || eventArgs.Source.SourceName == "Hikaria.QuantumConsole") // 排除自身日志避免出现死循环
                 return;
 
             if (QuantumConsole.Instance == null)

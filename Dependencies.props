@@ -56,7 +56,7 @@
 		</ItemGroup>
 		<Copy
 				SourceFiles="@(DefinitionFilesToCopy)"
-				DestinationFolder="$(PluginOutputPath)\%(RecursiveDir)"
+				DestinationFolder="$(PluginOutputPath)\Definitions\%(RecursiveDir)"
 				SkipUnchangedFiles="true"
 				OverwriteReadOnlyFiles="true"
 				Retries="3"

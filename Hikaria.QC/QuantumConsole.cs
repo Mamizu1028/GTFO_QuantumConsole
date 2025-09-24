@@ -94,6 +94,8 @@ namespace Hikaria.QC
         private bool _closeOnSubmit = false;
         private bool _singletonMode = true;
         private AutoScrollOptions _autoScroll = AutoScrollOptions.OnInvoke;
+        private float _tweenTime = 0.5f;
+        private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
 
         private bool _enableAutocomplete = true;
         private bool _showPopupDisplay = true;
@@ -193,7 +195,6 @@ namespace Hikaria.QC
         private string _currentInput;
         private string _previousInput;
         private bool _isGeneratingTable;
-        private bool _consoleRequiresFlush;
         private bool _isHandlingUserResponse = false;
         private ResponseConfig _currentResponseConfig;
         private Action<string> _onSubmitResponseCallback;
@@ -252,6 +253,8 @@ namespace Hikaria.QC
             _focusOnActivate = pref.FocusOnActivate;
             _closeOnSubmit = pref.CloseOnSubmit;
             _autoScroll = pref.AutoScroll;
+            _tweenType = pref.TweenType;
+            _tweenTime = pref.TweenTime;
 
             _enableAutocomplete = pref.EnableAutocomplete;
             _showPopupDisplay = pref.ShowPopupDisplay;
@@ -307,18 +310,6 @@ namespace Hikaria.QC
                         if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.Loading; }
                         QuantumConsoleProcessor.TableIsGeneratingHandled = true;
                     }
-#if false
-                    string consoleText = $"{_logStorage.GetLogString()}\n{GetTableGenerationText()}".Trim();
-                    if (consoleText != _consoleLogText.text)
-                    {
-                        if (_showInitLogs)
-                        {
-                            OnStateChange?.Invoke();
-                            _consoleLogText.text = consoleText;
-                        }
-                        if (_inputPlaceholderText) { _inputPlaceholderText.text = QuantumLocalization.Loading; }
-                    }
-#endif
 
                     return;
                 }
@@ -340,11 +331,10 @@ namespace Hikaria.QC
                         if (_showInitLogs)
                         {
                             AppendLog(new Log(GetTableGenerationText()));
-                            RequireFlush();
                         }
 
                         _isGeneratingTable = false;
-                        ScrollConsoleToLatest();
+                        ScrollConsoleToLatest(true);
                     }
                 }
 
@@ -376,7 +366,8 @@ namespace Hikaria.QC
             if (IsActive)
             {
                 FlushQueuedLogs();
-                FlushToConsoleText();
+                if (_logController.IsDirty)
+                    _logController.ProcessLogs();
             }
         }
 
@@ -759,7 +750,7 @@ namespace Hikaria.QC
                 LogToConsole(logTrace, LogLevel.Error);
                 OnInvoke?.Invoke(command);
 
-                if (_autoScroll == AutoScrollOptions.OnInvoke) { ScrollConsoleToLatest(); }
+                if (_autoScroll >= AutoScrollOptions.OnInvoke) { ScrollConsoleToLatest(true); }
                 if (_closeOnSubmit) { Deactivate(); }
             }
             else { OverrideConsoleInput(string.Empty); }
@@ -853,7 +844,7 @@ namespace Hikaria.QC
                 open |= _openOnLogLevel.HasFlag(log.Level.GetHighestLevel());
             }
 
-            if (scroll) { ScrollConsoleToLatest(); }
+            if (scroll) { ScrollConsoleToLatest(false); }
             if (open) { Activate(false); }
         }
 
@@ -1035,33 +1026,13 @@ namespace Hikaria.QC
 
             if (_autoScroll == AutoScrollOptions.Always)
             {
-                ScrollConsoleToLatest();
-            }
-        }
-
-        private void FlushToConsoleText()
-        {
-            if (_consoleRequiresFlush)
-            {
-                _consoleRequiresFlush = false;
-                _logController.FlushLogText();
+                ScrollConsoleToLatest(false);
             }
         }
 
         protected void AppendLog(ILog log)
         {
             _logController.AddLog(log);
-            RequireFlush();
-        }
-
-        protected void RequireFlush()
-        {
-            _consoleRequiresFlush = true;
-        }
-
-        internal void RequireRebuild()
-        {
-            _consoleRequiresFlush = true;
         }
 
         /// <summary>
@@ -1070,12 +1041,16 @@ namespace Hikaria.QC
         public void RemoveLogTrace()
         {
             _logController.RemoveLog();
-            RequireFlush();
         }
 
-        private void ScrollConsoleToLatest()
+        internal void RequireRebuildLogLayout(bool viewportSizeChanged = false)
         {
-            _logController.ScrollConsoleToLatest();
+            _logController.RebuildLogTextLayout(viewportSizeChanged);
+        }
+
+        private void ScrollConsoleToLatest(bool immediate)
+        {
+            _logController.ScrollToLatest(immediate);
         }
 
         private void StoreCommand(string command)
@@ -1111,20 +1086,21 @@ namespace Hikaria.QC
         {
             var consoleRect = transform.FindChild("ConsoleRect");
             _containerRect = consoleRect.GetComponent<RectTransform>();
-            var dynamicCanvasScaler = gameObject.AddComponent<DynamicCanvasScaler>();
-            dynamicCanvasScaler.Setup(this, GetComponent<CanvasScaler>(), _containerRect);
             var console = consoleRect.FindChild("Console");
-            var blurShaderController = gameObject.AddComponent<BlurShaderController>();
-            blurShaderController.Setup(_theme.PanelMaterial);
             _scrollRect = console.GetComponent<ScrollRect>();
-            var resizeableUI = console.FindChild("Resize Anchor").gameObject.AddComponent<ResizableUI>();
-            resizeableUI.Setup(this, _containerRect, gameObject.GetComponent<Canvas>());
             var consoleView = console.FindChild("Console View");
-            var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
-            draggableUI.Setup(this, _containerRect, _scrollRect);
             var viewport = consoleView.FindChild("View Port");
             _viewportTransform = viewport.GetComponent<RectTransform>();
             _consoleLogTransform = viewport.FindChild("Text").GetComponent<RectTransform>();
+
+            var blurShaderController = gameObject.AddComponent<BlurShaderController>();
+            blurShaderController.Setup(_theme.PanelMaterial);
+            var dynamicCanvasScaler = gameObject.AddComponent<DynamicCanvasScaler>();
+            dynamicCanvasScaler.Setup(this, GetComponent<CanvasScaler>(), _containerRect);
+            var resizeableUI = console.FindChild("Resize Anchor").gameObject.AddComponent<ResizableUI>();
+            resizeableUI.Setup(this, _containerRect, gameObject.GetComponent<Canvas>());
+            var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
+            draggableUI.Setup(this, _containerRect, _scrollRect);
             _enhancedScroller = console.gameObject.AddComponent<EnhancedScroller>();
             _enhancedScroller.spacing = 0;
             _enhancedScroller.padding = new();
@@ -1312,7 +1288,7 @@ namespace Hikaria.QC
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs);
+        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs, _tweenType, _tweenTime);
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 

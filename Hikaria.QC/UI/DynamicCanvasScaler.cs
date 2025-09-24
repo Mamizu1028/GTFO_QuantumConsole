@@ -1,4 +1,6 @@
-﻿using Il2CppInterop.Runtime.Attributes;
+﻿using BepInEx.Unity.IL2CPP.Utils.Collections;
+using Il2CppInterop.Runtime.Attributes;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,9 +67,15 @@ namespace Hikaria.QC.UI
                     UnityEditor.EditorUtility.SetDirty(_uiRoot);
                     UnityEditor.EditorUtility.SetDirty(_scaler);
 #endif
-                    _quantumConsole.RequireRebuild();
+                    StartCoroutine(UpdateLayout().WrapToIl2Cpp());
                 }
             }
+        }
+
+        private IEnumerator UpdateLayout()
+        {
+            yield return new WaitForEndOfFrame();
+            _quantumConsole.RequireRebuildLogLayout(true);
         }
 
         [HideFromIl2Cpp]

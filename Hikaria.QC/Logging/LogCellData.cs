@@ -6,7 +6,7 @@ namespace Hikaria.QC;
 public class LogCellData : ILogData
 {
     private StringBuilder _logTraceBuilder;
-    private List<ILog> _logs = new List<ILog>(10);
+    private List<ILog> _logs = new List<ILog>(5);
 
     public float CellSize { get; set; } = 0f;
 
@@ -24,8 +24,8 @@ public class LogCellData : ILogData
 
     public LogCellData(ILog log)
     {
-        _logTraceBuilder = new StringBuilder(log.Text.Length);
-        _logTraceBuilder.Append(log.Text);
+        _logs.Add(log);
+        _logTraceBuilder = new StringBuilder(log.Text);
     }
 
     public void AppendLog(ILog log)
@@ -40,7 +40,6 @@ public class LogCellData : ILogData
         }
 
         _logTraceBuilder.EnsureCapacity(capacity);
-
         _logTraceBuilder.Append(log.Text);
     }
 
@@ -48,7 +47,9 @@ public class LogCellData : ILogData
     {
         if (_logs.Count > 0)
         {
+            var log = _logs[_logs.Count - 1];
             _logs.RemoveAt(_logs.Count - 1);
+            _logTraceBuilder.Remove(_logTraceBuilder.Length - log.Text.Length, log.Text.Length);
             return true;
         }
 

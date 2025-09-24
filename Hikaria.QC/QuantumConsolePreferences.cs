@@ -1,4 +1,6 @@
-﻿namespace Hikaria.QC;
+﻿using Hikaria.ES;
+
+namespace Hikaria.QC;
 
 public class QuantumConsolePreferences
 {
@@ -15,7 +17,9 @@ public class QuantumConsolePreferences
     public bool InitialiseOnStartup = true;
     public bool FocusOnActivate = true;
     public bool CloseOnSubmit = false;
-    public AutoScrollOptions AutoScroll = AutoScrollOptions.OnInvoke;
+    public AutoScrollOptions AutoScroll = AutoScrollOptions.Always;
+    public float TweenTime = 0.5f;
+    public EnhancedScroller.TweenType TweenType = EnhancedScroller.TweenType.easeOutSine;
 
     public bool EnableAutocomplete = true;
     public bool ShowPopupDisplay = true;

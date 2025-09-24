@@ -8,12 +8,16 @@ namespace Hikaria.QC
 
         IReadOnlyList<ILogData> LogDatas { get; }
 
+        bool IsDirty { get; }
+
         void AddLog(ILog log);
         void RemoveLog();
         void Clear();
 
-        void FlushLogText();
+        void ProcessLogs();
 
-        void ScrollConsoleToLatest();
+        void RebuildLogTextLayout(bool viewportSizeChanged);
+
+        void ScrollToLatest(bool immediate);
     }
 }

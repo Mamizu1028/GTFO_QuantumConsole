@@ -43,7 +43,7 @@ namespace Hikaria.QC.UI
 
         private void OnEndDrag(PointerEventData eventData)
         {
-            _quantumConsole.RequireRebuild();
+            _quantumConsole.RequireRebuildLogLayout(true);
         }
 
         [HideFromIl2Cpp]

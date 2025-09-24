@@ -81,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hikaria.QC.Extras", "Hikari
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Definitions", "Definitions", "{3F397428-3E8F-4019-978C-E6F4E62F897B}"
 	ProjectSection(SolutionItems) = preProject
-		Definitions\_Hikaria.QC_Definitions.json = Definitions\_Hikaria.QC_Definitions.json
+		Definitions\Module_Hikaria.QC_Group_Definition.json = Definitions\Module_Hikaria.QC_Group_Definition.json
 	EndProjectSection
 EndProject
 Global
