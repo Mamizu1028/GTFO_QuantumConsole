@@ -2,6 +2,7 @@
 using Hikaria.QC.UI;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Hikaria.QC
 {
@@ -18,8 +19,7 @@ namespace Hikaria.QC
         private bool _isDirty = false;
         private bool _viewportSizeChanged = false;
         private bool _immediateScroll = false;
-        private int _lastViewIndex = 0;
-        private static bool _keepDataIndex = false;
+        private static float _lastUserInteractTime = 0;
 
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
@@ -42,13 +42,12 @@ namespace Hikaria.QC
 
         public void ProcessLogs()
         {
-            if (DraggableUI.IsDraggingScroll || _scroller.IsScrolling || _scroller.IsTweening)
+            if (DraggableUI.IsDraggingScroll || _scroller.IsScrolling || _scroller.IsTweening || Time.time - _lastUserInteractTime < 1f)
                 return;
 
-            int startDataIndex = _logDatas.Count == 0 ? 0 :
-                    _keepDataIndex ? _lastViewIndex : _lastViewIndex = Math.Min(_scroller.StartDataIndex + 1, _logDatas.Count - 1);
+            int startDataIndex = _logDatas.Count == 0 ? 0 : Math.Min(_scroller.StartDataIndex + 1, _logDatas.Count - 1);
 
-            float scrollPosition = _scroller.ScrollPosition;
+            float scrollPosition = Math.Max(0, _scroller.ScrollPosition);
 
             ProcessQueuedLogActions();
 
@@ -60,11 +59,9 @@ namespace Hikaria.QC
                     _scroller.JumpToDataIndex(startDataIndex);
                 else
                     _scroller.ScrollPosition = scrollPosition;
-                _keepDataIndex = true;
                 if (_needScrollToLatest)
                 {
                     ScrollToLatestInternal(_immediateScroll);
-                    _keepDataIndex = false;
                 }
             }
             _isDirty = false;
@@ -77,7 +74,7 @@ namespace Hikaria.QC
 
         public static void UserInteracted()
         {
-            _keepDataIndex = false;
+            _lastUserInteractTime = Time.time;
         }
 
         private void ProcessQueuedLogActions()
@@ -181,8 +178,6 @@ namespace Hikaria.QC
 
         public void Clear()
         {
-            _lastViewIndex = 0;
-            _keepDataIndex = false;
             _isDirty = false;
             _logActionQueue.Clear();
             _dataCountDelta = 0;

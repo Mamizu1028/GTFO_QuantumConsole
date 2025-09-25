@@ -28,9 +28,11 @@ namespace Hikaria.QC.UI
 
         public static DraggableUI Instance { get; private set; }
 
+        public static bool IsDragging => Instance._isDragging;
+
         public static bool IsDraggingScroll => Instance._isDraggingScroll;
 
-        private void OnPointerDown(PointerEventData eventData)
+        private void OnBeginDrag(PointerEventData eventData)
         {
             _isDragging =
                 _quantumConsole &&
@@ -52,7 +54,7 @@ namespace Hikaria.QC.UI
             }
         }
 
-        private void LateUpdate()
+        private void OnDrag(PointerEventData eventData)
         {
             if (_isDragging)
             {
@@ -81,10 +83,11 @@ namespace Hikaria.QC.UI
                     position = InputHelper.GetMousePosition(),
                     pointerCurrentRaycast = _pointerCurrentRaycast
                 });
+                LogController.UserInteracted();
             }
         }
 
-        private void OnPointerUp(PointerEventData eventData)
+        private void OnEndDrag(PointerEventData eventData)
         {
             if (_isDragging)
             {
@@ -95,6 +98,7 @@ namespace Hikaria.QC.UI
             {
                 _isDraggingScroll = false;
                 _scrollRect.OnEndDrag(eventData);
+                LogController.UserInteracted();
             }
         }
 
@@ -118,26 +122,27 @@ namespace Hikaria.QC.UI
             _onDrag = new();
             _onEndDrag = new();
 
-            _onBeginDrag.AddListener(new Action(() => { scrollRect.enabled = false; }));
-            _onDrag.AddListener(new Action(() => { }));
-            _onEndDrag.AddListener(new Action(() => { scrollRect.enabled = true; }));
-
             var eventTrigger = gameObject.AddComponent<EventTrigger>();
 
-            var onPointerDownEntry = new EventTrigger.Entry();
-            onPointerDownEntry.eventID = EventTriggerType.PointerDown;
-            onPointerDownEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnPointerDown(data.Cast<PointerEventData>()); }));
-            eventTrigger.triggers.Add(onPointerDownEntry);
+            var onBeginDragEntry = new EventTrigger.Entry();
+            onBeginDragEntry.eventID = EventTriggerType.BeginDrag;
+            onBeginDragEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnBeginDrag(data.Cast<PointerEventData>()); }));
+            eventTrigger.triggers.Add(onBeginDragEntry);
 
-            var onPointerUpEntry = new EventTrigger.Entry();
-            onPointerUpEntry.eventID = EventTriggerType.PointerUp;
-            onPointerUpEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnPointerUp(data.Cast<PointerEventData>()); }));
-            eventTrigger.triggers.Add(onPointerUpEntry);
+            var onEndDragEntry = new EventTrigger.Entry();
+            onEndDragEntry.eventID = EventTriggerType.EndDrag;
+            onEndDragEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnEndDrag(data.Cast<PointerEventData>()); }));
+            eventTrigger.triggers.Add(onEndDragEntry);
 
             var onScrollEntry = new EventTrigger.Entry();
             onScrollEntry.eventID = EventTriggerType.Scroll;
             onScrollEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnScroll(data.Cast<PointerEventData>()); }));
             eventTrigger.triggers.Add(onScrollEntry);
+
+            var onDragEntry = new EventTrigger.Entry();
+            onDragEntry.eventID = EventTriggerType.Drag;
+            onDragEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnDrag(data.Cast<PointerEventData>()); }));
+            eventTrigger.triggers.Add(onDragEntry);
         }
     }
 }
