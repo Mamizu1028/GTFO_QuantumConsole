@@ -118,6 +118,7 @@ internal class QuantumConsoleSettings : Feature
         [FSDisplayName("缓动模式")]
         public EnhancedScroller.TweenType TweenType { get; set; } = EnhancedScroller.TweenType.easeOutSine;
         [FSDisplayName("缓动时长")]
+        [FSSlider(0.1f, 1f, FSSlider.SliderStyle.FloatTwoDecimal)]
         public float TweenTime { get; set; } = 0.5f;
 
         [FSHeader("指令设置")]

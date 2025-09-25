@@ -366,6 +366,7 @@ namespace Hikaria.QC
             if (IsActive)
             {
                 FlushQueuedLogs();
+
                 if (_logController.IsDirty)
                     _logController.ProcessLogs();
             }
@@ -1099,13 +1100,15 @@ namespace Hikaria.QC
             dynamicCanvasScaler.Setup(this, GetComponent<CanvasScaler>(), _containerRect);
             var resizeableUI = console.FindChild("Resize Anchor").gameObject.AddComponent<ResizableUI>();
             resizeableUI.Setup(this, _containerRect, gameObject.GetComponent<Canvas>());
-            var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
-            draggableUI.Setup(this, _containerRect, _scrollRect);
+
             _enhancedScroller = console.gameObject.AddComponent<EnhancedScroller>();
             _enhancedScroller.spacing = 0;
             _enhancedScroller.padding = new();
             _enhancedScroller.enableTopSpacer = true;
             _enhancedScroller.Setup(_consoleLogTransform, _viewportTransform);
+
+            var draggableUI = consoleView.gameObject.AddComponent<DraggableUI>();
+            draggableUI.Setup(this, _enhancedScroller, _containerRect, _scrollRect);
 
             _logCellViewPrefab = _theme.LogCellViewPrefab.AddComponent<LogCellView>();
             _logCellViewPrefab.Setup();

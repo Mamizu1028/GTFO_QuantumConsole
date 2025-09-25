@@ -8,6 +8,8 @@ public class LogCellData : ILogData
     private StringBuilder _logTraceBuilder;
     private List<ILog> _logs = new List<ILog>(5);
 
+    public bool IsDirty { get; set; }
+
     public float CellSize { get; set; } = 0f;
 
     public IReadOnlyList<ILog> Logs => _logs;
@@ -41,6 +43,8 @@ public class LogCellData : ILogData
 
         _logTraceBuilder.EnsureCapacity(capacity);
         _logTraceBuilder.Append(log.Text);
+
+        IsDirty = true;
     }
 
     public bool RemoveLog()
@@ -50,6 +54,7 @@ public class LogCellData : ILogData
             var log = _logs[_logs.Count - 1];
             _logs.RemoveAt(_logs.Count - 1);
             _logTraceBuilder.Remove(_logTraceBuilder.Length - log.Text.Length, log.Text.Length);
+            IsDirty = true;
             return true;
         }
 
@@ -58,6 +63,7 @@ public class LogCellData : ILogData
 
     public void Clear()
     {
+        IsDirty = true;
         _logs.Clear();
         _logTraceBuilder.Clear();
     }

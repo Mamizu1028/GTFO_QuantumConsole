@@ -54,10 +54,10 @@ public class LogCellView : EnhancedScrollerCellView
         Vector2 textSize = LogText.GetPreferredValues(parentWidth, float.MaxValue);
         float textHeight = textSize.y;
 
+        _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
         _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
 
-        _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
-
         _logCellData.CellSize = textHeight;
+        _logCellData.IsDirty = false;
     }
 }

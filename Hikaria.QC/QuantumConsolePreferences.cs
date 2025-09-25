@@ -17,7 +17,7 @@ public class QuantumConsolePreferences
     public bool InitialiseOnStartup = true;
     public bool FocusOnActivate = true;
     public bool CloseOnSubmit = false;
-    public AutoScrollOptions AutoScroll = AutoScrollOptions.Always;
+    public AutoScrollOptions AutoScroll = AutoScrollOptions.OnInvoke;
     public float TweenTime = 0.5f;
     public EnhancedScroller.TweenType TweenType = EnhancedScroller.TweenType.easeOutSine;
 

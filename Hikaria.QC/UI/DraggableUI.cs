@@ -15,6 +15,7 @@ namespace Hikaria.QC.UI
         private QuantumConsole _quantumConsole = null;
         private bool _lockInScreen = true;
         private ScrollRect _scrollRect = null;
+        private EnhancedScroller _enhancedScroller = null;
 
         private UnityEvent _onBeginDrag = null;
         private UnityEvent _onDrag = null;
@@ -24,13 +25,11 @@ namespace Hikaria.QC.UI
         private bool _isDragging = false;
         private bool _isDraggingScroll = false;
 
-        private RaycastResult _pointerCurrentRaycast;
-
         public static DraggableUI Instance { get; private set; }
 
-        public static bool IsDragging => Instance._isDragging;
+        public bool IsDragging => Instance._isDragging;
 
-        public static bool IsDraggingScroll => Instance._isDraggingScroll;
+        public bool IsDraggingScroll => Instance._isDraggingScroll;
 
         private void OnBeginDrag(PointerEventData eventData)
         {
@@ -38,8 +37,6 @@ namespace Hikaria.QC.UI
                 _quantumConsole &&
                 _quantumConsole.KeyConfig is not null &&
                 _quantumConsole.KeyConfig.DragConsoleKey.IsHeld();
-
-            _pointerCurrentRaycast = eventData.pointerCurrentRaycast;
 
             if (_isDragging)
             {
@@ -50,7 +47,7 @@ namespace Hikaria.QC.UI
             {
                 _isDraggingScroll = true;
                 _scrollRect.OnBeginDrag(eventData);
-                LogController.UserInteracted();
+                _enhancedScroller.OnBeginDrag(eventData);
             }
         }
 
@@ -77,13 +74,8 @@ namespace Hikaria.QC.UI
             }
             else if (_isDraggingScroll)
             {
-                _scrollRect.OnDrag(new PointerEventData(EventSystem.current)
-                {
-                    button = PointerEventData.InputButton.Left,
-                    position = InputHelper.GetMousePosition(),
-                    pointerCurrentRaycast = _pointerCurrentRaycast
-                });
-                LogController.UserInteracted();
+                _scrollRect.OnDrag(eventData);
+                _enhancedScroller.OnDrag(eventData);
             }
         }
 
@@ -98,25 +90,35 @@ namespace Hikaria.QC.UI
             {
                 _isDraggingScroll = false;
                 _scrollRect.OnEndDrag(eventData);
-                LogController.UserInteracted();
+                _enhancedScroller.OnEndDrag(eventData);
             }
+        }
+
+        private void OnPointerUp(PointerEventData data)
+        {
+            _enhancedScroller.OnPointerUp(data);
+        }
+
+        private void OnPointerDown(PointerEventData data)
+        {
+            _enhancedScroller.OnPointerDown(data);
         }
 
         private void OnScroll(PointerEventData eventData)
         {
             _scrollRect.velocity = Vector2.zero;
             _scrollRect.OnScroll(eventData);
-            LogController.UserInteracted();
         }
 
         [HideFromIl2Cpp]
-        public void Setup(QuantumConsole quantumConsole, RectTransform containerRect, ScrollRect scrollRect)
+        public void Setup(QuantumConsole quantumConsole, EnhancedScroller enhancedScroller, RectTransform containerRect, ScrollRect scrollRect)
         {
             Instance = this;
 
             _dragRoot = containerRect;
             _quantumConsole = quantumConsole;
             _scrollRect = scrollRect;
+            _enhancedScroller = enhancedScroller;
 
             _onBeginDrag = new();
             _onDrag = new();
@@ -143,6 +145,16 @@ namespace Hikaria.QC.UI
             onDragEntry.eventID = EventTriggerType.Drag;
             onDragEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnDrag(data.Cast<PointerEventData>()); }));
             eventTrigger.triggers.Add(onDragEntry);
+
+            var onPointerDownEntry = new EventTrigger.Entry();
+            onPointerDownEntry.eventID = EventTriggerType.PointerDown;
+            onPointerDownEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnPointerDown(data.Cast<PointerEventData>()); }));
+            eventTrigger.triggers.Add(onPointerDownEntry);
+
+            var onPointerUpEntry = new EventTrigger.Entry();
+            onPointerUpEntry.eventID = EventTriggerType.PointerUp;
+            onPointerUpEntry.callback.AddListener(new Action<BaseEventData>((data) => { OnPointerUp(data.Cast<PointerEventData>()); }));
+            eventTrigger.triggers.Add(onPointerUpEntry);
         }
     }
 }

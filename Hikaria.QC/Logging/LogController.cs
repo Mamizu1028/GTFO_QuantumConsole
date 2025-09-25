@@ -1,8 +1,7 @@
 ﻿using Hikaria.ES;
-using Hikaria.QC.UI;
+using Il2CppSystem.Runtime.Remoting.Messaging;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Hikaria.QC
 {
@@ -13,16 +12,18 @@ namespace Hikaria.QC
         private EnhancedScroller _scroller;
         private LogCellView _logCellViewPrefab;
         private bool _calculateLayout;
-        private int _dataCountDelta = 0;
+        private int _logDataCountDelta = 0;
         private int _logCountDelta = 0;
+        private int _logDataIndexOffset = 0;
         private bool _needScrollToLatest;
         private bool _isDirty = false;
         private bool _viewportSizeChanged = false;
         private bool _immediateScroll = false;
-        private static float _lastUserInteractTime = 0;
 
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
+
+        public bool IsViewingLatestLog { get; private set; }
 
         public int MaxStoredLogs { get; set; }
 
@@ -40,14 +41,34 @@ namespace Hikaria.QC
             _tweenType = tweenType;
         }
 
+        private bool _wasTweening = false;
+        private bool _pendingProcessAfterTween = false;
         public void ProcessLogs()
         {
-            if (DraggableUI.IsDraggingScroll || _scroller.IsScrolling || _scroller.IsTweening || Time.time - _lastUserInteractTime < 1f)
+            bool isTweening = _scroller.IsTweening;
+            if (_wasTweening && !isTweening)
+            {
+                _pendingProcessAfterTween = true;
+                _wasTweening = false;
                 return;
+            }
+            if (isTweening)
+            {
+                _wasTweening = true;
+                return;
+            }
+            if (_pendingProcessAfterTween)
+            {
+                _pendingProcessAfterTween = false;
+                return;
+            }
 
-            int startDataIndex = _logDatas.Count == 0 ? 0 : Math.Min(_scroller.StartDataIndex + 1, _logDatas.Count - 1);
+            IsViewingLatestLog = _logDatas.Count == 0 || _scroller.EndDataIndex == _logDatas.Count - 1;
 
-            float scrollPosition = Math.Max(0, _scroller.ScrollPosition);
+            int startDataIndex = _logDatas.Count == 0 ? 0 : _scroller.StartDataIndex + 1;
+            float scrollPosition = _scroller.ScrollPosition;
+            float linearVelocity = _scroller.LinearVelocity;
+            _needScrollToLatest |= IsViewingLatestLog;
 
             ProcessQueuedLogActions();
 
@@ -55,10 +76,17 @@ namespace Hikaria.QC
 
             if (_logDatas.Count > 0)
             {
-                if (_viewportSizeChanged || (scrollPosition > _scroller.ScrollSize))
-                    _scroller.JumpToDataIndex(startDataIndex);
+                startDataIndex = Math.Max(0, startDataIndex + _logDataIndexOffset);
+                if (_viewportSizeChanged)
+                {
+                    _scroller.JumpToDataIndex(startDataIndex, 0f, 1f, false);
+                }
                 else
+                {
                     _scroller.ScrollPosition = scrollPosition;
+                    _scroller.LinearVelocity = linearVelocity;
+                }
+
                 if (_needScrollToLatest)
                 {
                     ScrollToLatestInternal(_immediateScroll);
@@ -68,20 +96,16 @@ namespace Hikaria.QC
             _viewportSizeChanged = false;
             _needScrollToLatest = false;
             _immediateScroll = false;
+            _logDataIndexOffset = 0;
             _logCountDelta = 0;
-            _dataCountDelta = 0;
-        }
-
-        public static void UserInteracted()
-        {
-            _lastUserInteractTime = Time.time;
+            _logDataCountDelta = 0;
         }
 
         private void ProcessQueuedLogActions()
         {
             while (_logActionQueue.Count != 0)
             {
-                (bool action, ILog? log) = _logActionQueue.Dequeue();
+                var (action, log) = _logActionQueue.Dequeue();
                 if (action)
                     AddLogInternal(log);
                 else
@@ -116,9 +140,7 @@ namespace Hikaria.QC
             }
             else
             {
-                _scroller.JumpToDataIndex(_logDatas.Count - 1,
-                    tweenType: _tweenType,
-                    tweenTime: _tweenTime);
+                _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _tweenTime);
             }
         }
 
@@ -143,7 +165,7 @@ namespace Hikaria.QC
             if (log.NewLine || _logDatas.Count == 0)
             {
                 _logDatas.Add(new LogCellData(log));
-                _dataCountDelta++;
+                _logDataCountDelta++;
             }
             else
             {
@@ -155,7 +177,8 @@ namespace Hikaria.QC
                 while (_logDatas.Count > MaxStoredLogs)
                 {
                     _logCountDelta -= _logDatas[0].Logs.Count;
-                    _dataCountDelta--;
+                    _logDataCountDelta--;
+                    _logDataIndexOffset--;
                     _logDatas.RemoveAt(0);
                 }
             }
@@ -172,7 +195,7 @@ namespace Hikaria.QC
             if (logData.Logs.Count == 0)
             {
                 _logDatas.RemoveAt(logDataIndex);
-                _dataCountDelta--;
+                _logDataCountDelta--;
             }
         }
 
@@ -180,7 +203,8 @@ namespace Hikaria.QC
         {
             _isDirty = false;
             _logActionQueue.Clear();
-            _dataCountDelta = 0;
+            _logDataIndexOffset = 0;
+            _logDataCountDelta = 0;
             _logCountDelta = 0;
             _scroller.ClearAll();
             _logDatas.Clear();
