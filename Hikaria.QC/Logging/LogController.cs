@@ -18,7 +18,8 @@ namespace Hikaria.QC
         private bool _isDirty = false;
         private bool _viewportSizeChanged = false;
         private bool _immediateScroll = false;
-
+        private bool _skipOneFrame = false;
+        private const float _immediateTweenTime = 0.1f;
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
 
@@ -40,25 +41,19 @@ namespace Hikaria.QC
             _tweenType = tweenType;
         }
 
-        private bool _wasTweening = false;
-        private bool _pendingProcessAfterTween = false;
+        private void SkipOneFrame()
+        {
+            _skipOneFrame = true;
+        }
+
         public void ProcessLogs()
         {
-            bool isTweening = _scroller.IsTweening;
-            if (_wasTweening && !isTweening)
-            {
-                _pendingProcessAfterTween = true;
-                _wasTweening = false;
+            if (_scroller.IsTweening)
                 return;
-            }
-            if (isTweening)
+
+            if (_skipOneFrame)
             {
-                _wasTweening = true;
-                return;
-            }
-            if (_pendingProcessAfterTween)
-            {
-                _pendingProcessAfterTween = false;
+                _skipOneFrame = false;
                 return;
             }
 
@@ -135,11 +130,12 @@ namespace Hikaria.QC
 
             if (immediate)
             {
-                _scroller.ScrollPosition = _scroller.ScrollSize;
+                //_scroller.ScrollPosition = _scroller.ScrollSize;
+                _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _immediateTweenTime, SkipOneFrame);
             }
             else
             {
-                _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _tweenTime);
+                _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _tweenTime, SkipOneFrame);
             }
         }
 
