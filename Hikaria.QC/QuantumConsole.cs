@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using TheArchive.Core.FeaturesAPI;
 using TheArchive.Core.Localization;
 using TheArchive.Utilities;
 using TMPro;
@@ -52,7 +51,11 @@ namespace Hikaria.QC
         public QuantumTheme Theme
         {
             get => _theme;
-            set => _theme = value;
+            set
+            {
+                _theme = value;
+                ApplyTheme(value);
+            }
         }
 
         public QuantumKeyConfig KeyConfig
@@ -96,6 +99,7 @@ namespace Hikaria.QC
         private AutoScrollOptions _autoScroll = AutoScrollOptions.OnInvoke;
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
+        private bool _seamlessTween = true;
 
         private bool _enableAutocomplete = true;
         private bool _showPopupDisplay = true;
@@ -207,7 +211,6 @@ namespace Hikaria.QC
         /// <param name="theme">The desired theme to apply.</param>
         public void ApplyTheme(QuantumTheme theme, bool forceRefresh = false)
         {
-            _theme = theme;
             if (theme is not null)
             {
                 if (_textComponents == null || forceRefresh) { _textComponents = GetComponentsInChildren<TextMeshProUGUI>(true); }
@@ -255,6 +258,7 @@ namespace Hikaria.QC
             _autoScroll = pref.AutoScroll;
             _tweenType = pref.TweenType;
             _tweenTime = pref.TweenTime;
+            _seamlessTween = pref.SeamlessTween;
 
             _enableAutocomplete = pref.EnableAutocomplete;
             _showPopupDisplay = pref.ShowPopupDisplay;
@@ -1173,24 +1177,24 @@ namespace Hikaria.QC
         {
             _theme = QuantumTheme.DefaultTheme();
             _logCallback = DelegateSupport.ConvertDelegate<Application.LogCallback>(DebugIntercept);
+            Application.add_logMessageReceivedThreaded(_logCallback);
 
             SetupComponents();
+            Theme = QuantumConsoleSettings.Settings.ThemeSettings;
+            KeyConfig = QuantumConsoleSettings.Settings.KeySettings;
+            Preferences = QuantumConsoleSettings.Settings.PreferenceSettings;
 
             QuantumGlobal.Localization.AddTextUpdater(this);
-            //Application.s_LogCallbackHandlerThreaded += _logCallback;
         }
 
         private void OnDestroy()
         {
-            //Application.s_LogCallbackHandlerThreaded -= _logCallback;
-
             QuantumGlobal.Localization.RemoveTextUpdater(this);
         }
 
         private void OnEnable()
         {
             QuantumRegistry.RegisterObject(this);
-            Application.add_logMessageReceivedThreaded(_logCallback);
 
             if (IsSupportedState())
             {
@@ -1238,8 +1242,6 @@ namespace Hikaria.QC
         private void OnDisable()
         {
             QuantumRegistry.DeregisterObject(this);
-            if (!Feature.IsApplicationQuitting)
-                Application.remove_logMessageReceivedThreaded(_logCallback);
 
             Deactivate();
         }
@@ -1260,17 +1262,18 @@ namespace Hikaria.QC
                 _isGeneratingTable = true;
             }
 
-            InitializeSuggestionStack();
-            InitializeLogging();
-
-            _consoleLogText.richText = true;
-            _consoleSuggestionText.richText = true;
-
             if (!_initialized)
             {
                 ApplyTheme(_theme);
                 ApplyLocalization();
                 ApplyPreferences(_preferences);
+
+                InitializeSuggestionStack();
+                InitializeLogging();
+
+                _consoleLogText.richText = true;
+                _consoleSuggestionText.richText = true;
+
                 Utils.SafeInvoke(QuantumConsoleReady, this);
                 _initialized = true;
             }
@@ -1291,7 +1294,7 @@ namespace Hikaria.QC
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs, _tweenType, _tweenTime);
+        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs, _tweenType, _tweenTime, _seamlessTween);
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 

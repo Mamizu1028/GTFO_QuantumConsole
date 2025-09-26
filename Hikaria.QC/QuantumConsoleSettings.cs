@@ -34,8 +34,6 @@ internal class QuantumConsoleSettings : Feature
         typeof(BepInEx.Logging.LogLevel), typeof(LogLevel), typeof(AutoScrollOptions), typeof(SortOrder)
     };
 
-    public override bool RequiresRestart => true;
-
     public override bool InlineSettingsIntoParentMenu => true;
 
     public new static IArchiveLogger FeatureLogger { get; set; }
@@ -100,7 +98,7 @@ internal class QuantumConsoleSettings : Feature
         public bool PrependTimestamps { get; set; } = true;
 
         [FSDisplayName("日志最大容量")]
-        public int MaxStoredLogs { get; set; } = 1024;
+        public int MaxStoredLogs { get; set; } = 768;
         [FSDisplayName("日志文本大小")]
         public int LogFontSize { get; set; } = 14;
         [FSDisplayName("显示初始化日志")]
@@ -115,11 +113,14 @@ internal class QuantumConsoleSettings : Feature
         public bool CloseOnSubmit { get; set; } = false;
         [FSDisplayName("自动滚动模式")]
         public AutoScrollOptions AutoScroll { get; set; } = AutoScrollOptions.OnInvoke;
+        [FSIgnore]
         [FSDisplayName("缓动模式")]
         public EnhancedScroller.TweenType TweenType { get; set; } = EnhancedScroller.TweenType.easeOutSine;
         [FSDisplayName("缓动时长")]
         [FSSlider(0.1f, 1f, FSSlider.SliderStyle.FloatTwoDecimal)]
         public float TweenTime { get; set; } = 0.5f;
+        [FSDisplayName("缓动无缝衔接")]
+        public bool SeamlessTween { get; set; } = true;
 
         [FSHeader("指令设置")]
         [FSDisplayName("自动补全")]
@@ -175,6 +176,7 @@ internal class QuantumConsoleSettings : Feature
             pref.AutoScroll = settings.AutoScroll;
             pref.TweenType = settings.TweenType;
             pref.TweenTime = settings.TweenTime;
+            pref.SeamlessTween = settings.SeamlessTween;
 
             pref.EnableAutocomplete = settings.EnableAutocomplete;
             pref.ShowPopupDisplay = settings.ShowPopupDisplay;
@@ -334,7 +336,7 @@ internal class QuantumConsoleSettings : Feature
         public void LogEvent(object sender, LogEventArgs eventArgs)
         {
             if (eventArgs.Source.SourceName == "Unity" // 不使用 BepInEx 重定向的 Unity 日志，因为其不包含 StackTrace
-                || eventArgs.Source.SourceName == "Hikaria.QuantumConsole") // 排除自身日志避免出现死循环
+                || eventArgs.Source.SourceName == "Hikaria.QC") // 排除自身日志避免出现死循环
                 return;
 
             if (QuantumConsole.Instance == null)
@@ -364,11 +366,11 @@ internal class QuantumConsoleSettings : Feature
     [ArchivePatch(typeof(GlobalSetup), nameof(GlobalSetup.Awake))]
     private class GlobalSetup__Awake__Patch
     {
-        static bool _inited = false;
+        static bool _initialized = false;
 
         private static void Prefix()
         {
-            if (!_inited)
+            if (!_initialized)
             {
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<QuantumConsole>();
                 LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DraggableUI>();
@@ -395,11 +397,7 @@ internal class QuantumConsoleSettings : Feature
                     }
                 }
                 var console = UnityEngine.Object.Instantiate(GetLoadedAsset("Assets/Plugins/QFSW/Quantum Console/Source/Prefabs/Quantum Console.prefab").Cast<GameObject>()).AddComponent<QuantumConsole>();
-                console.Theme = Settings.ThemeSettings;
-                console.KeyConfig = Settings.KeySettings;
-                console.Preferences = Settings.PreferenceSettings;
-
-                _inited = true;
+                _initialized = true;
             }
         }
     }

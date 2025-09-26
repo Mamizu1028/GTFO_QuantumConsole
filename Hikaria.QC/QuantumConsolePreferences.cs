@@ -20,6 +20,7 @@ public class QuantumConsolePreferences
     public AutoScrollOptions AutoScroll = AutoScrollOptions.OnInvoke;
     public float TweenTime = 0.5f;
     public EnhancedScroller.TweenType TweenType = EnhancedScroller.TweenType.easeOutSine;
+    public bool SeamlessTween = true;
 
     public bool EnableAutocomplete = true;
     public bool ShowPopupDisplay = true;
