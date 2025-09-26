@@ -163,6 +163,7 @@ namespace Hikaria.QC
             _logDataIndexOffset = 0;
             _logDataCountDelta = 0;
             _logCountDelta = 0;
+            _scrollPositionOffset = 0;
             _scroller.ClearAll();
             _logDatas.Clear();
             _scroller.ReloadData();
