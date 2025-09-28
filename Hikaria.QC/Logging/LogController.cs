@@ -1,6 +1,7 @@
 ﻿using Hikaria.ES;
 using System;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 
 namespace Hikaria.QC
 {
@@ -32,7 +33,8 @@ namespace Hikaria.QC
 
         public bool IsDirty => _isDirty;
 
-        public LogController(EnhancedScroller scroller, LogCellView logCellViewPrefab, int maxStoredLogs = -1, EnhancedScroller.TweenType tweenType = EnhancedScroller.TweenType.easeOutSine, float tweenTime = 0.5f, bool seamlessTween = true)
+        public LogController(EnhancedScroller scroller, LogCellView logCellViewPrefab, int maxStoredLogs = -1,
+            EnhancedScroller.TweenType tweenType = EnhancedScroller.TweenType.easeOutSine, float tweenTime = 0.5f, bool seamlessTween = true)
         {
             MaxStoredLogs = maxStoredLogs;
             _logCellViewPrefab = logCellViewPrefab;
@@ -41,6 +43,8 @@ namespace Hikaria.QC
             _tweenTime = tweenTime;
             _tweenType = tweenType;
             _seamlessTween = seamlessTween;
+            _scroller.interruptTweeningOnDrag = true;
+            _scroller.interruptTweeningOnPointerDown = true;
         }
 
         public void ProcessLogs()
@@ -87,7 +91,13 @@ namespace Hikaria.QC
 
                 if (_needScrollToLatest)
                 {
-                    _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _immediateScroll ? _immediateTweenTime : _tweenTime, forceCalculateRange: true, seamlessTransition: _seamlessTween);
+                    _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _immediateScroll ? _immediateTweenTime : _tweenTime, 
+                        forceCalculateRange: _logCountDelta != 0, seamlessTransition: _seamlessTween);
+                }
+
+                if (_logCountDelta == 0)
+                {
+                    _scroller.RefreshActive();
                 }
             }
             _isDirty = false;
@@ -125,7 +135,7 @@ namespace Hikaria.QC
             }
             else
             {
-                _logDatas[_logDatas.Count - 1].AppendLog(log);
+                _logDatas[^1].AppendLog(log);
             }
 
             if (MaxStoredLogs > 0)
@@ -143,15 +153,17 @@ namespace Hikaria.QC
 
         private void RemoveLogInternal()
         {
-            var lastLogDataIndex = _logDatas.Count - 1;
-            var logData = _logDatas[lastLogDataIndex];
+            if (_logDatas.Count == 0)
+                return;
+
+            var logData = _logDatas[^1];
             if (logData.RemoveLog())
             {
                 _logCountDelta--;
             }
             if (logData.Logs.Count == 0)
             {
-                _logDatas.RemoveAt(lastLogDataIndex);
+                _logDatas.RemoveAt(_logDatas.Count - 1);
                 _logDataCountDelta--;
             }
         }

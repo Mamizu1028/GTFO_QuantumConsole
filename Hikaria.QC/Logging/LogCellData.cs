@@ -51,7 +51,7 @@ public class LogCellData : ILogData
     {
         if (_logs.Count > 0)
         {
-            var log = _logs[_logs.Count - 1];
+            var log = _logs[^1];
             _logs.RemoveAt(_logs.Count - 1);
             _logTraceBuilder.Remove(_logTraceBuilder.Length - log.Text.Length, log.Text.Length);
             IsDirty = true;
