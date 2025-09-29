@@ -49,15 +49,23 @@ public class LogCellView : EnhancedScrollerCellView
         _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, parentWidth);
         _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, parentWidth);
 
-        LogText.ForceMeshUpdate();
+        if (_logCellData.IsDirty)
+        {
+            LogText.ForceMeshUpdate();
 
-        Vector2 textSize = LogText.GetPreferredValues(parentWidth, float.MaxValue);
-        float textHeight = textSize.y;
+            Vector2 textSize = LogText.GetPreferredValues(parentWidth, float.MaxValue);
+            float textHeight = textSize.y;
 
-        _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
-        _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
+            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
+            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
 
-        _logCellData.CellSize = textHeight;
-        _logCellData.IsDirty = false;
+            _logCellData.CellSize = textHeight;
+            _logCellData.IsDirty = false;
+        }
+        else
+        {
+            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _logCellData.CellSize);
+            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _logCellData.CellSize);
+        }
     }
 }

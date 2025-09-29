@@ -10,19 +10,23 @@ namespace Hikaria.QC
         private readonly Queue<(bool, ILog?)> _logActionQueue = new Queue<(bool, ILog?)>(1025);
         private EnhancedScroller _scroller;
         private LogCellView _logCellViewPrefab;
+
         private bool _calculateLayout;
+
         private int _logDataCountDelta = 0;
         private int _logCountDelta = 0;
         private int _logDataIndexOffset = 0;
         private float _scrollPositionOffset = 0;
-        private bool _needScrollToLatest;
+
         private bool _isDirty = false;
         private bool _viewportSizeChanged = false;
+        private bool _needScrollToLatest;
         private bool _immediateScroll = false;
         private const float _immediateTweenTime = 0.1f;
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
         private bool _seamlessTween = true;
+        private bool _firstFlush = true;
 
         public bool IsViewingLatestLog { get; private set; }
 
@@ -66,9 +70,12 @@ namespace Hikaria.QC
             }
 
             _scroller.ScrollPosition = 0;
-            for (int i = 0; i < _logDatas.Count; i++)
+            if (_viewportSizeChanged)
             {
-                _logDatas[i].CellSize = 0;
+                for (int i = 0; i < _logDatas.Count; i++)
+                {
+                    _logDatas[i].CellSize = 0;
+                }
             }
             _calculateLayout = true;
             _scroller.ReloadData();
@@ -107,6 +114,16 @@ namespace Hikaria.QC
             _logCountDelta = 0;
             _logDataCountDelta = 0;
             _scrollPositionOffset = 0;
+
+            if (_firstFlush)
+            {
+                if (_logDatas.Count > 0)
+                {
+                    _logDatas[0].CellSize = 0;
+                }
+                _isDirty = true;
+                _firstFlush = false;
+            }
         }
 
         public void AddLog(ILog log)
@@ -187,7 +204,7 @@ namespace Hikaria.QC
 
         public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
         {
-            return _logDatas[dataIndex].CellSize;
+            return _calculateLayout ? 0 : _logDatas[dataIndex].CellSize;
         }
 
         public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)

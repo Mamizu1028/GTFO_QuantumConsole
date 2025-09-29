@@ -98,7 +98,7 @@ internal class QuantumConsoleSettings : Feature
         public bool PrependTimestamps { get; set; } = true;
 
         [FSDisplayName("日志最大容量")]
-        public int MaxStoredLogs { get; set; } = 768;
+        public int MaxStoredLogs { get; set; } = 1024;
         [FSDisplayName("日志文本大小")]
         public int LogFontSize { get; set; } = 14;
         [FSDisplayName("显示初始化日志")]
