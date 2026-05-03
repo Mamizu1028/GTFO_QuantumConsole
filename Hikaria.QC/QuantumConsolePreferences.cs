@@ -20,7 +20,6 @@ public class QuantumConsolePreferences
     public AutoScrollOptions AutoScroll = AutoScrollOptions.OnInvoke;
     public float TweenTime = 0.5f;
     public EnhancedScroller.TweenType TweenType = EnhancedScroller.TweenType.easeOutSine;
-    public bool SeamlessTween = true;
 
     public bool EnableAutocomplete = true;
     public bool ShowPopupDisplay = true;
@@ -38,7 +37,7 @@ public class QuantumConsolePreferences
     public bool StoreAdjacentDuplicateCommands = false;
     public int CommandHistorySize = 30;
 
-    public int MaxStoredLogs = 1024;
+    public int MaxStoredLogs = 2048;
     public bool ShowInitLogs = true;
 
     public int LogFontSize = 14;

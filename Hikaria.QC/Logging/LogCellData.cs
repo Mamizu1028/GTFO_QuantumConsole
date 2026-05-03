@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Hikaria.QC;
@@ -7,6 +8,10 @@ public class LogCellData : ILogData
 {
     private readonly StringBuilder _logTraceBuilder;
     private readonly List<ILog> _logs;
+    private string _cachedString;
+    private bool _stringDirty;
+
+    private float _cellSize;
 
     public bool IsDirty { get; set; } = true;
 
@@ -15,46 +20,60 @@ public class LogCellData : ILogData
         get => _cellSize;
         set
         {
-            if (_cellSize != value)
+            if (Math.Abs(_cellSize - value) > 0.01f)
             {
                 _cellSize = value;
                 IsDirty = true;
             }
         }
     }
-    private float _cellSize = 0f;
 
     public IReadOnlyList<ILog> Logs => _logs;
 
-    public override string ToString()
-    {
-        return _logTraceBuilder.ToString();
-    }
+    public override string ToString() => GetLogString();
 
     public string GetLogString()
     {
-        return _logTraceBuilder.ToString();
+        if (_stringDirty || _cachedString == null)
+        {
+            _cachedString = _logTraceBuilder.ToString();
+            _stringDirty = false;
+        }
+        return _cachedString;
     }
 
-    public LogCellData(ILog log)
+    public LogCellData()
     {
-        _logs = new List<ILog>{ log };
-        _logTraceBuilder = new StringBuilder(log.Text);
+        _logs = new List<ILog>();
+        _logTraceBuilder = new StringBuilder();
+        _cachedString = string.Empty;
+        _stringDirty = true;
+    }
+
+    public LogCellData(ILog log) : this()
+    {
+        Reset(log);
+    }
+
+    public void Reset(ILog log)
+    {
+        _logs.Clear();
+        _logTraceBuilder.Clear();
+
+        _logs.Add(log);
+        _logTraceBuilder.Append(log.Text);
+
+        _stringDirty = true;
+        IsDirty = true;
+        _cellSize = 0f;
     }
 
     public void AppendLog(ILog log)
     {
-        int logLength = _logTraceBuilder.Length + log.Text.Length;
-        int capacity = _logTraceBuilder.Capacity;
-        while (capacity < logLength)
-        {
-            capacity *= 2;
-        }
-        _logTraceBuilder.EnsureCapacity(capacity);
         _logTraceBuilder.Append(log.Text);
-
         _logs.Add(log);
 
+        _stringDirty = true;
         IsDirty = true;
     }
 
@@ -65,6 +84,8 @@ public class LogCellData : ILogData
             var log = _logs[^1];
             _logs.RemoveAt(_logs.Count - 1);
             _logTraceBuilder.Remove(_logTraceBuilder.Length - log.Text.Length, log.Text.Length);
+
+            _stringDirty = true;
             IsDirty = true;
             return true;
         }
@@ -74,8 +95,10 @@ public class LogCellData : ILogData
 
     public void Clear()
     {
-        IsDirty = true;
         _logs.Clear();
         _logTraceBuilder.Clear();
+
+        _stringDirty = true;
+        IsDirty = true;
     }
 }

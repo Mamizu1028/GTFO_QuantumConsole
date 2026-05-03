@@ -1,4 +1,4 @@
-﻿using Hikaria.ES;
+using Hikaria.ES;
 using TMPro;
 using UnityEngine;
 
@@ -10,62 +10,59 @@ public class LogCellView : EnhancedScrollerCellView
 
     private RectTransform _textRectTransform;
     private RectTransform _cellViewRectTransform;
-    private RectTransform _viewportRectTransform;
     private LogCellData _logCellData;
+    private float _appliedWidth = -1f;
+    private float _appliedHeight = -1f;
 
     private void Awake()
     {
-        _textRectTransform = transform.FindChild("Text").GetComponent<RectTransform>();
-        LogText = _textRectTransform.GetComponent<TextMeshProUGUI>();
-        _cellViewRectTransform = GetComponent<RectTransform>();
-        _viewportRectTransform = QuantumConsole.Instance.ViewportRectTransform;
+        EnsureCachedRefs();
     }
 
     internal void Setup()
     {
+        EnsureCachedRefs();
+    }
+
+    private void EnsureCachedRefs()
+    {
+        if (_textRectTransform != null) return;
+
         _textRectTransform = transform.FindChild("Text").GetComponent<RectTransform>();
         LogText = _textRectTransform.GetComponent<TextMeshProUGUI>();
         _cellViewRectTransform = GetComponent<RectTransform>();
     }
 
-    public void SetData(LogCellData data, bool calculateLayout)
+    public void SetData(LogCellData data, float width)
     {
         _logCellData = data;
 
-        RefreshCellView();
+        string s = data.GetLogString();
+        if (LogText.text != s)
+            LogText.text = s;
 
-        if (calculateLayout)
-            UpdateLayout();
+        if (_appliedWidth != width)
+        {
+            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+            _appliedWidth = width;
+        }
+
+        float height = data.CellSize;
+        if (_appliedHeight != height)
+        {
+            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+            _appliedHeight = height;
+        }
     }
 
     public override void RefreshCellView()
     {
-        LogText.text = _logCellData.GetLogString();
-    }
+        if (_logCellData == null) return;
 
-    public void UpdateLayout()
-    {
-        float parentWidth = _viewportRectTransform.rect.width;
-        _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, parentWidth);
-        _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, parentWidth);
-
-        if (_logCellData.IsDirty)
-        {
-            LogText.ForceMeshUpdate();
-
-            Vector2 textSize = LogText.GetPreferredValues(parentWidth, float.MaxValue);
-            float textHeight = textSize.y;
-
-            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
-            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, textHeight);
-
-            _logCellData.CellSize = textHeight;
-            _logCellData.IsDirty = false;
-        }
-        else
-        {
-            _cellViewRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _logCellData.CellSize);
-            _textRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _logCellData.CellSize);
-        }
+        string s = _logCellData.GetLogString();
+        if (LogText.text != s)
+            LogText.text = s;
     }
 }

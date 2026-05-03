@@ -24,7 +24,6 @@ namespace Hikaria.QC;
 
 [EnableFeatureByDefault]
 [DisallowInGameToggle]
-[DoNotSaveToConfig]
 internal class QuantumConsoleSettings : Feature
 {
     public override string Name => "量子终端设置";
@@ -98,7 +97,7 @@ internal class QuantumConsoleSettings : Feature
         public bool PrependTimestamps { get; set; } = true;
 
         [FSDisplayName("日志最大容量")]
-        public int MaxStoredLogs { get; set; } = 1024;
+        public int MaxStoredLogs { get; set; } = 2048;
         [FSDisplayName("日志文本大小")]
         public int LogFontSize { get; set; } = 14;
         [FSDisplayName("显示初始化日志")]
@@ -119,8 +118,6 @@ internal class QuantumConsoleSettings : Feature
         [FSDisplayName("缓动时长")]
         [FSSlider(0.1f, 1f, FSSlider.SliderStyle.FloatTwoDecimal)]
         public float TweenTime { get; set; } = 0.5f;
-        [FSDisplayName("缓动无缝衔接")]
-        public bool SeamlessTween { get; set; } = true;
 
         [FSHeader("指令设置")]
         [FSDisplayName("自动补全")]
@@ -176,7 +173,6 @@ internal class QuantumConsoleSettings : Feature
             pref.AutoScroll = settings.AutoScroll;
             pref.TweenType = settings.TweenType;
             pref.TweenTime = settings.TweenTime;
-            pref.SeamlessTween = settings.SeamlessTween;
 
             pref.EnableAutocomplete = settings.EnableAutocomplete;
             pref.ShowPopupDisplay = settings.ShowPopupDisplay;

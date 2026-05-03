@@ -99,7 +99,6 @@ namespace Hikaria.QC
         private AutoScrollOptions _autoScroll = AutoScrollOptions.OnInvoke;
         private float _tweenTime = 0.5f;
         private EnhancedScroller.TweenType _tweenType = EnhancedScroller.TweenType.easeOutSine;
-        private bool _seamlessTween = true;
 
         private bool _enableAutocomplete = true;
         private bool _showPopupDisplay = true;
@@ -258,7 +257,6 @@ namespace Hikaria.QC
             _autoScroll = pref.AutoScroll;
             _tweenType = pref.TweenType;
             _tweenTime = pref.TweenTime;
-            _seamlessTween = pref.SeamlessTween;
 
             _enableAutocomplete = pref.EnableAutocomplete;
             _showPopupDisplay = pref.ShowPopupDisplay;
@@ -1293,7 +1291,7 @@ namespace Hikaria.QC
             _logQueue = _logQueue ?? CreateLogQueue();
         }
 
-        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _maxStoredLogs, _tweenType, _tweenTime, _seamlessTween);
+        protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _viewportTransform, _maxStoredLogs, _tweenType, _tweenTime);
         protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 
