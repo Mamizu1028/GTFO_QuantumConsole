@@ -8,8 +8,8 @@ namespace Hikaria.QC
     {
         private readonly List<LogCellData> _logDatas = new List<LogCellData>(1025);
         private readonly Queue<(bool, ILog?)> _logActionQueue = new Queue<(bool, ILog?)>(1025);
-        private EnhancedScroller _scroller;
-        private LogCellView _logCellViewPrefab;
+        private readonly EnhancedScroller _scroller;
+        private readonly LogCellView _logCellViewPrefab;
 
         private bool _calculateLayout;
 
@@ -45,7 +45,7 @@ namespace Hikaria.QC
             _scroller.Delegate = this;
             _tweenTime = tweenTime;
             _tweenType = tweenType;
-            _seamlessTween = seamlessTween;
+            _seamlessTween = false;
             _scroller.interruptTweeningOnDrag = true;
             _scroller.interruptTweeningOnPointerDown = true;
         }
@@ -98,12 +98,7 @@ namespace Hikaria.QC
                 if (_needScrollToLatest)
                 {
                     _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType, _immediateScroll ? _immediateTweenTime : _tweenTime, 
-                        forceCalculateRange: _logCountDelta != 0, seamlessTransition: _seamlessTween);
-                }
-
-                if (_logCountDelta == 0)
-                {
-                    _scroller.RefreshActive();
+                        forceCalculateRange: false, seamlessTransition: _seamlessTween, jumpComplete: JumpComplete);
                 }
             }
             _isDirty = false;
@@ -123,6 +118,12 @@ namespace Hikaria.QC
                 }
                 _isDirty = true;
                 _firstFlush = false;
+            }
+
+            void JumpComplete()
+            {
+                if (_logCountDelta == 0)
+                    _scroller.RefreshActive();
             }
         }
 

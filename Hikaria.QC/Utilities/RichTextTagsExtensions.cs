@@ -7,226 +7,209 @@ namespace Hikaria.QC.Utilities;
 
 public static class RichTextTagsExtensions
 {
-    // 定义TMP支持的标签类型
+    // TMP 支持的成对标签或作用域标签
     private static readonly HashSet<string> SupportedTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
-        "b", "i", "u", "s", "mark", "color", "size", "material", "quad", "align", "alpha",
+        "b", "i", "u", "s", "mark", "color", "size", "material", "align", "alpha",
         "cspace", "font", "indent", "line-height", "line-indent", "link", "lowercase",
-        "uppercase", "smallcaps", "margin", "noparse", "nobr", "page", "pos", "space",
-        "sprite", "style", "voffset", "width", "gradient"
+        "uppercase", "smallcaps", "margin", "noparse", "nobr", "pos",
+        "style", "voffset", "width", "gradient"
     };
 
-    // 不需要闭合的自闭合标签
+    // 不需要闭合的标签
     private static readonly HashSet<string> SelfClosingTags = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
-        "br", "nobr", "page", "sprite", "quad"
+        "br", "page", "sprite", "quad", "space"
     };
 
-    public static void FixRichTextTags(this string input)
+    // 匹配普通富文本标签，例如：
+    // <b>
+    // </b>
+    // <color=#ff0000>
+    // <size=120%>
+    // <line-height=120%>
+    // <sprite=0>
+    private static readonly Regex TagRegex = new Regex(
+        @"<\s*(?<slash>/?)\s*(?<name>[a-zA-Z][a-zA-Z0-9-]*)(?:\s*=\s*[^<>]*)?\s*/?\s*>",
+        RegexOptions.IgnoreCase
+    );
+
+    // 匹配 TMP 颜色简写，例如 <#fff>、<#ffffff>、<#ffffffff>
+    private static readonly Regex ShortColorRegex = new Regex(
+        @"<\s*#(?<hex>[0-9A-Fa-f]{3,8})\s*>",
+        RegexOptions.IgnoreCase
+    );
+
+    /// <summary>
+    /// 修复 TMP 富文本标签。
+    /// </summary>
+    public static string FixRichTextTags(this string input)
     {
         if (string.IsNullOrEmpty(input))
-            return;
+            return input;
 
-        // 首先处理特殊格式 <#{colorHex}> 转换为标准的 <color=#{colorHex}>
-        string correctedInput = Regex.Replace(input, @"<#([0-9A-Fa-f]{3,6,8})>", "<color=#$1>");
+        input = NormalizeShortColorTags(input);
 
-        // 用于跟踪打开的标签
-        Stack<string> openTags = new Stack<string>();
+        StringBuilder result = new StringBuilder(input.Length);
+        Stack<OpenTagInfo> stack = new Stack<OpenTagInfo>();
 
-        // 使用StringBuilder构建结果
-        StringBuilder result = new StringBuilder(input);
-
-        // 查找所有标签
-        const string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
-        MatchCollection matches = Regex.Matches(input, pattern, RegexOptions.IgnoreCase);
+        int lastIndex = 0;
+        MatchCollection matches = TagRegex.Matches(input);
 
         foreach (Match match in matches)
         {
-            string isClosing = match.Groups[1].Value; // 是否为闭合标签 "/"
-            string tagName = match.Groups[2].Value.ToLower(); // 标签名
+            string tagName = match.Groups["name"].Value.ToLowerInvariant();
+            bool isClosing = match.Groups["slash"].Value == "/";
 
-            // 检查是否是支持的标签
-            if (!SupportedTags.Contains(tagName) && !SelfClosingTags.Contains(tagName))
-                continue;
+            bool isKnownTag = SupportedTags.Contains(tagName) || SelfClosingTags.Contains(tagName);
 
-            // 如果是自闭合标签，跳过
-            if (SelfClosingTags.Contains(tagName))
-                continue;
-
-            if (isClosing == "/")
+            if (!isKnownTag)
             {
-                // 闭合标签
-                if (openTags.Count > 0 && openTags.Peek() == tagName)
+                continue;
+            }
+
+            // 追加标签之前的普通文本
+            result.Append(input, lastIndex, match.Index - lastIndex);
+            lastIndex = match.Index + match.Length;
+
+            // 自闭合标签直接保留
+            if (SelfClosingTags.Contains(tagName))
+            {
+                result.Append(match.Value);
+                continue;
+            }
+
+            if (!isClosing)
+            {
+                // 开始标签
+                result.Append(match.Value);
+                stack.Push(new OpenTagInfo
                 {
-                    openTags.Pop();
-                }
+                    Name = tagName,
+                    OpenText = match.Value
+                });
             }
             else
             {
-                // 开放标签
-                openTags.Push(tagName);
-            }
-        }
-
-        // 为所有未闭合的标签添加闭合标签
-        while (openTags.Count > 0)
-        {
-            string tagToClose = openTags.Pop();
-            result.Append($"</{tagToClose}>");
-        }
-
-        input = result.ToString();
-    }
-
-    // 更复杂的版本，处理嵌套标签的正确顺序
-    public static void FixRichTextTagsAdvanced(this string input)
-    {
-        if (string.IsNullOrEmpty(input))
-            return;
-
-        // 首先处理特殊格式 <#{colorHex}> 转换为标准的 <color=#{colorHex}>
-        string correctedInput = Regex.Replace(input, @"<#([0-9A-Fa-f]{3,6,8})>", "<color=#$1>");
-
-        // 使用正则表达式找出所有标签
-        const string pattern = @"<([/]?)([a-z]+)(?:=([^<>]*))?>";
-
-        // 用于存储标签及其位置信息
-        List<TagInfo> tags = new List<TagInfo>();
-        MatchCollection matches = Regex.Matches(input, pattern, RegexOptions.IgnoreCase);
-
-        foreach (Match match in matches)
-        {
-            bool isClosing = match.Groups[1].Value == "/";
-            string tagName = match.Groups[2].Value.ToLower();
-
-            // 检查是否是支持的标签
-            if (!SupportedTags.Contains(tagName) && !SelfClosingTags.Contains(tagName))
-                continue;
-
-            // 如果是自闭合标签，跳过
-            if (SelfClosingTags.Contains(tagName))
-                continue;
-
-            tags.Add(new TagInfo
-            {
-                Name = tagName,
-                IsClosing = isClosing,
-                Position = match.Index,
-                Length = match.Length
-            });
-        }
-
-        // 处理标签栈
-        Stack<TagInfo> openTagsStack = new Stack<TagInfo>();
-        List<TagInfo> tagsToAdd = new List<TagInfo>();
-
-        foreach (var tag in tags)
-        {
-            if (tag.IsClosing)
-            {
-                // 找到匹配的开标签
-                bool found = false;
-                Stack<TagInfo> tempStack = new Stack<TagInfo>();
-
-                while (openTagsStack.Count > 0)
+                // 结束标签
+                if (stack.Count == 0)
                 {
-                    var openTag = openTagsStack.Pop();
-                    if (openTag.Name == tag.Name)
-                    {
-                        found = true;
-                        break;
-                    }
-                    tempStack.Push(openTag);
+                    // 没有对应开始标签，丢弃这个闭合标签
+                    continue;
                 }
 
-                // 如果没找到匹配的开标签，忽略这个闭标签
-                if (!found)
+                if (stack.Peek().Name == tagName)
                 {
-                    // 恢复栈
-                    while (tempStack.Count > 0)
-                    {
-                        openTagsStack.Push(tempStack.Pop());
-                    }
+                    // 正常闭合
+                    stack.Pop();
+                    result.Append(match.Value);
                 }
                 else
                 {
-                    // 为临时弹出的标签添加闭标签，然后再添加它们的开标签
-                    int insertPosition = tag.Position;
+                    // 尝试修复交叉嵌套
+                    List<OpenTagInfo> temporarilyClosed = new List<OpenTagInfo>();
+                    bool found = false;
 
-                    while (tempStack.Count > 0)
+                    while (stack.Count > 0)
                     {
-                        var poppedTag = tempStack.Pop();
+                        OpenTagInfo openTag = stack.Pop();
 
-                        // 添加闭标签
-                        tagsToAdd.Add(new TagInfo
+                        if (openTag.Name == tagName)
                         {
-                            Name = poppedTag.Name,
-                            IsClosing = true,
-                            Position = insertPosition,
-                            Length = 0, // 这是要添加的新标签
-                            IsNew = true
-                        });
+                            found = true;
+                            break;
+                        }
 
-                        // 在闭合标签后重新添加开标签
-                        tagsToAdd.Add(new TagInfo
+                        temporarilyClosed.Add(openTag);
+                    }
+
+                    if (!found)
+                    {
+                        // 没找到匹配的开始标签，恢复栈并丢弃这个闭合标签
+                        for (int i = temporarilyClosed.Count - 1; i >= 0; i--)
                         {
-                            Name = poppedTag.Name,
-                            IsClosing = false,
-                            Position = tag.Position + tag.Length,
-                            Length = 0, // 这是要添加的新标签
-                            IsNew = true
-                        });
+                            stack.Push(temporarilyClosed[i]);
+                        }
 
-                        // 将标签重新压入栈
-                        openTagsStack.Push(poppedTag);
+                        continue;
+                    }
+
+                    // 先闭合临时弹出的标签
+                    for (int i = 0; i < temporarilyClosed.Count; i++)
+                    {
+                        result.Append("</");
+                        result.Append(temporarilyClosed[i].Name);
+                        result.Append(">");
+                    }
+
+                    // 再闭合当前目标标签
+                    result.Append(match.Value);
+
+                    // 然后重新打开之前临时闭合的标签
+                    for (int i = temporarilyClosed.Count - 1; i >= 0; i--)
+                    {
+                        result.Append(temporarilyClosed[i].OpenText);
+                        stack.Push(temporarilyClosed[i]);
                     }
                 }
             }
-            else
-            {
-                // 开标签，直接压入栈
-                openTagsStack.Push(tag);
-            }
         }
 
-        // 处理剩余的未闭合标签
-        int endPosition = input.Length;
-        while (openTagsStack.Count > 0)
+        // 追加剩余文本
+        result.Append(input, lastIndex, input.Length - lastIndex);
+
+        // 补齐未闭合标签
+        while (stack.Count > 0)
         {
-            var openTag = openTagsStack.Pop();
-            tagsToAdd.Add(new TagInfo
-            {
-                Name = openTag.Name,
-                IsClosing = true,
-                Position = endPosition,
-                Length = 0, // 这是要添加的新标签
-                IsNew = true
-            });
+            OpenTagInfo openTag = stack.Pop();
+            result.Append("</");
+            result.Append(openTag.Name);
+            result.Append(">");
         }
 
-        // 按位置从后往前排序，以便插入时不影响前面的位置
-        tagsToAdd.Sort((a, b) => b.Position.CompareTo(a.Position));
-
-        // 构建结果
-        StringBuilder result = new StringBuilder(input);
-        foreach (var tagToAdd in tagsToAdd)
-        {
-            if (tagToAdd.IsNew)
-            {
-                string tagText = tagToAdd.IsClosing ? $"</{tagToAdd.Name}>" : $"<{tagToAdd.Name}>";
-                result.Insert(tagToAdd.Position, tagText);
-            }
-        }
-
-        input = result.ToString();
+        return result.ToString();
     }
 
-    private class TagInfo
+    /// <summary>
+    /// 移除所有已列出的 TMP 富文本标签。
+    /// 只移除标签本身，不移除标签包裹的文字内容。
+    /// </summary>
+    public static string RemoveRichTextTags(this string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        // 先移除 TMP 颜色简写，例如 <#ff0000>
+        input = ShortColorRegex.Replace(input, string.Empty);
+
+        return TagRegex.Replace(input, match =>
+        {
+            string tagName = match.Groups["name"].Value;
+
+            if (SupportedTags.Contains(tagName) || SelfClosingTags.Contains(tagName))
+            {
+                return string.Empty;
+            }
+
+            // 非 TMP 标签保留
+            return match.Value;
+        });
+    }
+
+    /// <summary>
+    /// 将 TMP 颜色简写 <#ff0000> 转换为 <color=#ff0000>。
+    /// </summary>
+    public static string NormalizeShortColorTags(this string input)
+    {
+        if (string.IsNullOrEmpty(input))
+            return input;
+
+        return ShortColorRegex.Replace(input, "<color=#$1>");
+    }
+
+    private sealed class OpenTagInfo
     {
         public string Name { get; set; }
-        public bool IsClosing { get; set; }
-        public int Position { get; set; }
-        public int Length { get; set; }
-        public bool IsNew { get; set; } = false;
+        public string OpenText { get; set; }
     }
 }

@@ -1013,8 +1013,7 @@ namespace Hikaria.QC
 
                     logText = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {logText}";
                 }
-                logText = logText.ColorText(logLevel.GetUnityColorFromTheme(_theme));
-                logText.FixRichTextTagsAdvanced();
+                logText = logText.ColorText(logLevel.GetUnityColorFromTheme(_theme)).FixRichTextTags();
                 LogToConsole(new Log(logText, logLevel, newLine));
             }
         }
