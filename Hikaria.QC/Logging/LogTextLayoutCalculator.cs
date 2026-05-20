@@ -4,14 +4,6 @@ using UnityEngine;
 
 namespace Hikaria.QC
 {
-    /// <summary>
-    /// 在主线程上、利用一个隐藏的 <see cref="TextMeshProUGUI"/> 镜像 LogCellView 的 TMP 配置，
-    /// 在日志写入时即提前算好它在当前视口宽度下的高度。
-    /// 把测量从渲染热路径（EnhancedScroller 的 GetCellViewSize / cell SetData）移到了数据写入路径。
-    /// </summary>
-    /// <remarks>
-    /// 仅可在 Unity 主线程上调用。
-    /// </remarks>
     internal sealed class LogTextLayoutCalculator
     {
         private const int _maxCacheEntries = 4096;
@@ -28,10 +20,6 @@ namespace Hikaria.QC
             _viewport = viewport;
             _cache = new Dictionary<long, float>(256);
 
-            // 通过克隆 prefab 上的 Text 子节点取得"完全一致的 TMP 配置"——
-            // fontAsset / fontSize / fontStyle / lineSpacing / characterSpacing /
-            // paragraphSpacing / margin / alignment / richText / spriteAsset 等
-            // 全部在 GameObject 层面整体 clone，无需手动逐字段 copy。
             Transform srcText = prefab.transform.FindChild("Text");
             _measurerGO = Object.Instantiate(srcText.gameObject);
             _measurerGO.name = "_QC_LogLayoutMeasurer";
@@ -44,10 +32,8 @@ namespace Hikaria.QC
             _measurer.enabled = false;
         }
 
-        /// <summary>当前视口宽度。≤ 0 时表示尚未初始化。</summary>
         public float CurrentWidth => _viewport.rect.width;
 
-        /// <summary>测量给定文本在当前视口宽度下的高度（带 (text, widthBucket) 命中缓存）。</summary>
         public float Measure(string text)
         {
             if (string.IsNullOrEmpty(text)) return 0f;
@@ -75,7 +61,6 @@ namespace Hikaria.QC
             return height;
         }
 
-        /// <summary>视口宽度变化或字体属性变更时调用。</summary>
         public void InvalidateCache()
         {
             _cache.Clear();
@@ -89,8 +74,6 @@ namespace Hikaria.QC
             _cache.Clear();
         }
 
-        // FNV-1a 64-bit。对于日志文本，碰撞概率与 SHA 不在同一量级，但
-        // 在 4096 条缓存上限下完全够用，且零分配、O(n)。
         private static long ComputeKey(string text)
         {
             ulong hash = 14695981039346656037UL;
