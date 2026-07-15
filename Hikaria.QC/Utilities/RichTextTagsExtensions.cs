@@ -48,6 +48,9 @@ public static class RichTextTagsExtensions
         if (string.IsNullOrEmpty(input))
             return input;
 
+        if (input.IndexOf('<') < 0)
+            return input;
+
         input = NormalizeShortColorTags(input);
 
         StringBuilder result = new StringBuilder(input.Length);

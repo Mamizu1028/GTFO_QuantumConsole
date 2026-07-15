@@ -12,5 +12,5 @@ public enum LogLevel : byte
     Message = 1 << 3,
     Info = 1 << 4,
     Debug = 1 << 5,
-    All = byte.MaxValue
+    All = Fatal | Error | Warning | Message | Info | Debug
 }

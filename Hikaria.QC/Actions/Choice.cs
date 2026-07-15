@@ -46,52 +46,67 @@ namespace Hikaria.QC.Actions
         private static IEnumerator<ICommandAction> Generate(IEnumerable<T> choices, Action<T> onSelect, Config config)
         {
             QuantumConsole console = null;
+            LogHandle rowId = LogHandle.Invalid;
             StringBuilder builder = new StringBuilder();
+            bool completed = false;
 
-            IReadOnlyList<T> choiceList = choices as IReadOnlyList<T> ?? choices.ToList();
-            KeyCode key = KeyCode.None;
-            int choice = 0;
-
-            yield return new GetContext(ctx => console = ctx.Console);
-
-            ICommandAction DrawRow()
+            try
             {
-                builder.Clear();
-                for (int i = 0; i < choiceList.Count; i++)
-                {
-                    string item = console.Serialize(choiceList[i]);
-                    builder.Append(i == choice
-                        ? string.Format(config.ItemFormat, item, 'x').ColorText(config.SelectedColor)
-                        : string.Format(config.ItemFormat, item, ' '));
+                IReadOnlyList<T> choiceList = choices as IReadOnlyList<T> ?? choices.ToList();
+                KeyCode key = KeyCode.None;
+                int choice = 0;
 
-                    if (i != choiceList.Count - 1)
+                yield return new GetContext(ctx => console = ctx.Console);
+
+                string DrawRow()
+                {
+                    builder.Clear();
+                    for (int i = 0; i < choiceList.Count; i++)
                     {
-                        builder.Append(config.Delimiter);
+                        string item = console.Serialize(choiceList[i]);
+                        builder.Append(i == choice
+                            ? string.Format(config.ItemFormat, item, 'x').ColorText(config.SelectedColor)
+                            : string.Format(config.ItemFormat, item, ' '));
+
+                        if (i != choiceList.Count - 1)
+                        {
+                            builder.Append(config.Delimiter);
+                        }
                     }
+
+                    return builder.ToString();
                 }
 
-                return new Value(builder.ToString());
-            }
+                string row = DrawRow();
+                rowId = console.BeginInteractive(row);
 
-            yield return DrawRow();
-            while (key != KeyCode.Return)
-            {
-                yield return new GetKey(k => key = k);
-
-                switch (key)
+                while (key != KeyCode.Return)
                 {
-                    case KeyCode.LeftArrow: choice--; break;
-                    case KeyCode.RightArrow: choice++; break;
-                    case KeyCode.DownArrow: choice++; break;
-                    case KeyCode.UpArrow: choice--; break;
+                    yield return new GetKey(k => key = k);
+
+                    switch (key)
+                    {
+                        case KeyCode.LeftArrow: choice--; break;
+                        case KeyCode.RightArrow: choice++; break;
+                        case KeyCode.DownArrow: choice++; break;
+                        case KeyCode.UpArrow: choice--; break;
+                    }
+
+                    choice = (choice + choiceList.Count) % choiceList.Count;
+                    row = DrawRow();
+                    if (key != KeyCode.Return)
+                        console.UpdateLog(rowId, row);
                 }
 
-                choice = (choice + choiceList.Count) % choiceList.Count;
-                yield return new RemoveLog();
-                yield return DrawRow();
+                console.CommitLog(rowId, row);
+                completed = true;
+                onSelect(choiceList[choice]);
             }
-
-            onSelect(choiceList[choice]);
+            finally
+            {
+                if (!completed && console != null && rowId.IsValid)
+                    console.RemoveLog(rowId);
+            }
         }
     }
 }

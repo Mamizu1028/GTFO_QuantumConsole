@@ -14,7 +14,7 @@ namespace Hikaria.QC.ScanRules
             }
 
             // Allow compiler generated members as this includes backing fields which may be used by the user
-            if (!(entity is MemberInfo) && entity.HasAttribute<CompilerGeneratedAttribute>(true))
+            if (entity is not MemberInfo && entity.HasAttribute<CompilerGeneratedAttribute>(true))
             {
                 return ScanRuleResult.Reject;
             }

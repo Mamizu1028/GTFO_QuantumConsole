@@ -30,6 +30,12 @@ namespace Hikaria.QC.Actions
             _context = context;
         }
 
-        public void Finalize(ActionContext context) { }
+        public void Complete(ActionContext context) { }
+
+        public void Cancel(ActionContext context)
+        {
+            _actions.Current?.Cancel(context);
+            _actions.Dispose();
+        }
     }
 }

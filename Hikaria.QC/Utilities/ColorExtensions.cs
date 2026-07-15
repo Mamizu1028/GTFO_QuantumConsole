@@ -30,6 +30,7 @@ namespace Hikaria.QC.Utilities
             if (string.IsNullOrWhiteSpace(text))
             {
                 stringBuilder.Append(text);
+                return;
             }
 
             string hexColor = Color32ToStringNonAlloc(color);
@@ -44,9 +45,9 @@ namespace Hikaria.QC.Utilities
         public static unsafe string Color32ToStringNonAlloc(Color32 color)
         {
             int colorKey = color.r << 24 | color.g << 16 | color.b << 8 | color.a;
-            if (_colorLookupTable.ContainsKey(colorKey))
+            if (_colorLookupTable.TryGetValue(colorKey, out string cachedColor))
             {
-                return _colorLookupTable[colorKey];
+                return cachedColor;
             }
 
             char* buffer = stackalloc char[8];
@@ -55,7 +56,7 @@ namespace Hikaria.QC.Utilities
             int bufferLength = color.a < 0xFF ? 8 : 6;
             string colorText = new string(buffer, 0, bufferLength);
 
-            _colorLookupTable[colorKey] = colorText;
+            _colorLookupTable.TryAdd(colorKey, colorText);
             return colorText;
         }
 

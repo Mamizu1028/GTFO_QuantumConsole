@@ -12,10 +12,16 @@
         void Start(ActionContext context);
 
         /// <summary>
-        /// Finalizes the action. Should not be called unless <c>IsFinished</c> is true.
+        /// Completes the action. Should not be called unless <c>IsFinished</c> is true.
         /// </summary>
         /// <param name="context">The context that the action is being executed on.</param>
-        void Finalize(ActionContext context);
+        void Complete(ActionContext context);
+
+        /// <summary>
+        /// Cancels the action before it has completed.
+        /// </summary>
+        /// <param name="context">The context that the action is being executed on.</param>
+        void Cancel(ActionContext context);
 
         /// <summary>
         /// If the action has finished. Should not be called before <c>Start</c>.

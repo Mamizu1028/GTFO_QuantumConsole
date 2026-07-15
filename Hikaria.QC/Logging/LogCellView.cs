@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Hikaria.QC;
 
-public class LogCellView : EnhancedScrollerCellView
+internal class LogCellView : EnhancedScrollerCellView
 {
     public TextMeshProUGUI LogText;
 
     private RectTransform _textRectTransform;
     private RectTransform _cellViewRectTransform;
-    private LogCellData _logCellData;
+    private Log? _logData;
     private float _appliedWidth = -1f;
     private float _appliedHeight = -1f;
 
@@ -33,11 +33,11 @@ public class LogCellView : EnhancedScrollerCellView
         _cellViewRectTransform = GetComponent<RectTransform>();
     }
 
-    public void SetData(LogCellData data, float width)
+    public void SetData(Log data, float width)
     {
-        _logCellData = data;
+        _logData = data;
 
-        string s = data.GetLogString();
+        string s = data.Text;
         if (LogText.text != s)
             LogText.text = s;
 
@@ -59,9 +59,9 @@ public class LogCellView : EnhancedScrollerCellView
 
     public override void RefreshCellView()
     {
-        if (_logCellData == null) return;
+        if (_logData == null) return;
 
-        string s = _logCellData.GetLogString();
+        string s = _logData.Text;
         if (LogText.text != s)
             LogText.text = s;
     }

@@ -24,7 +24,8 @@ namespace Hikaria.QC.Actions
             _startTime = Time.time;
         }
 
-        public void Finalize(ActionContext ctx) { }
+        public void Complete(ActionContext ctx) { }
+        public void Cancel(ActionContext ctx) { }
 
     }
 }

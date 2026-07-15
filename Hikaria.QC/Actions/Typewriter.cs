@@ -48,6 +48,9 @@ namespace Hikaria.QC.Actions
 
         private static IEnumerator<ICommandAction> Generate(string message, Config config)
         {
+            QuantumConsole console = null;
+            LogHandle streamId = LogHandle.Invalid;
+            bool completed = false;
             string[] chunks;
             switch (config.Chunks)
             {
@@ -57,10 +60,27 @@ namespace Hikaria.QC.Actions
                 default: throw new ArgumentException($"Chunk type {config.Chunks} is not supported.");
             }
 
-            for (int i = 0; i < chunks.Length; i++)
+            yield return new GetContext(ctx => console = ctx.Console);
+
+            try
             {
-                yield return new WaitRealtime(config.PrintInterval);
-                yield return new Value(chunks[i], i == 0);
+                for (int i = 0; i < chunks.Length; i++)
+                {
+                    yield return new WaitRealtime(config.PrintInterval);
+
+                    if (i == 0)
+                        streamId = console.BeginStream(chunks[i]);
+                    else
+                        console.AppendLog(streamId, chunks[i]);
+                }
+
+                console.CompleteLog(streamId);
+                completed = true;
+            }
+            finally
+            {
+                if (!completed && console != null && streamId.IsValid)
+                    console.RemoveLog(streamId);
             }
         }
     }

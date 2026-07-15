@@ -1,5 +1,4 @@
 using Hikaria.ES;
-using Hikaria.QC.Pooling;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,55 +7,46 @@ namespace Hikaria.QC
 {
     internal class LogController : ILogController, IEnhancedScrollerDelegate
     {
-        private readonly LogDataDeque _logDatas = new LogDataDeque(1024);
-
-        private readonly List<ILog?> _pendingActions = new List<ILog?>(1024);
+        private readonly LogStorage _logStorage;
+        private readonly List<LogOperation> _pendingOperations = new List<LogOperation>(1024);
+        private readonly List<Log> _dirtyLogs = new List<Log>(256);
+        private readonly HashSet<LogHandle> _dirtyLogHandles = new HashSet<LogHandle>();
 
         private readonly EnhancedScroller _scroller;
         private readonly LogCellView _logCellViewPrefab;
-        private readonly RectTransform _viewport;
         private readonly LogTextLayoutCalculator _layoutCalc;
-        private readonly Pool<LogCellData> _cellDataPool = new Pool<LogCellData>();
-
-        private int _logDataIndexOffset;
-        private float _scrollPositionOffset;
-        private int _logCountDelta;
-        private int _logDataCountDelta;
+        private readonly LogViewingLatestTracker _viewingLatestTracker = new LogViewingLatestTracker();
 
         private bool _isDirty;
         private bool _viewportSizeChanged;
         private bool _needScrollToLatest;
         private bool _immediateScroll;
-        private bool _firstFlushPending = true;
+        private bool _reloadDataNeeded;
+        private bool _layoutRefreshPending;
 
         private const float _immediateTweenTime = 0.1f;
         private readonly float _tweenTime;
         private readonly EnhancedScroller.TweenType _tweenType;
 
-        public bool IsViewingLatestLog { get; private set; }
-
-        public int MaxStoredLogs
+        public int MaxHistoryLogs
         {
-            get => _logDatas.Capacity;
-            set => _logDatas.Capacity = value;
+            get => _logStorage.MaxHistoryLogs;
+            set => _logStorage.MaxHistoryLogs = value;
         }
-
-        public IReadOnlyList<ILogData> LogDatas => _logDatas;
 
         public bool IsDirty => _isDirty;
 
         public LogController(EnhancedScroller scroller, LogCellView logCellViewPrefab,
-            RectTransform viewport, int maxStoredLogs = -1,
+            RectTransform viewport, int maxStoredLogs = LogStorage.DefaultMaxHistoryLogs,
             EnhancedScroller.TweenType tweenType = EnhancedScroller.TweenType.easeOutSine,
             float tweenTime = 0.5f)
         {
+            _logStorage = new LogStorage(maxStoredLogs);
+
             _scroller = scroller;
             _scroller.Delegate = this;
             _logCellViewPrefab = logCellViewPrefab;
-            _viewport = viewport;
             _layoutCalc = new LogTextLayoutCalculator(logCellViewPrefab, viewport);
-
-            _logDatas.Capacity = maxStoredLogs;
 
             _tweenTime = tweenTime;
             _tweenType = tweenType;
@@ -67,109 +57,126 @@ namespace Hikaria.QC
 
         public void ProcessLogs()
         {
-            if (!_scroller.IsTweening)
-                IsViewingLatestLog = _logDatas.Count == 0 || _scroller.EndDataIndex == _logDatas.Count - 1;
-
-            int startDataIndex = _logDatas.Count == 0 ? 0 : _scroller.StartDataIndex + 1;
+            int storageCountBefore = _logStorage.Count;
+            bool scrollerDataStale = _viewingLatestTracker.ScrollerDataStale;
+            _viewingLatestTracker.RefreshFromScrollerUnlessStale(_scroller.IsTweening, storageCountBefore, _scroller.NumberOfCells > 0 ? _scroller.EndDataIndex : 0);
             float scrollPosition = _scroller.ScrollPosition;
             float linearVelocity = _scroller.LinearVelocity;
-            _needScrollToLatest |= IsViewingLatestLog;
+            _needScrollToLatest |= _viewingLatestTracker.IsViewingLatestLog;
+            bool hadPendingOperations = _pendingOperations.Count > 0;
+            _reloadDataNeeded = false;
+            _logStorage.ClearTrimmedHistoryLogs();
 
-            int actionCount = _pendingActions.Count;
-            for (int i = 0; i < actionCount; i++)
+            for (int i = 0; i < _pendingOperations.Count; i++)
+                ApplyOperation(_pendingOperations[i]);
+            _pendingOperations.Clear();
+            float trimmedHistoryExtent = _logStorage.TrimmedHistoryExtent;
+
+            if (_layoutRefreshPending)
             {
-                ILog? log = _pendingActions[i];
-                if (log != null) AppendLogInternal(log);
-                else             RemoveLastLogInternal();
+                MarkAllDirty();
+                _reloadDataNeeded = true;
+                _layoutRefreshPending = false;
             }
-            _pendingActions.Clear();
-
-            ApplyMaxStoredLogsTrim();
 
             if (_viewportSizeChanged)
             {
-                _layoutCalc.InvalidateCache();
-                RemeasureAll();
+                if (!_layoutCalc.TryUpdateViewportWidth())
+                {
+                    DeferLayoutRefresh();
+                    return;
+                }
+
+                MarkAllDirty();
+                _reloadDataNeeded = true;
             }
 
-            _scroller.ScrollPosition = 0;
-            _scroller.ReloadData();
-
-            if (_logDatas.Count > 0)
+            if (!_layoutCalc.IsReady && _logStorage.Count > 0)
             {
-                if (_viewportSizeChanged)
-                {
-                    startDataIndex = Math.Max(0, startDataIndex + _logDataIndexOffset);
-                    _scroller.JumpToDataIndex(startDataIndex, 0f, 0f, false);
-                }
-                else
-                {
-                    _scroller.ScrollPosition = scrollPosition + _scrollPositionOffset;
-                    _scroller.LinearVelocity = linearVelocity;
-                }
+                DeferLayoutRefresh();
+                return;
+            }
 
-                if (_needScrollToLatest)
+            bool cellSizeChanged = RemeasureDirty();
+            bool storageCountChangedThisPass = storageCountBefore != _logStorage.Count;
+            bool reloadData = scrollerDataStale || _reloadDataNeeded || cellSizeChanged || storageCountChangedThisPass;
+
+            if (reloadData)
+            {
+                _scroller.ScrollPosition = 0;
+                _scroller.ReloadData();
+
+                if (_logStorage.Count > 0)
                 {
-                    _scroller.JumpToDataIndex(_logDatas.Count - 1, 1f, 1f, false, _tweenType,
-                        _immediateScroll ? _immediateTweenTime : _tweenTime,
-                        forceCalculateRange: false, jumpComplete: JumpComplete);
+                    float restoredPosition = Mathf.Max(0f, scrollPosition - trimmedHistoryExtent);
+                    _scroller.SetScrollPositionImmediately(restoredPosition);
+                    _scroller.LinearVelocity = linearVelocity;
+
+                    if (_needScrollToLatest)
+                    {
+                        _scroller.JumpToDataIndex(_logStorage.Count - 1, 1f, 1f, false, _tweenType,
+                            _immediateScroll ? _immediateTweenTime : _tweenTime,
+                            forceCalculateRange: true);
+                    }
                 }
+            }
+            else if (hadPendingOperations)
+            {
+                _scroller.RefreshActiveCellViews();
             }
 
             _isDirty = false;
             _viewportSizeChanged = false;
             _needScrollToLatest = false;
             _immediateScroll = false;
-            _logDataIndexOffset = 0;
-            _logCountDelta = 0;
-            _logDataCountDelta = 0;
-            _scrollPositionOffset = 0;
+            _viewingLatestTracker.MarkScrollerDataCurrent();
 
-            if (_firstFlushPending && _logDatas.Count > 0)
-            {
-                _firstFlushPending = false;
-                RemeasureAll();
-                _isDirty = true;
-            }
-
-            void JumpComplete()
-            {
-                if (_logCountDelta == 0)
-                    _scroller.RefreshActive();
-            }
+            _logStorage.ClearTrimmedHistoryLogs();
         }
 
-        public void AddLog(ILog log)
+        public void ProcessStorage()
         {
-            _isDirty = true;
-            _pendingActions.Add(log);
-        }
-
-        public void RemoveLog()
-        {
-            if (_logDatas.Count == 0 && !HasPendingAdd())
+            if (_pendingOperations.Count == 0)
                 return;
 
+            _viewingLatestTracker.CaptureBeforeStorageOnlyProcessing(_scroller.IsTweening, _logStorage.Count, _scroller.NumberOfCells > 0 ? _scroller.EndDataIndex : 0);
+
+            _reloadDataNeeded = false;
+            _logStorage.ClearTrimmedHistoryLogs();
+
+            for (int i = 0; i < _pendingOperations.Count; i++)
+                ApplyOperation(_pendingOperations[i]);
+
+            _pendingOperations.Clear();
+
+            bool canMeasureDirtyLogs = _layoutCalc.IsReady && !_layoutRefreshPending;
+            if (canMeasureDirtyLogs)
+            {
+                RemeasureDirty();
+                _layoutRefreshPending = false;
+            }
+            else
+            {
+                _dirtyLogs.Clear();
+                _dirtyLogHandles.Clear();
+                _layoutRefreshPending = true;
+            }
+
+            _logStorage.ClearTrimmedHistoryLogs();
+
+            _reloadDataNeeded = false;
             _isDirty = true;
-            _pendingActions.Add(null);
         }
 
-        public void Clear()
+        public void EnqueueOperation(LogOperation operation)
         {
-            _isDirty = false;
-            _pendingActions.Clear();
-            _logDataIndexOffset = 0;
-            _logDataCountDelta = 0;
-            _logCountDelta = 0;
-            _scrollPositionOffset = 0;
-            _scroller.ClearAll();
+            _pendingOperations.Add(operation);
+            _isDirty = true;
+        }
 
-            int n = _logDatas.Count;
-            for (int i = 0; i < n; i++)
-                _cellDataPool.Release(_logDatas[i]);
-            _logDatas.Clear();
-
-            _scroller.ReloadData();
+        public void Clear(LogClearScope scope)
+        {
+            EnqueueOperation(LogOperation.Clear(scope));
         }
 
         public void RebuildLogTextLayout(bool viewportSizeChanged)
@@ -185,96 +192,145 @@ namespace Hikaria.QC
             _isDirty = true;
         }
 
-        public int GetNumberOfCells(EnhancedScroller scroller) => _logDatas.Count;
+        public int GetNumberOfCells(EnhancedScroller scroller) => _logStorage.Count;
 
         public float GetCellViewSize(EnhancedScroller scroller, int dataIndex)
-            => _logDatas[dataIndex].CellSize;
+            => GetEntry(dataIndex).CellSize;
 
         public EnhancedScrollerCellView GetCellView(EnhancedScroller scroller, int dataIndex, int cellIndex)
         {
             LogCellView cellView = (LogCellView)scroller.GetCellView(_logCellViewPrefab);
-            cellView.SetData(_logDatas[dataIndex], _layoutCalc.CurrentWidth);
+            cellView.SetData(GetEntry(dataIndex), _layoutCalc.CurrentWidth);
             return cellView;
         }
 
-        private void AppendLogInternal(ILog log)
+        private void ApplyOperation(LogOperation operation)
         {
-            _logCountDelta++;
-
-            LogCellData target;
-            if (log.NewLine || _logDatas.Count == 0)
+            switch (operation.Kind)
             {
-                target = _cellDataPool.GetObject();
-                target.Reset(log);
-                _logDatas.AddLast(target);
-                _logDataCountDelta++;
-            }
-            else
-            {
-                target = _logDatas.Last;
-                target.AppendLog(log);
-            }
+                case LogOperationKind.AddHistory:
+                    if (_logStorage.AddHistory(operation.Id, operation.Text, operation.Level))
+                    {
+                        MarkLogDirty(operation.Id);
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.BeginHistoryStream:
+                    if (_logStorage.BeginHistoryStream(operation.Id, operation.Text, operation.Level))
+                    {
+                        MarkLogDirty(operation.Id);
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.AddLiveStatus:
+                    if (_logStorage.AddLive(operation.Id, operation.Text, operation.Level))
+                    {
+                        MarkLogDirty(operation.Id);
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.AddInteractive:
+                    if (_logStorage.AddInteractive(operation.Id, operation.Text, operation.Level))
+                    {
+                        MarkLogDirty(operation.Id);
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.Update:
+                    if (_logStorage.Update(operation.Id, operation.Text, operation.Level))
+                        MarkLogDirty(operation.Id);
+                    break;
+                case LogOperationKind.Append:
+                    if (_logStorage.Append(operation.Id, operation.Text))
+                        MarkLogDirty(operation.Id);
+                    break;
+                case LogOperationKind.Complete:
+                    if (_logStorage.Complete(operation.Id, out Log? affectedLog))
+                    {
+                        if (affectedLog != null)
+                            MarkDirty(affectedLog);
 
-            target.CellSize = _layoutCalc.Measure(target.GetLogString());
-            target.IsDirty = false;
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.Commit:
+                    if (_logStorage.Commit(operation.Id,
+                        operation.HasFinalText ? operation.Text : null,
+                        operation.Level, out Log? committedLog))
+                    {
+                        if (committedLog != null)
+                            MarkDirty(committedLog);
+
+                        _reloadDataNeeded = true;
+                    }
+                    break;
+                case LogOperationKind.Remove:
+                    if (_logStorage.Remove(operation.Id))
+                        _reloadDataNeeded = true;
+                    break;
+                case LogOperationKind.Clear:
+                    _logStorage.Clear(operation.ClearScope);
+                    _dirtyLogs.Clear();
+                    _dirtyLogHandles.Clear();
+                    _reloadDataNeeded = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
-        private void RemoveLastLogInternal()
+        private Log GetEntry(int dataIndex)
         {
-            if (_logDatas.Count == 0) return;
-
-            var logData = _logDatas.Last;
-            if (logData.RemoveLog())
-                _logCountDelta--;
-
-            if (logData.Logs.Count == 0)
-            {
-                _logDatas.RemoveLast();
-                _logDataCountDelta--;
-                _cellDataPool.Release(logData);
-            }
-            else
-            {
-                logData.CellSize = _layoutCalc.Measure(logData.GetLogString());
-                logData.IsDirty = false;
-            }
+            return _logStorage[dataIndex];
         }
 
-        private void ApplyMaxStoredLogsTrim()
+        private void DeferLayoutRefresh()
         {
-            int max = _logDatas.Capacity;
-            if (max <= 0) return;
-
-            while (_logDatas.Count > max)
-            {
-                var dropped = _logDatas.RemoveFirst();
-                _logCountDelta -= dropped.Logs.Count;
-                _logDataCountDelta--;
-                _logDataIndexOffset--;
-                _scrollPositionOffset -= dropped.CellSize;
-                _cellDataPool.Release(dropped);
-            }
+            _layoutRefreshPending = true;
+            _isDirty = true;
         }
 
-        private void RemeasureAll()
+        private bool RemeasureDirty()
         {
-            int n = _logDatas.Count;
-            for (int i = 0; i < n; i++)
+            bool cellSizeChanged = false;
+            for (int i = 0; i < _dirtyLogs.Count; i++)
             {
-                var d = _logDatas[i];
-                d.CellSize = _layoutCalc.Measure(d.GetLogString());
-                d.IsDirty = false;
+                Log log = _dirtyLogs[i];
+                if (!log.IsDirty)
+                    continue;
+
+                float cellSize = _layoutCalc.Measure(log.Text);
+                if (Mathf.Abs(log.CellSize - cellSize) > 0.01f)
+                {
+                    log.CellSize = cellSize;
+                    cellSizeChanged = true;
+                }
+
+                log.IsDirty = false;
             }
+
+            _dirtyLogs.Clear();
+            _dirtyLogHandles.Clear();
+            return cellSizeChanged;
         }
 
-        private bool HasPendingAdd()
+        private void MarkAllDirty()
         {
-            int n = _pendingActions.Count;
-            for (int i = 0; i < n; i++)
-            {
-                if (_pendingActions[i] != null) return true;
-            }
-            return false;
+            for (int i = 0; i < _logStorage.Count; i++)
+                MarkDirty(_logStorage[i]);
+        }
+
+        private void MarkLogDirty(LogHandle id)
+        {
+            if (_logStorage.TryGet(id, out Log log))
+                MarkDirty(log);
+        }
+
+        private void MarkDirty(Log log)
+        {
+            log.IsDirty = true;
+            if (_dirtyLogHandles.Add(log.Id))
+                _dirtyLogs.Add(log);
         }
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TheArchive.Core.Localization;
 using TheArchive.Utilities;
@@ -116,7 +117,7 @@ namespace Hikaria.QC
         private bool _storeAdjacentDuplicateCommands = false;
         private int _commandHistorySize = 20;
 
-        private int _maxStoredLogs = 1024;
+        private int _maxStoredLogs = LogStorage.DefaultMaxHistoryLogs;
         private bool _showInitLogs = true;
 
 
@@ -141,8 +142,7 @@ namespace Hikaria.QC
             set
             {
                 _maxStoredLogs = value;
-                if (_logController != null) { _logController.MaxStoredLogs = value; }
-                if (_logQueue != null) { _logQueue.MaxStoredLogs = value; }
+                if (_logController != null) { _logController.MaxHistoryLogs = value; }
             }
         }
 #pragma warning restore 0414, 0067, 0649
@@ -157,8 +157,8 @@ namespace Hikaria.QC
         /// <summary>Callback executed when the QC is cleared.</summary>
         public event Action OnClear;
 
-        /// <summary>Callback executed when text has been logged to the QC.</summary>
-        public event Action<ILog> OnLog;
+        /// <summary>Callback executed on the main thread when a history log is queued for the QC.</summary>
+        public event Action<LogHandle, string, LogLevel> OnHistoryLogQueued;
 
         /// <summary>Callback executed when the QC is activated.</summary>
         public event Action OnActivate;
@@ -179,7 +179,8 @@ namespace Hikaria.QC
 
         private SuggestionStack _suggestionStack;
         private ILogController _logController;
-        private ILogQueue _logQueue;
+        private ILogOperationQueue _logOperationQueue;
+        private bool _initialLogLayoutRefreshRequested;
 
         public bool IsActive { get; private set; }
         public bool IsFocused => IsActive && _consoleInput && _consoleInput.isFocused;
@@ -190,9 +191,10 @@ namespace Hikaria.QC
         public bool AreActionsExecuting => _currentActions.Count > 0;
 
         private readonly List<string> _previousCommands = new List<string>();
-        private readonly List<Task> _currentTasks = new List<Task>();
+        private readonly List<AsyncCommandJob> _currentTasks = new List<AsyncCommandJob>();
         private readonly List<IEnumerator<ICommandAction>> _currentActions = new List<IEnumerator<ICommandAction>>();
         private readonly StringBuilderPool _stringBuilderPool = new StringBuilderPool();
+        private long _nextLogHandleValue;
 
         private int _selectedPreviousCommandIndex = -1;
         private string _currentInput;
@@ -205,6 +207,12 @@ namespace Hikaria.QC
         private TextMeshProUGUI[] _textComponents;
 
         private readonly Type _voidTaskType = typeof(Task<>).MakeGenericType(Type.GetType("System.Threading.Tasks.VoidTaskResult"));
+
+        private sealed class AsyncCommandJob
+        {
+            public Task Task;
+            public LogHandle StatusId;
+        }
 
         /// <summary>Applies a theme to the Quantum Console.</summary>
         /// <param name="theme">The desired theme to apply.</param>
@@ -332,7 +340,7 @@ namespace Hikaria.QC
                     {
                         if (_showInitLogs)
                         {
-                            AppendLog(new Log(GetTableGenerationText()));
+                            WriteLog(GetTableGenerationText());
                         }
 
                         _isGeneratingTable = false;
@@ -365,13 +373,23 @@ namespace Hikaria.QC
 
         private void LateUpdate()
         {
-            if (IsActive)
+            if (IsActive && !_initialLogLayoutRefreshRequested)
             {
+                _initialLogLayoutRefreshRequested = true;
+                _logController.RebuildLogTextLayout(true);
+            }
+
+            bool hadQueuedLogs = !_logOperationQueue.IsEmpty;
+            if (hadQueuedLogs)
                 FlushQueuedLogs();
 
-                if (_logController.IsDirty)
-                    _logController.ProcessLogs();
-            }
+            if (!_logController.IsDirty)
+                return;
+
+            if (IsActive)
+                _logController.ProcessLogs();
+            else if (hadQueuedLogs)
+                _logController.ProcessStorage();
         }
 
         private string GetTableGenerationText()
@@ -488,37 +506,38 @@ namespace Hikaria.QC
 
         private void GetFormattedSuggestions(SuggestionSet suggestionSet, StringBuilder buffer)
         {
-            int displaySize = suggestionSet.Suggestions.Count;
-            if (_maxSuggestionDisplaySize > 0)
+            SuggestionPage page = SuggestionPage.Calculate(
+                suggestionSet.Suggestions.Count,
+                suggestionSet.SelectionIndex,
+                _maxSuggestionDisplaySize);
+
+            if (page.HasPreviousPage)
+                AppendSuggestionPageHint(buffer);
+
+            for (int i = page.StartIndex; i < page.EndIndex; i++)
             {
-                displaySize = Mathf.Min(displaySize, _maxSuggestionDisplaySize + 1);
+                bool selected = i == suggestionSet.SelectionIndex;
+
+                buffer.Append("<link=");
+                buffer.Append(i);
+                buffer.Append(">");
+                FormatSuggestion(suggestionSet.Suggestions[i], selected, buffer);
+                buffer.AppendLine("</link>");
             }
 
-            for (int i = 0; i < displaySize; i++)
-            {
-                if (_maxSuggestionDisplaySize > 0 && i >= _maxSuggestionDisplaySize)
-                {
-                    const string remainingSuggestion = "...";
-                    if (_theme is not null && suggestionSet.SelectionIndex >= _maxSuggestionDisplaySize)
-                    {
-                        buffer.AppendColoredText(remainingSuggestion, _theme.SelectedSuggestionColor);
-                    }
-                    else
-                    {
-                        buffer.Append(remainingSuggestion);
-                    }
-                }
-                else
-                {
-                    bool selected = i == suggestionSet.SelectionIndex;
+            if (page.HasNextPage)
+                AppendSuggestionPageHint(buffer);
+        }
 
-                    buffer.Append("<link=");
-                    buffer.Append(i);
-                    buffer.Append(">");
-                    FormatSuggestion(suggestionSet.Suggestions[i], selected, buffer);
-                    buffer.AppendLine("</link>");
-                }
-            }
+        private void AppendSuggestionPageHint(StringBuilder buffer)
+        {
+            const string pageHint = "...";
+            if (_theme is not null)
+                buffer.AppendColoredText(pageHint, _theme.SuggestionColor);
+            else
+                buffer.Append(pageHint);
+
+            buffer.AppendLine();
         }
 
         private void UpdatePopupDisplay()
@@ -696,11 +715,10 @@ namespace Hikaria.QC
 
         private void LogUserInput(string input)
         {
-            ILog commandLog = GenerateCommandLog(input);
-            LogToConsole(commandLog);
+            WriteLogInternal(GenerateCommandLog(input), LogLevel.Message);
         }
 
-        protected ILog GenerateCommandLog(string command)
+        protected string GenerateCommandLog(string command)
         {
             string format =
                 _theme is not null
@@ -719,7 +737,7 @@ namespace Hikaria.QC
                 logValue = logValue.ColorText(_theme.CommandLogColor);
             }
 
-            return new Log(logValue);
+            return logValue;
         }
 
         /// <summary>
@@ -741,7 +759,13 @@ namespace Hikaria.QC
 
                     switch (commandResult)
                     {
-                        case Task task: _currentTasks.Add(task); break;
+                        case Task task:
+                            _currentTasks.Add(new AsyncCommandJob
+                            {
+                                Task = task,
+                                StatusId = BeginStatus(QuantumLocalization.ExecutingAsyncCommand)
+                            });
+                            break;
                         case IEnumerator<ICommandAction> action: StartAction(action); break;
                         case IEnumerable<ICommandAction> action: StartAction(action.GetEnumerator()); break;
                         default: logTrace = Serialize(commandResult); break;
@@ -750,7 +774,7 @@ namespace Hikaria.QC
                 catch (System.Reflection.TargetInvocationException e) { logTrace = GetInvocationErrorMessage(e.InnerException); }
                 catch (Exception e) { logTrace = GetErrorMessage(e); }
 
-                LogToConsole(logTrace, LogLevel.Error);
+                WriteLog(logTrace, LogLevel.Error);
                 OnInvoke?.Invoke(command);
 
                 if (_autoScroll >= AutoScrollOptions.OnInvoke) { ScrollConsoleToLatest(true); }
@@ -815,36 +839,26 @@ namespace Hikaria.QC
                 : message;
         }
 
-        /// <summary>Thread safe API to format and log text to the Quantum Console.</summary>
-        /// <param name="logText">Text to be logged.</param>
-        /// <param name="logType">The type of the log to be logged.</param>
-        public void LogToConsoleAsync(string logText, LogLevel logType = LogLevel.Message)
-        {
-            if (!string.IsNullOrWhiteSpace(logText))
-            {
-                Log log = new Log(logText, logType);
-                LogToConsoleAsync(log);
-            }
-        }
-
-        /// <summary>Thread safe API to format and log text to the Quantum Console.</summary>
-        /// <param name="log">Log to be logged.</param>
-        public void LogToConsoleAsync(ILog log)
-        {
-            OnLog?.Invoke(log);
-            _logQueue.QueueLog(log);
-        }
-
         private void FlushQueuedLogs()
         {
             bool scroll = false;
             bool open = false;
 
-            while (_logQueue.TryDequeue(out ILog log))
+            while (_logOperationQueue.TryDequeue(out LogOperation operation))
             {
-                AppendLog(log);
-                scroll |= _autoScroll == AutoScrollOptions.Always;
-                open |= _openOnLogLevel.HasFlag(log.Level.GetHighestLevel());
+                _logController.EnqueueOperation(operation);
+
+                if (operation.Kind == LogOperationKind.AddHistory ||
+                    operation.Kind == LogOperationKind.BeginHistoryStream ||
+                    operation.Kind == LogOperationKind.AddLiveStatus ||
+                    operation.Kind == LogOperationKind.AddInteractive)
+                {
+                    scroll |= _autoScroll == AutoScrollOptions.Always;
+                    open |= _openOnLogLevel.HasFlag(operation.Level.GetHighestLevel());
+                }
+
+                if (operation.Kind == LogOperationKind.AddHistory)
+                    OnHistoryLogQueued?.Invoke(operation.Id, operation.Text, operation.Level);
             }
 
             if (scroll) { ScrollConsoleToLatest(false); }
@@ -855,25 +869,29 @@ namespace Hikaria.QC
         {
             for (int i = _currentTasks.Count - 1; i >= 0; i--)
             {
-                if (_currentTasks[i].IsCompleted)
+                AsyncCommandJob job = _currentTasks[i];
+                Task task = job.Task;
+                if (task.IsCompleted)
                 {
-                    if (_currentTasks[i].IsFaulted)
+                    RemoveLog(job.StatusId);
+
+                    if (task.IsFaulted)
                     {
-                        foreach (Exception e in _currentTasks[i].Exception.InnerExceptions)
+                        foreach (Exception e in task.Exception.InnerExceptions)
                         {
                             string error = GetInvocationErrorMessage(e);
-                            LogToConsole(error, LogLevel.Error);
+                            WriteLog(error, LogLevel.Error);
                         }
                     }
                     else
                     {
-                        Type taskType = _currentTasks[i].GetType();
+                        Type taskType = task.GetType();
                         if (taskType.IsGenericTypeOf(typeof(Task<>)) && !_voidTaskType.IsAssignableFrom(taskType))
                         {
-                            System.Reflection.PropertyInfo resultProperty = _currentTasks[i].GetType().GetProperty("Result");
-                            object result = resultProperty.GetValue(_currentTasks[i]);
+                            System.Reflection.PropertyInfo resultProperty = task.GetType().GetProperty("Result");
+                            object result = resultProperty.GetValue(task);
                             string log = _serializer.SerializeFormatted(result, _theme);
-                            LogToConsole(log);
+                            WriteLog(log);
                         }
                     }
 
@@ -913,6 +931,18 @@ namespace Hikaria.QC
             FocusConsoleInput();
         }
 
+        internal void CancelResponse(Action<string> onSubmitResponseCallback)
+        {
+            if (!_isHandlingUserResponse || _onSubmitResponseCallback != onSubmitResponseCallback)
+                return;
+
+            _onSubmitResponseCallback = null;
+            _isHandlingUserResponse = false;
+            _consoleInput.interactable = false;
+
+            OnStateChange?.Invoke();
+        }
+
         /// <summary>
         /// Starts executing an action.
         /// </summary>
@@ -928,6 +958,14 @@ namespace Hikaria.QC
         /// </summary>
         public void CancelAllActions()
         {
+            ActionContext context = new ActionContext
+            {
+                Console = this
+            };
+
+            for (int i = 0; i < _currentActions.Count; i++)
+                CancelAction(_currentActions[i], context);
+
             _currentActions.Clear();
         }
 
@@ -957,12 +995,19 @@ namespace Hikaria.QC
                 }
                 catch (Exception e)
                 {
+                    CancelAction(action, context);
                     _currentActions.RemoveAt(i);
                     string error = GetInvocationErrorMessage(e);
-                    LogToConsole(error, LogLevel.Error);
+                    WriteLog(error, LogLevel.Error);
                     break;
                 }
             }
+        }
+
+        private static void CancelAction(IEnumerator<ICommandAction> action, ActionContext context)
+        {
+            action.Current?.Cancel(context);
+            action.Dispose();
         }
 
         private void HandleAsyncJobCounter()
@@ -991,58 +1036,119 @@ namespace Hikaria.QC
             return _serializer.SerializeFormatted(value, _theme);
         }
 
-        /// <summary>
-        /// Logs text to the Quantum Console.
-        /// </summary>
-        /// <param name="logText">Text to be logged.</param>
-        /// <param name="prependTimestamps">If a timestamp should be prepended.</param>
-        /// <param name="newLine">If a newline should be ins</param>
-        public void LogToConsole(string logText, LogLevel logLevel = LogLevel.Message, bool prependTimestamps = false, bool newLine = true)
+        public void WriteLog(string logText, LogLevel logLevel = LogLevel.Message, bool prependTimestamps = false)
         {
-            bool logExists = !string.IsNullOrEmpty(logText);
-            if (logExists)
+            if (string.IsNullOrEmpty(logText))
+                return;
+
+            WriteLogInternal(FormatLogText(logText, logLevel, prependTimestamps), logLevel);
+        }
+
+        private LogHandle WriteLogInternal(string formattedText, LogLevel logLevel)
+        {
+            if (string.IsNullOrEmpty(formattedText))
+                return LogHandle.Invalid;
+
+            LogHandle id = NextLogHandle();
+            QueueLogOperation(LogOperation.AddHistory(id, formattedText, logLevel));
+            return id;
+        }
+
+        public LogHandle BeginStream(string initialText = "", LogLevel logLevel = LogLevel.Message)
+        {
+            LogHandle id = NextLogHandle();
+            QueueLogOperation(LogOperation.BeginHistoryStream(id, FormatLogText(initialText, logLevel, true), logLevel));
+            return id;
+        }
+
+        public LogHandle BeginStatus(string text, LogLevel logLevel = LogLevel.Message)
+        {
+            LogHandle id = NextLogHandle();
+            QueueLogOperation(LogOperation.AddLiveStatus(id, FormatLogText(text, logLevel, false), logLevel));
+            return id;
+        }
+
+        public LogHandle BeginInteractive(string text, LogLevel logLevel = LogLevel.Message)
+        {
+            LogHandle id = NextLogHandle();
+            QueueLogOperation(LogOperation.AddInteractive(id, FormatLogText(text, logLevel, false), logLevel));
+            return id;
+        }
+
+        internal void UpdateLog(LogHandle id, string text, LogLevel logLevel = LogLevel.Message)
+        {
+            if (!id.IsValid)
+                return;
+
+            QueueLogOperation(LogOperation.Update(id, FormatLogText(text, logLevel, false), logLevel));
+        }
+
+        public void AppendLog(LogHandle id, string text, LogLevel logLevel = LogLevel.Message)
+        {
+            if (!id.IsValid)
+                return;
+
+            QueueLogOperation(LogOperation.Append(id, FormatLogText(text ?? string.Empty, logLevel, false)));
+        }
+
+        /// <summary>
+        /// Completes a mutable log without creating a new history entry for live logs.
+        /// </summary>
+        public void CompleteLog(LogHandle id)
+        {
+            if (!id.IsValid)
+                return;
+
+            QueueLogOperation(LogOperation.Complete(id));
+        }
+
+        /// <summary>
+        /// Completes a mutable log and commits its current or final text to history.
+        /// </summary>
+        public void CommitLog(LogHandle id, string? finalText = null, LogLevel logLevel = LogLevel.Message)
+        {
+            if (!id.IsValid)
+                return;
+
+            string? formatted = finalText == null ? null : FormatLogText(finalText, logLevel, false);
+            QueueLogOperation(LogOperation.Commit(id, formatted, logLevel));
+        }
+
+        public void RemoveLog(LogHandle id)
+        {
+            if (!id.IsValid)
+                return;
+
+            QueueLogOperation(LogOperation.Remove(id));
+        }
+
+        private LogHandle NextLogHandle()
+        {
+            long value = Interlocked.Increment(ref _nextLogHandleValue);
+            return value > 0 ? new LogHandle(value) : LogHandle.Invalid;
+        }
+
+        private void QueueLogOperation(LogOperation operation)
+        {
+            _logOperationQueue.Enqueue(operation);
+        }
+
+        private string FormatLogText(string logText, LogLevel logLevel, bool prependTimestamps)
+        {
+            if (prependTimestamps && _prependTimestamps)
             {
-                if (prependTimestamps && _prependTimestamps)
-                {
-                    DateTime now = DateTime.Now;
-                    string format = _theme is not null
-                        ? _theme.TimestampFormat
-                        : "[{0:00}:{1:00}:{2:00}]";
+                DateTime now = DateTime.Now;
+                string format = _theme is not null
+                    ? _theme.TimestampFormat
+                    : "[{0:00}:{1:00}:{2:00}]";
 
-                    logText = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {logText}";
-                }
-                logText = logText.ColorText(logLevel.GetUnityColorFromTheme(_theme)).FixRichTextTags();
-                LogToConsole(new Log(logText, logLevel, newLine));
+                logText = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {logText}";
             }
-        }
 
-        /// <summary>
-        /// Logs text to the Quantum Console.
-        /// </summary>
-        /// <param name="log">Log to be logged.</param>
-        public void LogToConsole(ILog log)
-        {
-            FlushQueuedLogs();
-            AppendLog(log);
-            OnLog?.Invoke(log);
+            if (logText.Contains('<'))
+                logText = logText.FixRichTextTags();
 
-            if (_autoScroll == AutoScrollOptions.Always)
-            {
-                ScrollConsoleToLatest(false);
-            }
-        }
-
-        protected void AppendLog(ILog log)
-        {
-            _logController.AddLog(log);
-        }
-
-        /// <summary>
-        /// Removes the last log from the console.
-        /// </summary>
-        public void RemoveLogTrace()
-        {
-            _logController.RemoveLog();
+            return logText.ColorText(logLevel.GetUnityColorFromTheme(_theme));
         }
 
         internal void RequireRebuildLogLayout(bool viewportSizeChanged = false)
@@ -1071,8 +1177,12 @@ namespace Hikaria.QC
         [Command("clear", "Clears the Quantum Console", MonoTargetType.Registry)]
         public void ClearConsole()
         {
-            _logController.Clear();
-            _logQueue.Clear();
+            ClearConsole(LogClearScope.History);
+        }
+
+        public void ClearConsole(LogClearScope scope)
+        {
+            QueueLogOperation(LogOperation.Clear(scope));
             ClearBuffers();
             OnClear?.Invoke();
         }
@@ -1288,11 +1398,11 @@ namespace Hikaria.QC
         private void InitializeLogging()
         {
             _logController = _logController ?? CreateLogController();
-            _logQueue = _logQueue ?? CreateLogQueue();
+            _logOperationQueue = _logOperationQueue ?? CreateLogOperationQueue();
         }
 
         protected virtual ILogController CreateLogController() => new LogController(_enhancedScroller, _logCellViewPrefab, _viewportTransform, _maxStoredLogs, _tweenType, _tweenTime);
-        protected virtual ILogQueue CreateLogQueue() => new LogQueue(_maxStoredLogs);
+        protected virtual ILogOperationQueue CreateLogOperationQueue() => new LogOperationQueue();
         protected virtual SuggestionStack CreateSuggestionStack() => new SuggestionStack();
 
         /// <summary>
@@ -1319,6 +1429,7 @@ namespace Hikaria.QC
         public void Activate(bool shouldFocus)
         {
             Initialize();
+
             IsActive = true;
             _containerRect.gameObject.SetActive(true);
             OverrideConsoleInput(string.Empty, shouldFocus);
@@ -1349,62 +1460,37 @@ namespace Hikaria.QC
             if (_interceptDebugLogger && (IsActive || _interceptWhilstInactive) && _loggingLevel.HasFlag(type.ToLogLevel()))
             {
                 bool appendStackTrace = _verboseLogging.HasFlag(type.ToLogLevel());
-                ILog log = ConstructDebugLog(condition, stackTrace, type, _prependTimestamps, appendStackTrace);
-                LogToConsoleAsync(log);
+                (string text, LogLevel level) = ConstructDebugLog(condition, stackTrace, type, appendStackTrace);
+                WriteLog(text, level, _prependTimestamps);
             }
         }
 
-        protected virtual ILog ConstructDebugLog(string condition, string stackTrace, LogType type, bool prependTimeStamp, bool appendStackTrace)
+        protected virtual (string Text, LogLevel Level) ConstructDebugLog(string condition, string stackTrace, LogType type, bool appendStackTrace)
         {
-            if (prependTimeStamp)
-            {
-                DateTime now = DateTime.Now;
-                string format = _theme is not null
-                    ? _theme.TimestampFormat
-                    : "[{0:00}:{1:00}:{2:00}]";
-
-                condition = $"{string.Format(format, now.Hour, now.Minute, now.Second)} {condition}";
-            }
-
             if (appendStackTrace)
             {
                 condition += $"\n{stackTrace}";
             }
 
-            var level = LogLevel.Message;
-            if (_theme is not null)
+            LogLevel level;
+            switch (type)
             {
-                switch (type)
-                {
-                    case LogType.Log:
-                        {
-                            condition = ColorExtensions.ColorText(condition, _theme.MessageColor);
-                            level = LogLevel.Message;
-                            break;
-                        }
-                    case LogType.Warning:
-                        {
-                            condition = ColorExtensions.ColorText(condition, _theme.WarningColor);
-                            level = LogLevel.Warning;
-                            break;
-                        }
-                    case LogType.Assert:
-                        {
-                            condition = ColorExtensions.ColorText(condition, _theme.DebugColor);
-                            level = LogLevel.Debug;
-                            break;
-                        }
-                    case LogType.Error:
-                    case LogType.Exception:
-                        {
-                            condition = ColorExtensions.ColorText(condition, _theme.ErrorColor);
-                            level = LogLevel.Error;
-                            break;
-                        }
-                }
+                case LogType.Warning:
+                    level = LogLevel.Warning;
+                    break;
+                case LogType.Assert:
+                    level = LogLevel.Debug;
+                    break;
+                case LogType.Error:
+                case LogType.Exception:
+                    level = LogLevel.Error;
+                    break;
+                default:
+                    level = LogLevel.Message;
+                    break;
             }
 
-            return new Log(condition, level, true);
+            return (condition, level);
         }
 
         protected virtual void OnValidate()

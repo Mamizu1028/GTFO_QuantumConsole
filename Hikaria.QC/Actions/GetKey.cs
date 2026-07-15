@@ -40,7 +40,9 @@ namespace Hikaria.QC.Actions
 
         public void Start(ActionContext context) { }
 
-        public void Finalize(ActionContext context)
+        public void Cancel(ActionContext context) { }
+
+        public void Complete(ActionContext context)
         {
             _onKey(_key);
         }

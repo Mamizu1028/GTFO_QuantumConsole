@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-
 namespace Hikaria.QC
 {
     public interface ILogController
     {
-        int MaxStoredLogs { get; set; }
-
-        IReadOnlyList<ILogData> LogDatas { get; }
+        int MaxHistoryLogs { get; set; }
 
         bool IsDirty { get; }
 
-        void AddLog(ILog log);
-        void RemoveLog();
-        void Clear();
+        void EnqueueOperation(LogOperation operation);
+        void Clear(LogClearScope scope);
 
+        void ProcessStorage();
         void ProcessLogs();
 
         void RebuildLogTextLayout(bool viewportSizeChanged);

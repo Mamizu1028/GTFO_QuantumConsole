@@ -12,16 +12,18 @@ public static class LogLevelExtensions
     /// <returns>The highest log level supplied.</returns>
     public static LogLevel GetHighestLevel(this LogLevel levels)
     {
-        Array values = Enum.GetValues(typeof(LogLevel));
-        Array.Sort(values);
-        foreach (object obj in values)
-        {
-            LogLevel e = (LogLevel)obj;
-            if ((levels & e) != LogLevel.None)
-            {
-                return e;
-            }
-        }
+        if ((levels & LogLevel.Fatal) != LogLevel.None)
+            return LogLevel.Fatal;
+        if ((levels & LogLevel.Error) != LogLevel.None)
+            return LogLevel.Error;
+        if ((levels & LogLevel.Warning) != LogLevel.None)
+            return LogLevel.Warning;
+        if ((levels & LogLevel.Message) != LogLevel.None)
+            return LogLevel.Message;
+        if ((levels & LogLevel.Info) != LogLevel.None)
+            return LogLevel.Info;
+        if ((levels & LogLevel.Debug) != LogLevel.None)
+            return LogLevel.Debug;
         return LogLevel.None;
     }
 

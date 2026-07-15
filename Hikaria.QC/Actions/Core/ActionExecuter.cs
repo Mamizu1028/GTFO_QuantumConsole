@@ -38,7 +38,7 @@ namespace Hikaria.QC
                 }
                 else if (action.Current.IsFinished)
                 {
-                    action.Current.Finalize(context);
+                    action.Current.Complete(context);
                     MoveNext();
                 }
                 else

@@ -97,7 +97,7 @@ internal class QuantumConsoleSettings : Feature
         public bool PrependTimestamps { get; set; } = true;
 
         [FSDisplayName("日志最大容量")]
-        public int MaxStoredLogs { get; set; } = 2048;
+        public int MaxStoredLogs { get; set; } = LogStorage.DefaultMaxHistoryLogs;
         [FSDisplayName("日志文本大小")]
         public int LogFontSize { get; set; } = 14;
         [FSDisplayName("显示初始化日志")]
@@ -270,6 +270,31 @@ internal class QuantumConsoleSettings : Feature
 
     public override void Init()
     {
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<QuantumConsole>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DraggableUI>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<BlurShaderController>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DynamicCanvasScaler>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ResizableUI>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ZoomUIController>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<SuggestionDisplay>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogCellView>();
+
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeFormatter>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeColorFormatter>();
+        LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<CollectionFormatter>();
+
+        if (Settings.BIEListenLevel == null || Settings.BIEListenLevel.Count == 0)
+        {
+            Settings.BIEListenLevel = new List<BepInEx.Logging.LogLevel>() {
+                BepInEx.Logging.LogLevel.Debug,
+                BepInEx.Logging.LogLevel.Info,
+                BepInEx.Logging.LogLevel.Message,
+                BepInEx.Logging.LogLevel.Warning,
+                BepInEx.Logging.LogLevel.Error,
+                BepInEx.Logging.LogLevel.Fatal
+            };
+        }
+    
         BIELogListener.BIELogLevel = Settings.BIEListenLevel.ToFlags();
         BIELogListener.Init();
         CommandLocalizationManager.Init();
@@ -332,13 +357,13 @@ internal class QuantumConsoleSettings : Feature
         public void LogEvent(object sender, LogEventArgs eventArgs)
         {
             if (eventArgs.Source.SourceName == "Unity" // 不使用 BepInEx 重定向的 Unity 日志，因为其不包含 StackTrace
-                || eventArgs.Source.SourceName == "Hikaria.QC") // 排除自身日志避免出现死循环
+                || eventArgs.Source.SourceName == "Hikaria.QC" || eventArgs.Source.SourceName == "Hikaria.QC.Extra") // 排除自身日志避免出现死循环
                 return;
 
             if (QuantumConsole.Instance == null)
                 return;
 
-            QuantumConsole.Instance.LogToConsole($"[{eventArgs.Source.SourceName}] {eventArgs.Data}", FromBIELogLevel(eventArgs.Level), true);
+            QuantumConsole.Instance.WriteLog($"[{eventArgs.Source.SourceName}] {eventArgs.Data}", FromBIELogLevel(eventArgs.Level), true);
         }
 
         private LogLevel FromBIELogLevel(BepInEx.Logging.LogLevel level)
@@ -368,19 +393,6 @@ internal class QuantumConsoleSettings : Feature
         {
             if (!_initialized)
             {
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<QuantumConsole>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DraggableUI>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<BlurShaderController>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<DynamicCanvasScaler>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ResizableUI>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<ZoomUIController>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<SuggestionDisplay>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<LogCellView>();
-
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeFormatter>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<TypeColorFormatter>();
-                LoaderWrapper.ClassInjector.RegisterTypeInIl2Cpp<CollectionFormatter>();
-
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Assets/quantumconsole");
                 AssetBundle assetBundle = AssetBundle.LoadFromFile(path);
                 string[] array = assetBundle.AllAssetNames();

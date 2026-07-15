@@ -11,26 +11,30 @@ namespace Hikaria.QC.Actions
         private readonly Func<bool> _isFinished;
         private readonly Func<bool> _startsIdle;
         private readonly Action<ActionContext> _start;
-        private readonly Action<ActionContext> _finalize;
+        private readonly Action<ActionContext> _complete;
+        private readonly Action<ActionContext> _cancel;
 
         public Custom(
             Func<bool> isFinished,
             Func<bool> startsIdle,
             Action<ActionContext> start,
-            Action<ActionContext> finalize
+            Action<ActionContext> complete,
+            Action<ActionContext>? cancel = null
         )
         {
             _isFinished = isFinished;
             _startsIdle = startsIdle;
             _start = start;
-            _finalize = finalize;
+            _complete = complete;
+            _cancel = cancel ?? (_ => { });
         }
 
         public bool IsFinished => _isFinished();
         public bool StartsIdle => _startsIdle();
 
         public void Start(ActionContext context) { _start(context); }
-        public void Finalize(ActionContext context) { _finalize(context); }
+        public void Complete(ActionContext context) { _complete(context); }
+        public void Cancel(ActionContext context) { _cancel(context); }
     }
 
 }

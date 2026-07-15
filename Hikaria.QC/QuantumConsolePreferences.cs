@@ -37,7 +37,7 @@ public class QuantumConsolePreferences
     public bool StoreAdjacentDuplicateCommands = false;
     public int CommandHistorySize = 30;
 
-    public int MaxStoredLogs = 2048;
+    public int MaxStoredLogs = LogStorage.DefaultMaxHistoryLogs;
     public bool ShowInitLogs = true;
 
     public int LogFontSize = 14;
